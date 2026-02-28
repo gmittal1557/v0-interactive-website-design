@@ -14,11 +14,11 @@ export default function Page() {
     <main className="relative bg-background min-h-screen overflow-x-hidden">
       <Navigation />
       <HeroSection />
-      <MediaStrip />
       <PersonasSection />
       <ProblemSection />
       <ValueSection />
       <CycleSection />
+      <MediaStrip />
       <MvpSection />
       <MoatSection />
       <BetSection />

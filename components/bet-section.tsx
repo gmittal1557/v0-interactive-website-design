@@ -2,189 +2,205 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { SectionWrapper, FadeIn } from "./section-wrapper"
-import { AppendixDialog } from "./appendix-dialog"
+import { AppendixDialog } from "@/components/appendix-dialog"
+
+const successTiers = [
+  { tier: "1", name: "Adoption", metric: "70%+ teachers open brief before 3+ classes/week" },
+  { tier: "2", name: "Engagement", metric: "Avg time in brief < 3 min. It's a brief, not a dashboard." },
+  { tier: "3", name: "Behavior Change", metric: "50%+ Monday classes reteach top flagged misconception.", highlight: true },
+  { tier: "4", name: "Time Savings", metric: "8+ hrs/week grading time reclaimed per teacher" },
+  { tier: "5", name: "Signal Accuracy", metric: "75%+ precision on high-confidence tags, teacher-validated" },
+  { tier: "6", name: "Student Outcomes", metric: "Effect size 0.3+ SD on unit assessments vs. control (semester 2)" },
+]
 
 export function BetSection() {
-  const roadmapRef = useRef<HTMLDivElement>(null)
-  const roadmapInView = useInView(roadmapRef, { once: true })
-
-  const versions = [
-    { v: "V1", label: "Signal Extraction", time: "Mo 1-3", who: "Sarah only", color: "border-primary/30 bg-primary/[0.06]" },
-    { v: "V2", label: "Signal Generation", time: "Mo 4-9", who: "Sarah + Marcus", color: "border-primary/20 bg-primary/[0.04]" },
-    { v: "V3", label: "District Intelligence", time: "Mo 10-18", who: "Sarah + District", color: "border-accent/20 bg-accent/[0.04]" },
-    { v: "V4", label: "Grading Evolution", time: "Mo 18+", who: "Everyone", color: "border-border/30 bg-secondary/30" },
-  ]
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <SectionWrapper id="bet" className="py-24 lg:py-32">
-      <FadeIn>
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-xs font-mono text-primary font-bold tracking-wide">07</span>
-          <div className="h-px flex-1 bg-border/30" />
-          <span className="text-[10px] font-mono text-muted-foreground/50 uppercase tracking-[0.2em]">The Bet</span>
-        </div>
-      </FadeIn>
+    <section ref={ref} id="bet" className="relative px-6 md:px-12 lg:px-20 py-24 md:py-32">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-4"
+        >
+          <span className="text-xs font-mono text-primary tracking-widest">08</span>
+          <div className="w-8 h-[1px] bg-border" />
+          <span className="text-xs text-muted-foreground tracking-widest uppercase">The Bet</span>
+        </motion.div>
 
-      <FadeIn>
-        <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif text-foreground mb-8 text-balance max-w-4xl leading-[1.05]">
-          Infrastructure,
-          <br />
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">not an app.</span>
-        </h2>
-      </FadeIn>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-3xl md:text-5xl font-serif text-foreground leading-tight max-w-3xl"
+        >
+          Infrastructure, not an app.
+        </motion.h2>
 
-      <FadeIn delay={0.1}>
-        <p className="text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed mb-14">
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl"
+        >
           The district{"'"}s collective teaching intelligence, indexed. What Ms. Rodriguez discovered
           about sign inversion in 2019, surfaced to every teacher who hits that misconception in 2026.
-        </p>
-      </FadeIn>
+        </motion.p>
 
-      {/* The bet card - cinematic */}
-      <FadeIn delay={0.15}>
-        <div className="p-8 md:p-12 rounded-2xl bg-card border border-border/20 mb-14 relative overflow-hidden">
-          {/* Ambient glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/[0.04] blur-[120px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/[0.03] blur-[100px] rounded-full pointer-events-none" />
-
-          <div className="relative z-10">
-            <p className="text-lg md:text-xl text-foreground/85 leading-relaxed mb-14 max-w-3xl">
+        {/* The core bet */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-12 p-6 md:p-10 rounded-2xl bg-surface-dark text-surface-dark-foreground relative overflow-hidden"
+        >
+          <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 0.5px, transparent 0)", backgroundSize: "20px 20px" }} />
+          <div className="relative">
+            <p className="text-base md:text-lg text-surface-dark-foreground/80 leading-relaxed max-w-3xl">
               Glean{"'"}s enterprise knowledge graph, multimodal AI, and RAG architecture are
               exactly the right tools to close that gap. The bet is that closing it creates a
               product that is simultaneously{" "}
               <span className="text-primary font-medium">irreplaceable for teachers</span>,{" "}
-              <span className="text-accent font-medium">genuinely valuable for students</span>, and{" "}
-              <span className="text-foreground font-semibold">structurally defensible</span> against
+              genuinely valuable for students, and{" "}
+              <span className="text-surface-dark-foreground font-semibold">structurally defensible</span> against
               every well-funded incumbent.
             </p>
-
-            {/* Version roadmap - animated */}
-            <div ref={roadmapRef}>
-              <p className="text-[9px] font-mono text-muted-foreground/40 uppercase tracking-[0.2em] mb-5">Product Roadmap</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {versions.map((item, i) => (
-                  <motion.div
-                    key={item.v}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={roadmapInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className={`p-4 rounded-xl border ${item.color}`}
-                  >
-                    <p className="text-2xl font-mono font-bold text-foreground">{item.v}</p>
-                    <p className="text-xs text-foreground/70 mt-1">{item.label}</p>
-                    <p className="text-[10px] text-muted-foreground/50 font-mono mt-0.5">{item.time}</p>
-                    <p className="text-[9px] text-primary/50 font-mono mt-2 uppercase tracking-wider">{item.who}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
           </div>
-        </div>
-      </FadeIn>
+        </motion.div>
 
-      {/* Closing quote */}
-      <FadeIn delay={0.25}>
-        <div className="text-center mb-16 max-w-2xl mx-auto">
+        {/* Success metrics tiers */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5 }}
+          className="mt-14"
+        >
+          <h3 className="text-lg font-serif text-foreground mb-6">Success Metrics</h3>
+          <div className="space-y-2">
+            {successTiers.map((t, i) => (
+              <motion.div
+                key={t.tier}
+                initial={{ opacity: 0, x: -10 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.55 + i * 0.06 }}
+                className={`flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 ${
+                  t.highlight ? "bg-primary/[0.04] border-primary/20" : "bg-card border-border/40"
+                }`}
+              >
+                <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                  t.highlight ? "bg-primary text-card" : "bg-secondary text-muted-foreground"
+                }`}>
+                  <span className="text-xs font-mono font-bold">{t.tier}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs font-mono text-primary uppercase tracking-widest">{t.name}</span>
+                  <p className="text-sm text-foreground mt-0.5 leading-relaxed">{t.metric}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Closing quote */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.9 }}
+          className="mt-16 text-center max-w-2xl mx-auto"
+        >
           <p className="text-lg md:text-xl font-serif text-foreground/70 leading-relaxed italic">
             {"\"Sarah doesn't need another app. She needs the right information at the right moment, grounded in what she already knows works, with enough time to do something about it.\""}
           </p>
           <p className="text-sm text-primary font-mono mt-5 font-medium">
             That{"'"}s what Glean for Teachers is.
           </p>
-        </div>
-      </FadeIn>
+        </motion.div>
 
-      {/* All appendix items */}
-      <FadeIn delay={0.3}>
-        <div className="p-6 md:p-8 rounded-2xl bg-secondary/20 border border-border/20">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-            <p className="text-[9px] font-mono text-primary/50 uppercase tracking-[0.2em]">Reference</p>
-          </div>
-          <p className="text-sm font-semibold text-foreground mb-1">Appendix — Full Detail</p>
-          <p className="text-xs text-muted-foreground/60 mb-5">Click any topic for deeper reasoning, tradeoffs, and specifications.</p>
+        {/* Appendix reference */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 1 }}
+          className="mt-16 p-6 rounded-2xl bg-secondary/50 border border-border/30"
+        >
+          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-1">Reference</div>
+          <p className="text-sm font-semibold text-foreground mb-1">Appendix -- Full Detail</p>
+          <p className="text-xs text-muted-foreground mb-4">Click any topic for deeper reasoning, tradeoffs, and specifications.</p>
           <div className="flex flex-wrap gap-2">
             <AppendixDialog
-              title="Product Vision — North Star"
+              title="Product Vision -- North Star"
               content={[
                 "North Star (12 months): Every teacher starts class knowing exactly where every student is confused. Every student knows exactly what to fix before the test.",
-                "Learning Signal Graph: Inputs include LMS submissions, practice sessions, scanned quizzes, exit tickets. Output per signal: { concept, misconception_type, confidence_score, freshness_ts, session_quality_flag }",
-                "Marcus's Personal Mastery View: Private to Marcus only. Links to the specific step in Sarah's lesson plan where the gap lives.",
-                "Teaching Command Bar (Cmd+J): Natural language queries like 'Who is struggling with completing the square in Period 3?' RAG-first: All responses grounded in curriculum index.",
+                "Learning Signal Graph: Inputs include LMS submissions, practice sessions, scanned quizzes, exit tickets.",
+                "Teaching Command Bar (Cmd+J): Natural language queries grounded in curriculum index.",
               ]}
+              triggerLabel="Product Vision"
             />
             <AppendixDialog
               title="Student Experience Design"
               content={[
-                "Why Marcus engages voluntarily: A specific, honest, private map of where he stands — before the test, not after. Privacy contract on first use in plain language.",
-                "What Marcus sees vs Sarah: Sarah sees class-level patterns only. Marcus sees his own mastery map. District sees cross-classroom heatmaps. No individual student data at any level.",
-                "Non-participation: If Marcus never uses the companion, V1 still works. Low-effort sessions are excluded from Sarah's brief.",
-                "Biggest blind spot: Treating Marcus as data source rather than user. If he doesn't engage voluntarily, V2 produces garbage signal.",
+                "Why Marcus engages voluntarily: A specific, honest, private map of where he stands.",
+                "Sarah sees class-level patterns only. Marcus sees his own mastery map. District sees cross-classroom heatmaps.",
+                "Non-participation: V1 still works. Low-effort sessions excluded from Sarah's brief.",
               ]}
-            />
-            <AppendixDialog
-              title="Success Metrics (6 Tiers)"
-              content={[
-                "Tier 1 — Adoption: 70%+ teachers open brief before 3+ classes/week",
-                "Tier 2 — Engagement: Avg time in brief < 3 min. It's a brief, not a dashboard.",
-                "Tier 3 — Behavior change: 50%+ Monday classes reteach top flagged misconception. THIS is the metric.",
-                "Tier 4 — Time savings: 8+ hrs/week grading time reclaimed per teacher",
-                "Tier 5 — Signal accuracy: 75%+ precision on high-confidence tags, teacher-validated",
-                "Tier 6 — Student outcomes: Effect size 0.3+ SD on unit assessments vs. control (semester 2 only)",
-              ]}
+              triggerLabel="Student Experience"
             />
             <AppendixDialog
               title="Enterprise Go-to-Market"
               content={[
-                "Glean's existing GTM motion: District contracts, IT security review, FERPA BAA, pilot-to-expand. The champion is a Curriculum Director, not a CIO.",
                 "Land: 3-5 teachers in one school. Prove brief accuracy and time savings.",
-                "Expand to department: 10-15 teachers. Show cross-classroom patterns. Win the Principal.",
+                "Expand to department: 10-15 teachers. Show cross-classroom patterns.",
                 "Expand to district: District analytics unlock. CIO signs enterprise contract.",
-                "Pricing: $500-800/teacher/year. 10-teacher pilot at $5k-8k. District-wide license $50k-150k.",
+                "Pricing: $500-800/teacher/year. 10-teacher pilot at $5k-8k. District-wide $50k-150k.",
               ]}
-            />
-            <AppendixDialog
-              title="Open Questions"
-              content={[
-                "Sarah's trust threshold? Structured interviews with 5 pilot teachers after week 2.",
-                "How to frame mastery view without triggering anxiety? A/B test three framings with 30 students.",
-                "Right report cadence? Daily = noise. Weekly = misses the loop. Pilot three options.",
-                "Actual OCR accuracy on real handwriting? Collect 200 real quizzes, human-validate.",
-                "Does classifier transfer across teachers? Train on 3, test on 4th.",
-                "Who is the economic buyer? 10 discovery calls with district admins in month 1.",
-                "Union dimension? Algorithmic processing of teacher data may be a contract issue.",
-              ]}
+              triggerLabel="GTM Strategy"
             />
             <AppendixDialog
               title="Data Architecture & Privacy"
               content={[
                 "FERPA: All student data classified as educational records. Role-based access enforced.",
-                "Data minimization: Only collect what's needed. No behavioral fingerprinting.",
-                "Retention: Signals expire after 90 days unless refreshed by new data.",
-                "Student privacy contract: Three sentences on first use. What we collect. What we show your teacher. What we never share.",
-                "NOT stored: Raw dialogue, individual PII, video/audio, behavioral metadata beyond task completion.",
+                "Data minimization: Only collect what's needed.",
+                "Retention: Signals expire after 90 days unless refreshed.",
+                "NOT stored: Raw dialogue, individual PII, video/audio, behavioral metadata.",
               ]}
+              triggerLabel="Data & Privacy"
+            />
+            <AppendixDialog
+              title="Open Questions"
+              content={[
+                "Sarah's trust threshold? Structured interviews with 5 pilot teachers after week 2.",
+                "How to frame mastery view without triggering anxiety?",
+                "Actual OCR accuracy on real handwriting? Collect 200 real quizzes.",
+                "Who is the economic buyer? 10 discovery calls with district admins.",
+                "Union dimension? Algorithmic processing of teacher data may be a contract issue.",
+              ]}
+              triggerLabel="Open Questions"
             />
           </div>
-        </div>
-      </FadeIn>
+        </motion.div>
 
-      {/* Footer */}
-      <FadeIn delay={0.35}>
-        <div className="mt-16 pt-8 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.1 }}
+          className="mt-14 pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
           <div className="flex items-center gap-2.5">
             <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
               <rect width="32" height="32" rx="7" className="fill-primary" />
               <path d="M10 16.5C10 13.5 12.5 11 16 11C18 11 19.5 11.8 20.5 13L18.5 14.5C18 13.8 17.1 13.3 16 13.3C13.9 13.3 12.5 14.7 12.5 16.5C12.5 18.3 13.9 19.7 16 19.7C17.5 19.7 18.5 19 19 18.2V17.5H16V15.5H21.5V19C20.5 20.8 18.5 22 16 22C12.5 22 10 19.5 10 16.5Z" className="fill-primary-foreground" />
             </svg>
-            <span className="text-xs text-muted-foreground/50 font-mono">Glean for Teachers</span>
+            <span className="text-xs text-muted-foreground font-mono">Glean for Teachers</span>
           </div>
-          <p className="text-[10px] text-muted-foreground/30 font-mono text-center sm:text-right">
+          <p className="text-[10px] text-muted-foreground/50 font-mono text-center sm:text-right">
             Gaurav Mittal &middot; Director of PM, EY-Parthenon &middot; Feb 2026
           </p>
-        </div>
-      </FadeIn>
-    </SectionWrapper>
+        </motion.div>
+      </div>
+    </section>
   )
 }

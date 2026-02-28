@@ -1,8 +1,9 @@
 "use client"
 
-import { SectionWrapper, FadeIn } from "./section-wrapper"
-import { AppendixDialog } from "./appendix-dialog"
-import { Smartphone, Link2, FileText, Database, LayoutDashboard, Lock } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import { Smartphone, Link2, FileText, Database, LayoutDashboard, Lock, ArrowRight } from "lucide-react"
+import { AppendixDialog } from "@/components/appendix-dialog"
 
 const ships = [
   { icon: Smartphone, label: "Mobile Quiz Capture", desc: "Photo stack to OCR to misconception extraction. Algebra 2 only." },
@@ -27,106 +28,184 @@ const gates = [
   { metric: "75%+", desc: "precision on high-confidence signals, teacher-validated" },
 ]
 
-export function MvpSection() {
-  return (
-    <SectionWrapper id="mvp" className="py-24 lg:py-32" fullHeight={false}>
-      <FadeIn>
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-xs font-mono text-primary font-bold tracking-wide">05</span>
-          <div className="h-px flex-1 bg-border/30" />
-          <span className="text-[10px] font-mono text-muted-foreground/50 uppercase tracking-[0.2em]">The MVP</span>
-        </div>
-      </FadeIn>
+const versions = [
+  { label: "V1", months: "1-3", name: "Signal Extraction", desc: "Can we extract reliable signal from existing workflows?", active: true },
+  { label: "V2", months: "4-9", name: "Signal Generation", desc: "Will students engage voluntarily?", active: false },
+  { label: "V3", months: "10-18", name: "District Intelligence", desc: "Cross-classroom signal creates institutional memory.", active: false },
+  { label: "V4", months: "18+", name: "Grading Evolution", desc: "Mastery-based grading with 2 years of evidence.", active: false },
+]
 
-      <FadeIn>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground mb-3 text-balance leading-[1.05]">
-          3 Engineers. <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">3 Months.</span>
-        </h2>
-        <p className="text-sm text-muted-foreground max-w-xl mb-5 leading-relaxed">
-          If Glean extracts misconception signals from Sarah{"'"}s existing graded work — without requiring any new student behavior — will she act on that signal before class?
-        </p>
-        <div className="flex flex-wrap gap-2 mb-16">
+export function MvpSection() {
+  const ref = useRef<HTMLElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  return (
+    <section ref={ref} id="mvp" className="relative px-6 md:px-12 lg:px-20 py-24 md:py-32">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-3 mb-4"
+        >
+          <span className="text-xs font-mono text-primary tracking-widest">06</span>
+          <div className="w-8 h-[1px] bg-border" />
+          <span className="text-xs text-muted-foreground tracking-widest uppercase">The MVP</span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-3xl md:text-5xl font-serif text-foreground leading-tight"
+        >
+          3 Engineers. 3 Months.
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-4 text-base text-muted-foreground leading-relaxed max-w-2xl"
+        >
+          If Glean extracts misconception signals from Sarah{"'"}s existing graded work -- without requiring any new student behavior -- will she act on that signal before class?
+        </motion.p>
+
+        {/* What ships */}
+        <motion.h3
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.3 }}
+          className="mt-14 text-lg font-serif text-foreground mb-5"
+        >
+          What ships
+        </motion.h3>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {ships.map((item, i) => {
+            const Icon = item.icon
+            return (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 15 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.06 }}
+                className="p-5 rounded-xl bg-card border border-border/40 hover:border-primary/20 hover:shadow-sm transition-all duration-300"
+              >
+                <Icon className="w-5 h-5 text-primary mb-3" />
+                <h4 className="text-sm font-semibold text-foreground mb-1">{item.label}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* What doesn't ship */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6 }}
+          className="mt-8 p-5 rounded-xl bg-secondary/50 border border-border/30"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <Lock className="w-3.5 h-3.5 text-muted-foreground" />
+            <span className="text-xs font-semibold text-foreground">Deliberately not in MVP</span>
+          </div>
+          <p className="text-xs text-muted-foreground mb-3">Not cuts -- deliberate sequencing. Each requires hypothesis validation first.</p>
+          <div className="flex flex-wrap gap-1.5">
+            {doesNotShip.map(item => (
+              <span key={item} className="px-3 py-1.5 rounded-lg bg-card border border-border/40 text-xs text-muted-foreground">
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Version roadmap */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.7 }}
+          className="mt-14"
+        >
+          <h3 className="text-lg font-serif text-foreground mb-6">Version Gates</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {versions.map((v, i) => (
+              <motion.div
+                key={v.label}
+                initial={{ opacity: 0, y: 15 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.75 + i * 0.08 }}
+                className={`p-5 rounded-xl border transition-all duration-300 ${
+                  v.active ? "bg-primary/[0.04] border-primary/20" : "bg-card border-border/40"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`text-sm font-mono font-bold ${v.active ? "text-primary" : "text-muted-foreground"}`}>{v.label}</span>
+                  <span className="text-[10px] font-mono text-muted-foreground">Mo {v.months}</span>
+                </div>
+                <h4 className="text-sm font-semibold text-foreground mb-1">{v.name}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{v.desc}</p>
+                {v.active && (
+                  <div className="mt-3 flex items-center gap-1 text-primary text-[10px] font-mono">
+                    <ArrowRight className="w-3 h-3" />
+                    <span>Current focus</span>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Four gates to V2 */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9 }}
+          className="mt-14"
+        >
+          <h3 className="text-lg font-serif text-foreground mb-2">Four Gates to V2</h3>
+          <p className="text-xs text-muted-foreground mb-6">All four must pass. Minimum bars for trust.</p>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {gates.map((gate, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.95 + i * 0.07 }}
+                className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border/40"
+              >
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xs font-mono font-bold text-primary">{i + 1}</span>
+                </div>
+                <div>
+                  <span className="text-lg font-mono font-bold text-primary">{gate.metric}</span>
+                  <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{gate.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.1 }}
+          className="mt-8 flex flex-wrap gap-2"
+        >
           <AppendixDialog
             title="Technology Assumptions"
             content={[
               "Multimodal OCR on handwritten math: High confidence. GPT-4o / Gemini Vision perform well on structured math. Min bar: 85% on legible handwriting.",
               "Misconception classifier fine-tuning: Medium-high confidence. Standard math taxonomies exist. Need 500+ labeled examples per subject.",
               "RAG retrieval at sub-2s latency: High confidence. Well-solved engineering problem.",
-              "LLM pedagogical guardrails: Medium confidence. Retrieval-first reduces hallucination risk. Confidence scoring + teacher override are the safety net.",
+              "LLM pedagogical guardrails: Medium confidence. Retrieval-first reduces hallucination risk.",
               "Most uncertain: Classifier precision on real student handwriting. Min bar: 80% precision on high-confidence signals before V1 launch.",
             ]}
+            triggerLabel="Technology Assumptions"
           />
-          <AppendixDialog
-            title="Versioning Strategy V1 to V4"
-            content={[
-              "V1 (Months 1-3) — Signal Extraction: Can we extract reliable signal from existing workflows? Ships: Mobile capture, LMS connector, classifier, Monday brief.",
-              "V2 (Months 4-9) — Signal Generation: Will students engage voluntarily? Ships: Socratic companion, mastery view, privacy contract, command bar.",
-              "V3 (Months 10-18) — District Intelligence: Cross-classroom signal. Ships: heatmaps, department dashboards, multi-subject.",
-              "V4 (Month 18+) — Grading Evolution: Mastery-based grading with 2 years of evidence. Ships: mastery-weighted grades, parent views.",
-            ]}
-          />
-        </div>
-      </FadeIn>
-
-      {/* What ships - card grid */}
-      <FadeIn delay={0.1}>
-        <h3 className="text-xl md:text-2xl font-serif text-foreground mb-6">What ships</h3>
-      </FadeIn>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
-        {ships.map((item, i) => {
-          const Icon = item.icon
-          return (
-            <FadeIn key={item.label} delay={0.12 + i * 0.06}>
-              <div className="p-5 rounded-xl bg-card border border-border/30 group hover:border-primary/20 transition-all duration-300 h-full">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <h4 className="text-sm font-semibold text-foreground mb-1">{item.label}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
-            </FadeIn>
-          )
-        })}
+        </motion.div>
       </div>
-
-      {/* Deliberately not in MVP */}
-      <FadeIn delay={0.3}>
-        <div className="p-6 rounded-xl bg-secondary/30 border border-border/20 mb-14">
-          <div className="flex items-center gap-2 mb-3">
-            <Lock className="w-3.5 h-3.5 text-muted-foreground/50" />
-            <p className="text-xs font-semibold text-foreground">Deliberately not in MVP</p>
-          </div>
-          <p className="text-[11px] text-muted-foreground/60 mb-4">Not cuts — deliberate sequencing. Each requires hypothesis validation first.</p>
-          <div className="flex flex-wrap gap-1.5">
-            {doesNotShip.map(item => (
-              <span key={item} className="px-3 py-1.5 rounded-lg bg-background/60 border border-border/30 text-[11px] text-muted-foreground/70">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </FadeIn>
-
-      {/* Four gates to V2 */}
-      <FadeIn delay={0.35}>
-        <h3 className="text-xl md:text-2xl font-serif text-foreground mb-2">Four Gates to V2</h3>
-        <p className="text-[10px] text-muted-foreground/50 font-mono mb-8 uppercase tracking-wider">All four must pass. Minimum bars for trust.</p>
-      </FadeIn>
-      <div className="grid sm:grid-cols-2 gap-3">
-        {gates.map((gate, i) => (
-          <FadeIn key={i} delay={0.4 + i * 0.07}>
-            <div className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border/30">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-mono font-bold text-primary">{i + 1}</span>
-              </div>
-              <div>
-                <span className="text-lg font-mono font-bold text-primary">{gate.metric}</span>
-                <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{gate.desc}</p>
-              </div>
-            </div>
-          </FadeIn>
-        ))}
-      </div>
-    </SectionWrapper>
+    </section>
   )
 }

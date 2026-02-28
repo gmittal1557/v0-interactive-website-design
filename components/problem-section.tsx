@@ -31,111 +31,108 @@ function AnimatedCounter({ end, suffix = "", prefix = "", duration = 2 }: { end:
 const competitors = [
   {
     name: "Canvas / Google Classroom",
-    what: "Know what was submitted",
-    gap: "Cannot detect why it's wrong or cluster patterns across students",
+    gap: "Knows what was submitted. Cannot detect why it's wrong.",
     fill: 25,
+    color: "bg-chart-4",
   },
   {
     name: "Khan Academy",
-    what: "Knows the curriculum",
-    gap: "Cannot connect it to Sarah's specific students in her classroom",
+    gap: "Knows the curriculum. Cannot connect to Sarah's students.",
     fill: 35,
+    color: "bg-chart-3",
   },
   {
     name: "Grading Software",
-    what: "Speeds up the process",
-    gap: "Does not change latency — signal still arrives too late",
+    gap: "Speeds up the process. Signal still arrives too late.",
     fill: 45,
+    color: "bg-chart-2",
   },
   {
     name: "Private Tutors",
-    what: "Actually work",
-    gap: "$150/hr. Not available to 90% of students",
+    gap: "Actually work. $150/hr. Unavailable to 90% of students.",
     fill: 80,
+    color: "bg-primary",
   },
 ]
 
 export function ProblemSection() {
   return (
-    <SectionWrapper id="problem" className="py-28" fullHeight={false}>
+    <SectionWrapper id="problem" className="py-24 lg:py-32" fullHeight={false}>
       <FadeIn>
-        <div className="flex items-center gap-4 mb-16">
-          <span className="text-xs font-mono text-primary font-semibold tracking-wide">02</span>
-          <div className="h-px flex-1 bg-border/50" />
-          <span className="text-[11px] font-mono text-muted-foreground/60 uppercase tracking-widest">The Problem</span>
+        <div className="flex items-center gap-4 mb-6">
+          <span className="text-xs font-mono text-primary font-bold tracking-wide">02</span>
+          <div className="h-px flex-1 bg-border/30" />
+          <span className="text-[10px] font-mono text-muted-foreground/50 uppercase tracking-[0.2em]">The Problem</span>
         </div>
       </FadeIn>
 
       <FadeIn>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-foreground mb-4 text-balance leading-[1.1]">
-          Education{"'"}s failure mode
-          <br className="hidden sm:block" />
-          is <span className="text-primary">latency</span>.
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-foreground mb-4 text-balance leading-[1.05]">
+          Education{"'"}s failure mode is <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">latency</span>.
         </h2>
-        <p className="text-sm md:text-base text-muted-foreground max-w-lg mb-16 leading-relaxed">
+        <p className="text-sm md:text-base text-muted-foreground max-w-xl mb-20 leading-relaxed">
           Not a content problem. Not a curriculum problem. An information architecture problem.
+          The signal already exists — it has never been extracted at the right moment.
         </p>
       </FadeIn>
 
-      {/* Stats row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-20">
+      {/* Big stat cards - Electric Grid style */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border/20 rounded-2xl overflow-hidden mb-20">
         {[
-          { value: 15, suffix: " hrs/wk", label: "spent grading per teacher", color: "text-primary" },
-          { value: 3, suffix: " weeks", label: "avg. misconception discovery lag", color: "text-warm" },
-          { value: 34, suffix: "%", label: "carry a fixable gap to finals", color: "text-chart-3" },
-          { value: 150, prefix: "$", suffix: "/hr", label: "cost of only personalized solution", color: "text-foreground" },
+          { value: 15, suffix: " hrs", sub: "per week", label: "spent grading", color: "text-primary" },
+          { value: 3, suffix: " wk", sub: "average", label: "misconception lag", color: "text-accent" },
+          { value: 34, suffix: "%", sub: "of students", label: "carry fixable gaps", color: "text-chart-4" },
+          { value: 150, prefix: "$", suffix: "", sub: "per hour", label: "tutoring cost", color: "text-foreground" },
         ].map((stat, i) => (
           <FadeIn key={stat.label} delay={i * 0.08}>
-            <div className="p-5 rounded-xl bg-card border border-border/50 text-center">
-              <p className={`text-2xl md:text-3xl font-mono font-bold ${stat.color}`}>
+            <div className="bg-card/70 p-6 md:p-8 text-center h-full flex flex-col justify-center">
+              <p className={`text-3xl md:text-4xl lg:text-5xl font-mono font-bold ${stat.color} leading-none`}>
                 <AnimatedCounter end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
               </p>
-              <p className="text-[11px] text-muted-foreground mt-2 leading-snug">{stat.label}</p>
+              <p className="text-[10px] text-muted-foreground/50 font-mono mt-1.5 uppercase tracking-wider">{stat.sub}</p>
+              <p className="text-xs text-muted-foreground mt-2">{stat.label}</p>
             </div>
           </FadeIn>
         ))}
       </div>
 
-      {/* Why nothing today solves it */}
+      {/* Why nothing today solves it - visual bars */}
       <FadeIn delay={0.15}>
-        <h3 className="text-lg font-serif text-foreground mb-6">Why nothing today solves it</h3>
+        <h3 className="text-xl md:text-2xl font-serif text-foreground mb-2">Why nothing today solves it</h3>
+        <p className="text-xs text-muted-foreground/60 font-mono mb-8 uppercase tracking-wider">Coverage vs. the full problem</p>
       </FadeIn>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {competitors.map((comp, i) => (
           <FadeIn key={comp.name} delay={0.2 + i * 0.08}>
-            <div className="flex flex-col md:flex-row md:items-center gap-4 p-4 rounded-xl bg-card border border-border/50">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-2 flex-wrap mb-0.5">
-                  <h4 className="text-sm font-semibold text-foreground">{comp.name}</h4>
-                  <span className="text-[11px] text-primary font-mono">{comp.what}</span>
-                </div>
-                <p className="text-xs text-muted-foreground">{comp.gap}</p>
+            <div className="group">
+              <div className="flex items-baseline justify-between mb-2">
+                <h4 className="text-sm font-semibold text-foreground">{comp.name}</h4>
+                <span className="text-[10px] font-mono text-muted-foreground/50">{comp.fill}%</span>
               </div>
-              <div className="w-full md:w-40 flex-shrink-0">
-                <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${comp.fill}%` }}
-                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
-                    viewport={{ once: true }}
-                    className="h-full rounded-full bg-primary/40"
-                  />
-                </div>
-                <p className="text-[9px] text-muted-foreground/60 mt-1 text-right font-mono">
-                  {comp.fill === 80 ? "works, not scalable" : "partial coverage"}
-                </p>
+              <div className="h-3 rounded-full bg-secondary/60 overflow-hidden mb-1.5">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${comp.fill}%` }}
+                  transition={{ duration: 1, delay: 0.3 + i * 0.12, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  className={`h-full rounded-full ${comp.color} opacity-60`}
+                />
               </div>
+              <p className="text-xs text-muted-foreground/60">{comp.gap}</p>
             </div>
           </FadeIn>
         ))}
       </div>
 
+      {/* Key insight box */}
       <FadeIn delay={0.5}>
-        <div className="mt-10 p-5 rounded-xl bg-secondary/50 border border-border/30">
-          <p className="text-[13px] text-muted-foreground leading-relaxed">
+        <div className="mt-14 p-8 rounded-2xl bg-card border border-border/30 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent" />
+          <p className="text-base md:text-lg text-foreground/80 leading-relaxed pl-6">
             The signal already exists — in Sarah{"'"}s Sunday quizzes, in Marcus{"'"}s evening practice.
-            It has never been <span className="text-primary font-medium">extracted, structured, and delivered</span> to the right person at the right moment.
+            It has never been <span className="text-primary font-semibold">extracted, structured, and delivered</span> to
+            the right person at the right moment.
           </p>
         </div>
       </FadeIn>

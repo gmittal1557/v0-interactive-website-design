@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { SectionWrapper, FadeIn } from "./section-wrapper"
 
-function AnimatedCounter({ end, suffix = "", duration = 2 }: { end: number; suffix?: string; duration?: number }) {
+function AnimatedCounter({ end, suffix = "", prefix = "", duration = 2 }: { end: number; suffix?: string; prefix?: string; duration?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true })
@@ -25,119 +25,117 @@ function AnimatedCounter({ end, suffix = "", duration = 2 }: { end: number; suff
     return () => clearInterval(timer)
   }, [isInView, end, duration])
 
-  return <span ref={ref}>{count}{suffix}</span>
+  return <span ref={ref}>{prefix}{count}{suffix}</span>
 }
 
 const competitors = [
   {
     name: "Canvas / Google Classroom",
-    desc: "Know what was submitted",
-    gap: "Cannot detect why it's wrong or cluster patterns",
-    level: 25,
+    what: "Know what was submitted",
+    gap: "Cannot detect why it's wrong or cluster patterns across students",
+    fill: 25,
   },
   {
     name: "Khan Academy",
-    desc: "Knows the curriculum",
-    gap: "Cannot connect to Sarah's specific students",
-    level: 35,
+    what: "Knows the curriculum",
+    gap: "Cannot connect it to Sarah's specific students in her classroom",
+    fill: 35,
   },
   {
     name: "Grading Software",
-    desc: "Speeds up the process",
-    gap: "Signal still arrives too late",
-    level: 45,
+    what: "Speeds up the process",
+    gap: "Does not change latency — signal still arrives too late",
+    fill: 45,
   },
   {
     name: "Private Tutors",
-    desc: "Actually work",
-    gap: "$150/hr — unavailable to 90% of students",
-    level: 80,
+    what: "Actually work",
+    gap: "$150/hr. Not available to 90% of students",
+    fill: 80,
   },
 ]
 
 export function ProblemSection() {
   return (
-    <SectionWrapper id="problem" className="py-24" fullHeight={false}>
+    <SectionWrapper id="problem" className="py-28" fullHeight={false}>
       <FadeIn>
-        <div className="flex items-center gap-3 mb-12">
-          <span className="text-xs font-mono text-primary">02</span>
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">The Problem</span>
+        <div className="flex items-center gap-4 mb-16">
+          <span className="text-xs font-mono text-primary font-semibold tracking-wide">02</span>
+          <div className="h-px flex-1 bg-border/50" />
+          <span className="text-[11px] font-mono text-muted-foreground/60 uppercase tracking-widest">The Problem</span>
         </div>
       </FadeIn>
 
       <FadeIn>
-        <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mb-4 text-balance">
-          Education{"'"}s failure mode is{" "}
-          <span className="text-primary">latency</span>.
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-foreground mb-4 text-balance leading-[1.1]">
+          Education{"'"}s failure mode
+          <br className="hidden sm:block" />
+          is <span className="text-primary">latency</span>.
         </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mb-16 leading-relaxed">
-          This is not a content problem or a curriculum problem. It is an
-          information architecture problem.
+        <p className="text-sm md:text-base text-muted-foreground max-w-lg mb-16 leading-relaxed">
+          Not a content problem. Not a curriculum problem. An information architecture problem.
         </p>
       </FadeIn>
 
-      {/* Big stat cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      {/* Stats row */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-20">
         {[
-          { value: 15, suffix: " hrs", label: "weekly grading per teacher", color: "text-primary" },
-          { value: 3, suffix: " wk", label: "avg. lag to discovery", color: "text-warm" },
-          { value: 34, suffix: "%", label: "carry fixable gap to finals", color: "text-chart-5" },
-          { value: 150, suffix: "/hr", label: "cost of private tutoring", color: "text-foreground" },
+          { value: 15, suffix: " hrs/wk", label: "spent grading per teacher", color: "text-primary" },
+          { value: 3, suffix: " weeks", label: "avg. misconception discovery lag", color: "text-warm" },
+          { value: 34, suffix: "%", label: "carry a fixable gap to finals", color: "text-chart-3" },
+          { value: 150, prefix: "$", suffix: "/hr", label: "cost of only personalized solution", color: "text-foreground" },
         ].map((stat, i) => (
-          <FadeIn key={stat.label} delay={i * 0.1}>
-            <div className="p-6 rounded-2xl bg-card border border-border text-center">
-              <span className={`text-3xl md:text-4xl font-mono font-bold ${stat.color}`}>
-                {stat.value === 150 && "$"}<AnimatedCounter end={stat.value} suffix={stat.suffix} />
-              </span>
-              <p className="text-xs text-muted-foreground mt-2 leading-snug">{stat.label}</p>
+          <FadeIn key={stat.label} delay={i * 0.08}>
+            <div className="p-5 rounded-xl bg-card border border-border/50 text-center">
+              <p className={`text-2xl md:text-3xl font-mono font-bold ${stat.color}`}>
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-snug">{stat.label}</p>
             </div>
           </FadeIn>
         ))}
       </div>
 
-      {/* Competitor landscape */}
-      <FadeIn delay={0.2}>
-        <h3 className="text-xl font-serif font-bold text-foreground mb-6">Why nothing today solves it</h3>
+      {/* Why nothing today solves it */}
+      <FadeIn delay={0.15}>
+        <h3 className="text-lg font-serif text-foreground mb-6">Why nothing today solves it</h3>
       </FadeIn>
-      <div className="space-y-4">
+
+      <div className="space-y-3">
         {competitors.map((comp, i) => (
-          <FadeIn key={comp.name} delay={0.3 + i * 0.1}>
-            <div className="p-5 rounded-xl bg-card border border-border">
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-sm font-bold text-foreground font-sans">{comp.name}</h4>
-                    <span className="text-xs text-primary font-mono">{comp.desc}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{comp.gap}</p>
+          <FadeIn key={comp.name} delay={0.2 + i * 0.08}>
+            <div className="flex flex-col md:flex-row md:items-center gap-4 p-4 rounded-xl bg-card border border-border/50">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-2 flex-wrap mb-0.5">
+                  <h4 className="text-sm font-semibold text-foreground">{comp.name}</h4>
+                  <span className="text-[11px] text-primary font-mono">{comp.what}</span>
                 </div>
-                <div className="w-full md:w-48">
-                  <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${comp.level}%` }}
-                      transition={{ duration: 1, delay: 0.5 + i * 0.15 }}
-                      viewport={{ once: true }}
-                      className="h-full rounded-full bg-primary/50"
-                    />
-                  </div>
-                  <p className="text-[10px] text-muted-foreground mt-1 text-right font-mono">
-                    {comp.level === 80 ? "works, but unscalable" : "partial solution"}
-                  </p>
+                <p className="text-xs text-muted-foreground">{comp.gap}</p>
+              </div>
+              <div className="w-full md:w-40 flex-shrink-0">
+                <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${comp.fill}%` }}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                    viewport={{ once: true }}
+                    className="h-full rounded-full bg-primary/40"
+                  />
                 </div>
+                <p className="text-[9px] text-muted-foreground/60 mt-1 text-right font-mono">
+                  {comp.fill === 80 ? "works, not scalable" : "partial coverage"}
+                </p>
               </div>
             </div>
           </FadeIn>
         ))}
       </div>
 
-      {/* Insight box */}
       <FadeIn delay={0.5}>
-        <div className="mt-12 p-6 rounded-2xl bg-secondary border border-border">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+        <div className="mt-10 p-5 rounded-xl bg-secondary/50 border border-border/30">
+          <p className="text-[13px] text-muted-foreground leading-relaxed">
             The signal already exists — in Sarah{"'"}s Sunday quizzes, in Marcus{"'"}s evening practice.
-            It has never been <span className="text-primary font-semibold">extracted, structured, and delivered</span> to the right person at the right moment.
+            It has never been <span className="text-primary font-medium">extracted, structured, and delivered</span> to the right person at the right moment.
           </p>
         </div>
       </FadeIn>

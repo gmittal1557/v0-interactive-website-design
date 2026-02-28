@@ -30,91 +30,100 @@ const comparisons = {
   ],
 }
 
+const tabData = [
+  {
+    key: "teacher" as Tab,
+    label: "For Sarah",
+    sublabel: "Know how every student is confused — before class, not after the exam",
+    tagline: "Reclaim 8-10 hrs/week from grading",
+  },
+  {
+    key: "student" as Tab,
+    label: "For Marcus",
+    sublabel: "Know exactly what to fix — before Friday's test, not after",
+    tagline: "A private mastery map, not a grade",
+  },
+]
+
 export function ValueSection() {
   const [activeTab, setActiveTab] = useState<Tab>("teacher")
 
   return (
-    <SectionWrapper id="value" className="py-24" fullHeight={false}>
+    <SectionWrapper id="value" className="py-28" fullHeight={false}>
       <FadeIn>
-        <div className="flex items-center gap-3 mb-12">
-          <span className="text-xs font-mono text-primary">03</span>
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Two Value Propositions</span>
+        <div className="flex items-center gap-4 mb-16">
+          <span className="text-xs font-mono text-primary font-semibold tracking-wide">03</span>
+          <div className="h-px flex-1 bg-border/50" />
+          <span className="text-[11px] font-mono text-muted-foreground/60 uppercase tracking-widest">Two Value Propositions</span>
         </div>
       </FadeIn>
 
-      {/* Design principle callout */}
+      {/* Design principle */}
       <FadeIn>
-        <div className="mb-12 p-6 rounded-2xl bg-warm/5 border border-warm/20">
-          <p className="text-xs font-mono text-warm uppercase tracking-wider mb-2">Design Principle</p>
-          <p className="text-sm text-foreground leading-relaxed">
+        <div className="mb-12 p-4 rounded-lg border border-warm/15 bg-warm/[0.03]">
+          <p className="text-[10px] font-mono text-warm/80 uppercase tracking-widest mb-1">Design Principle</p>
+          <p className="text-[13px] text-foreground/70 leading-relaxed">
             Design the companion for the student. Let teacher intelligence be the byproduct.
-            Every EdTech product that extracted signal from students without giving them genuine value has failed on adoption.
+            Every EdTech product that extracted signal without giving students genuine value has failed on adoption.
           </p>
         </div>
       </FadeIn>
 
-      {/* Tab selector */}
+      {/* Tab switch */}
       <FadeIn delay={0.1}>
-        <div className="flex gap-2 mb-8">
-          {[
-            { key: "teacher" as Tab, label: "For Sarah — The Teacher", sublabel: "Know how every student is confused — before class" },
-            { key: "student" as Tab, label: "For Marcus — The Student", sublabel: "Know exactly what to fix — before the test" },
-          ].map(tab => (
+        <div className="flex gap-2 mb-10">
+          {tabData.map(tab => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`relative flex-1 p-5 rounded-xl border text-left transition-all ${
+              className={`relative flex-1 p-4 rounded-xl border text-left transition-all duration-300 ${
                 activeTab === tab.key
-                  ? "bg-card border-primary/30"
-                  : "bg-secondary/50 border-border hover:bg-secondary"
+                  ? "bg-card border-primary/25"
+                  : "bg-secondary/30 border-border/30 hover:bg-secondary/50"
               }`}
             >
               {activeTab === tab.key && (
                 <motion.div
-                  layoutId="activeTabIndicator"
-                  className="absolute top-0 left-0 right-0 h-0.5 bg-primary rounded-t-xl"
+                  layoutId="valueTabLine"
+                  className="absolute top-0 left-0 right-0 h-[2px] bg-primary rounded-t-xl"
                 />
               )}
-              <h3 className="text-sm font-bold text-foreground font-sans">{tab.label}</h3>
-              <p className="text-xs text-muted-foreground mt-1">{tab.sublabel}</p>
+              <p className="text-sm font-semibold text-foreground">{tab.label}</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{tab.sublabel}</p>
             </button>
           ))}
         </div>
       </FadeIn>
 
-      {/* Comparisons */}
+      {/* Before/After comparisons */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-4"
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="space-y-3"
         >
           {comparisons[activeTab].map((item, i) => (
-            <div key={i} className="grid md:grid-cols-2 gap-4">
-              {/* Before */}
-              <div className="p-5 rounded-xl bg-destructive/5 border border-destructive/20">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded-full bg-destructive/20 flex items-center justify-center">
-                    <X className="w-3 h-3 text-destructive" />
+            <div key={i} className="grid md:grid-cols-2 gap-3">
+              <div className="p-4 rounded-xl bg-destructive/[0.04] border border-destructive/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center">
+                    <X className="w-3 h-3 text-destructive/70" />
                   </div>
-                  <span className="text-xs font-mono text-destructive uppercase">Today</span>
+                  <span className="text-[10px] font-mono text-destructive/60 uppercase tracking-wide">Today</span>
                 </div>
-                <p className="text-sm text-foreground/80 leading-relaxed">{item.before}</p>
+                <p className="text-[13px] text-foreground/60 leading-relaxed">{item.before}</p>
               </div>
-
-              {/* After */}
-              <div className="p-5 rounded-xl bg-primary/5 border border-primary/20">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+              <div className="p-4 rounded-xl bg-primary/[0.04] border border-primary/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <Check className="w-3 h-3 text-primary" />
                   </div>
-                  <span className="text-xs font-mono text-primary uppercase">With Glean</span>
+                  <span className="text-[10px] font-mono text-primary/70 uppercase tracking-wide">With Glean</span>
                 </div>
-                <p className="text-sm text-foreground leading-relaxed">{item.after}</p>
+                <p className="text-[13px] text-foreground/90 leading-relaxed">{item.after}</p>
               </div>
             </div>
           ))}

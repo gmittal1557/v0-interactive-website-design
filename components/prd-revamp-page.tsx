@@ -24,16 +24,15 @@ import { cn } from "@/lib/utils"
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
   { id: "toc", label: "Table of Contents", nav: "" },
-  { id: "about", label: "About This Presentation", nav: "About" },
-  { id: "vision", label: "Product Vision", nav: "Vision" },
-  { id: "teacher", label: "Teacher", nav: "Teacher" },
-  { id: "student", label: "Student", nav: "Student" },
+  { id: "vision", label: "Vision", nav: "Vision" },
   { id: "pain", label: "Pervasive Pain", nav: "Pain" },
+  { id: "personas", label: "Who We're Solving For", nav: "Personas" },
   { id: "northstar", label: "North Star", nav: "North Star" },
   { id: "mvp", label: "MVP", nav: "MVP" },
-  { id: "phases", label: "Gates & Next Phases", nav: "Phases" },
-  { id: "choices", label: "Strategic Choices", nav: "Choices" },
-  { id: "metrics", label: "Success Metrics", nav: "Metrics" },
+  { id: "phases", label: "Proof Points", nav: "Phases" },
+  { id: "choices", label: "Four Bets", nav: "Choices" },
+  { id: "metrics", label: "Metrics", nav: "Metrics" },
+  { id: "close", label: "Close", nav: "Close" },
 ]
 
 const painPoints = [
@@ -335,25 +334,12 @@ export function PrdRevampPage() {
         </ol>
       </Slide>
 
-      <Slide id="about" badge="01 About This Presentation" title="About This Presentation" narrow>
-        <div className="space-y-5 text-base leading-[1.72] text-muted-foreground">
-          <p>
-            This presentation is part of a take-home assignment for the <span className="font-semibold text-foreground">Forward Deployed PM role at Glean</span>.
-            The objective is to show product thinking at two altitudes: a bold 12-month North Star and a practical 3-month MVP.
-          </p>
-          <p>
-            This is an interactive experience. Charts respond to hover and touch. Audio clips provide commentary from the original
-            presentation. Diagrams animate as you scroll. Use the navigation dropdown at the top to jump between sections.
-          </p>
-        </div>
-      </Slide>
-
       <SectionDivider title="Product Vision" />
 
       <Slide
         id="vision"
-        badge="02 Product Vision"
-        title="One Product, Two Humans, One Shared Win"
+        badge="01 Vision"
+        title="One Loop, Two People, One Outcome"
       >
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-6">
@@ -388,79 +374,8 @@ export function PrdRevampPage() {
             <div className="p-6">
               <p className="text-xs font-mono uppercase tracking-wider text-primary">Design principle</p>
               <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                Build real value for the student first. Teacher intelligence emerges as a byproduct of useful student engagement,
-                not forced compliance.
+                Build genuine value for students first. Teacher intelligence follows as a byproduct — not the reverse.
               </p>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      <SectionDivider title="Teacher" />
-
-      <Slide id="teacher" badge="03 Teacher" title="Teacher Reality: Signal Must Arrive Before the Bell">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
-              <GraduationCap className="h-3.5 w-3.5" />
-              Sarah's weekly constraint
-            </div>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              {["12-15 hours spent grading", "<2 hours for meaningful 1:1 coaching", "Finds misconceptions weeks too late", "Starts Monday without ranked intervention priorities"].map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">Promise</p>
-            <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">
-              Deliver a 90-second Monday brief: top misconceptions, confidence scores, and curriculum-grounded actions before class.
-            </p>
-            <div className="mt-5 rounded-lg border border-border bg-background p-4">
-              <p className="text-2xl font-mono font-bold text-primary">8-10 hrs/week</p>
-              <p className="mt-1 text-xs text-muted-foreground">Potential coaching time reclaimed from grading workflows</p>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      <SectionDivider title="Student" />
-
-      <Slide id="student" badge="04 Student" title="Student Reality: Grades Explain Outcome, Not Cause">
-        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="relative h-64">
-              <Image src="/images/student-studying.jpg" alt="Student studying" fill className="object-cover" />
-            </div>
-            <div className="p-5">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Marcus's gap</p>
-              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                He knows the score, but not the specific misconception causing repeated point loss before test day.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
-              <BookOpen className="h-3.5 w-3.5" />
-              What he sees
-            </div>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              {[
-                '"Factoring: solid. Discriminant: shaky. Review step 3 tonight."',
-                "Private mastery map; no ranking or social comparison",
-                "No grade impact from companion use",
-                "Socratic prompts grounded in teacher methodology",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-3.5 w-3.5 text-primary" />
-                  <span>{item}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -468,7 +383,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Pervasive Pain" />
 
-      <Slide id="pain" badge="05 Pervasive Pain" title="This Is a Signal Architecture Problem">
+      <Slide id="pain" badge="02 Pervasive Pain" title="Missing Signal Is the Root Problem">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-3">
             {painPoints.map((point, idx) => (
@@ -501,9 +416,77 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
+      <SectionDivider title="Who We're Solving For" />
+
+      <Slide id="personas" badge="03 Who We're Solving For" title="Two People, One Broken Feedback Loop">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
+                <GraduationCap className="h-3.5 w-3.5" />
+                Sarah's weekly constraint
+              </div>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                {["12-15 hours spent grading", "<2 hours for meaningful 1:1 coaching", "Finds misconceptions weeks too late", "Starts Monday without ranked intervention priorities"].map((item) => (
+                  <div key={item} className="flex items-start gap-2">
+                    <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">Promise</p>
+              <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">
+                Deliver a 90-second Monday brief: top misconceptions, confidence scores, and curriculum-grounded actions before class.
+              </p>
+              <div className="mt-5 rounded-lg border border-border bg-background p-4">
+                <p className="text-2xl font-mono font-bold text-primary">8-10 hrs/week</p>
+                <p className="mt-1 text-xs text-muted-foreground">Potential coaching time reclaimed from grading workflows</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+              <div className="relative h-64">
+                <Image src="/images/student-studying.jpg" alt="Student studying" fill className="object-cover" />
+              </div>
+              <div className="p-5">
+                <p className="text-xs font-mono uppercase tracking-wider text-primary">Marcus's gap</p>
+                <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+                  He knows the score, but not the specific misconception causing repeated point loss before test day.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
+                <BookOpen className="h-3.5 w-3.5" />
+                What he sees
+              </div>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                {[
+                  '"Factoring: solid. Discriminant: shaky. Review step 3 tonight."',
+                  "Private mastery map; no ranking or social comparison",
+                  "No grade impact from companion use",
+                  "Socratic prompts grounded in teacher methodology",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-3.5 w-3.5 text-primary" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Slide>
+
       <SectionDivider title="North Star" />
 
-      <Slide id="northstar" badge="06 North Star" title="The 24-Hour Learning Intelligence Cycle">
+      <Slide id="northstar" badge="04 North Star" title="The 24-Hour Learning Intelligence Cycle">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="space-y-2">
             {cycle.map((step, idx) => (
@@ -546,7 +529,10 @@ export function PrdRevampPage() {
 
       <SectionDivider title="MVP" />
 
-      <Slide id="mvp" badge="07 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
+      <Slide id="mvp" badge="05 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
+        <p className="mb-8 max-w-2xl text-sm leading-[1.72] text-muted-foreground">
+          The 24-hour cycle above is the destination. The MVP below is how we prove it works — starting with one school, one subject, and one behavior change.
+        </p>
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-6">
             <p className="text-xs font-mono uppercase tracking-wider text-primary">In scope</p>
@@ -609,7 +595,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Gates & Next Phases" />
 
-      <Slide id="phases" badge="08 Gates & Phases" title="Evidence Gates Before Expansion">
+      <Slide id="phases" badge="06 Proof Points" title="Proof Points Before Scaling">
         <div className="mb-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {[
             ["70%+", "Teachers open brief before 3+ classes/week"],
@@ -637,7 +623,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Strategic Choices" />
 
-      <Slide id="choices" badge="09 Strategic Choices" title="Tradeoffs That Preserve Trust and Adoption">
+      <Slide id="choices" badge="07 Four Bets" title="Four Bets That Define the Product">
         <div className="grid gap-4 md:grid-cols-2">
           {[
             {
@@ -672,7 +658,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Success Metrics" />
 
-      <Slide id="metrics" badge="10 Success Metrics" title="How We Know It Works">
+      <Slide id="metrics" badge="08 Metrics" title="The Metrics That Matter">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {successMetrics.map((metric) => (
             <div key={metric.label} className="rounded-xl border border-border bg-card p-4">
@@ -687,6 +673,22 @@ export function PrdRevampPage() {
             <Radar className="h-4 w-4 text-primary" />
             North-star check: earlier teacher intervention + student clarity before test day.
           </span>
+        </div>
+      </Slide>
+
+      <SectionDivider title="Why This Problem" />
+
+      <Slide id="close" badge="10 Close" title="What I'd Do in Week One" narrow>
+        <div className="space-y-5 text-base leading-[1.72] text-muted-foreground">
+          <p>
+            The hardest part of this problem isn't the AI — it's earning the teacher's trust on a Monday morning when they have 30 students waiting. That's the design constraint that shaped every tradeoff in this document.
+          </p>
+          <p>
+            In week one I'd be in a classroom. Not demoing software — watching a teacher grade a stack of quizzes and asking what they do with the results. The product has to fit that moment before it can change it.
+          </p>
+          <p>
+            That's what excites me about this role: the deployed PM is the feedback loop that the product itself is trying to create.
+          </p>
         </div>
       </Slide>
 

@@ -24,13 +24,12 @@ import { cn } from "@/lib/utils"
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
   { id: "toc", label: "Table of Contents", nav: "" },
-  { id: "vision", label: "Vision", nav: "Vision" },
-  { id: "pain", label: "Pervasive Pain", nav: "Pain" },
-  { id: "personas", label: "Who We're Solving For", nav: "Personas" },
-  { id: "northstar", label: "North Star", nav: "North Star" },
+  { id: "pain", label: "The Pain", nav: "Pain" },
+  { id: "personas", label: "The Personas", nav: "Personas" },
+  { id: "vision", label: "Vision & North Star", nav: "Vision" },
+  { id: "choices", label: "The Four Bets", nav: "Four Bets" },
   { id: "mvp", label: "MVP", nav: "MVP" },
-  { id: "phases", label: "Proof Points", nav: "Phases" },
-  { id: "choices", label: "Four Bets", nav: "Choices" },
+  { id: "phases", label: "Proof Points", nav: "Proof Points" },
   { id: "metrics", label: "Metrics", nav: "Metrics" },
   { id: "close", label: "Close", nav: "Close" },
 ]
@@ -39,14 +38,12 @@ const painPoints = [
   {
     title: "Signal latency",
     stat: "~3 weeks",
-    detail:
-      "Teachers discover misconceptions after assessments, when failure has already compounded.",
+    detail: "Teachers spot misconceptions weeks too late—after failure has compounded.",
   },
   {
     title: "Coaching deficit",
     stat: "<2 hrs/wk",
-    detail:
-      "Teacher time is consumed by grading and admin workflows instead of personalized coaching.",
+    detail: "Grading workflows consume the hours meant for 1:1 coaching.",
   },
   {
     title: "Student blind spot",
@@ -334,56 +331,9 @@ export function PrdRevampPage() {
         </ol>
       </Slide>
 
-      <SectionDivider title="Product Vision" />
+      <SectionDivider title="The Pain" />
 
-      <Slide
-        id="vision"
-        badge="01 Vision"
-        title="One Loop, Two People, One Outcome"
-      >
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <div className="mb-4 flex gap-2 rounded-lg bg-secondary p-1">
-              {[
-                { key: "teacher", label: "Teacher" },
-                { key: "student", label: "Student" },
-              ].map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveAudience(tab.key as "teacher" | "student")}
-                  className={cn(
-                    "flex-1 rounded-md px-3 py-2 text-xs font-mono uppercase transition",
-                    activeAudience === tab.key ? "bg-primary text-primary-foreground" : "text-muted-foreground"
-                  )}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-            <h3 className="text-2xl font-semibold tracking-[-0.01em]">{audienceCard.title}</h3>
-            <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{audienceCard.body}</p>
-            <p className="mt-4 inline-flex rounded-md border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary">
-              {audienceCard.stat}
-            </p>
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="relative h-64">
-              <Image src="/images/hero-teacher.jpg" alt="Teacher in classroom" fill className="object-cover" />
-            </div>
-            <div className="p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Design principle</p>
-              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                Build genuine value for students first. Teacher intelligence follows as a byproduct — not the reverse.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      <SectionDivider title="Pervasive Pain" />
-
-      <Slide id="pain" badge="02 Pervasive Pain" title="Missing Signal Is the Root Problem">
+      <Slide id="pain" badge="01 The Pain" title="Missing Signal Is the Root Problem">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-3">
             {painPoints.map((point, idx) => (
@@ -416,9 +366,9 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="Who We're Solving For" />
+      <SectionDivider title="The Personas" />
 
-      <Slide id="personas" badge="03 Who We're Solving For" title="Two People, One Broken Feedback Loop">
+      <Slide id="personas" badge="02 The Personas" title="Two People, One Broken Feedback Loop">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -439,7 +389,7 @@ export function PrdRevampPage() {
             <div className="rounded-2xl border border-border bg-card p-6">
               <p className="text-xs font-mono uppercase tracking-wider text-primary">Promise</p>
               <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">
-                Deliver a 90-second Monday brief: top misconceptions, confidence scores, and curriculum-grounded actions before class.
+                Start Monday with ranked intelligence: who is stuck, why, and the exact scaffold to use in period one.
               </p>
               <div className="mt-5 rounded-lg border border-border bg-background p-4">
                 <p className="text-2xl font-mono font-bold text-primary">8-10 hrs/week</p>
@@ -456,7 +406,7 @@ export function PrdRevampPage() {
               <div className="p-5">
                 <p className="text-xs font-mono uppercase tracking-wider text-primary">Marcus's gap</p>
                 <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                  He knows the score, but not the specific misconception causing repeated point loss before test day.
+                  A private mastery map before test day: precise diagnoses, not generic hints.
                 </p>
               </div>
             </div>
@@ -484,10 +434,55 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="North Star" />
+      <SectionDivider title="Vision & North Star" />
 
-      <Slide id="northstar" badge="04 North Star" title="The 24-Hour Learning Intelligence Cycle">
-        <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+      <Slide id="vision" badge="03 Vision & North Star" title="One Loop, Two People, One Outcome">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="mb-4 flex gap-2 rounded-lg bg-secondary p-1">
+              {[
+                { key: "teacher", label: "Teacher" },
+                { key: "student", label: "Student" },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveAudience(tab.key as "teacher" | "student")}
+                  className={cn(
+                    "flex-1 rounded-md px-3 py-2 text-xs font-mono uppercase transition",
+                    activeAudience === tab.key ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            <h3 className="text-2xl font-semibold tracking-[-0.01em]">{audienceCard.title}</h3>
+            <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{audienceCard.body}</p>
+            <p className="mt-4 inline-flex rounded-md border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary">
+              {audienceCard.stat}
+            </p>
+            <div className="mt-5 rounded-lg border border-border bg-background p-4">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">Why Glean?</p>
+              <p className="mt-2 text-xs leading-[1.72] text-muted-foreground">
+                Indexing a teacher’s curriculum, lesson plans, and LMS data securely relies on the exact architecture—Enterprise Search, Knowledge Graphs, and RAG—that Glean has already perfected for the enterprise.
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="relative h-64">
+              <Image src="/images/hero-teacher.jpg" alt="Teacher in classroom" fill className="object-cover" />
+            </div>
+            <div className="p-6">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">Design principle</p>
+              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+                Build genuine value for students first. Teacher intelligence follows as a byproduct — not the reverse.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="space-y-2">
             {cycle.map((step, idx) => (
               <button
@@ -527,6 +522,41 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
+      <SectionDivider title="The Four Bets" />
+
+      <Slide id="choices" badge="04 Four Bets" title="Four Bets That Define the Product">
+        <div className="grid gap-4 md:grid-cols-2">
+          {[
+            {
+              icon: ShieldCheck,
+              title: "Precision over recall",
+              body: "Missing some signals is acceptable; false positives permanently damage teacher trust.",
+            },
+            {
+              icon: Lock,
+              title: "Structure over surveillance",
+              body: "Persist structured tags, not raw student dialogue. Privacy is architecture, not policy copy.",
+            },
+            {
+              icon: BrainCircuit,
+              title: "Curriculum over LLM Priors",
+              body: "Curriculum and teacher method remain source of truth for generated guidance.",
+            },
+            {
+              icon: Target,
+              title: "Depth over breadth",
+              body: "Algebra 2 first, one robust loop first, then broader subject expansion.",
+            },
+          ].map((item) => (
+            <div key={item.title} className="rounded-xl border border-border bg-card p-5">
+              <item.icon className="h-4 w-4 text-primary" />
+              <h3 className="mt-2 text-lg font-semibold tracking-[-0.01em]">{item.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
       <SectionDivider title="MVP" />
 
       <Slide id="mvp" badge="05 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
@@ -535,7 +565,7 @@ export function PrdRevampPage() {
         </p>
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">In scope</p>
+            <p className="text-xs font-mono uppercase tracking-wider text-primary">What ships in 90 days</p>
             <div className="mt-4 space-y-3 text-sm text-muted-foreground">
               {[
                 "Mobile quiz capture (photo -> OCR -> misconception tags)",
@@ -553,7 +583,7 @@ export function PrdRevampPage() {
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">Out of scope</p>
+            <p className="text-xs font-mono uppercase tracking-wider text-primary">What we intentionally delay</p>
             <div className="mt-4 space-y-3 text-sm text-muted-foreground">
               {[
                 "Full student companion",
@@ -570,16 +600,6 @@ export function PrdRevampPage() {
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
               <AppendixDialog
-                title="MVP Tech Structure"
-                triggerLabel="Open tech structure"
-                content={[
-                  "Ingestion: LMS connector + mobile handwritten capture pipeline.",
-                  "Classification: concept + misconception tagging with confidence scoring.",
-                  "Retrieval: teacher curriculum indexed for grounded recommendations.",
-                  "Delivery: Monday brief optimized for <90 seconds of reading time.",
-                ]}
-              />
-              <AppendixDialog
                 title="Pilot GTM"
                 triggerLabel="Open GTM"
                 content={[
@@ -589,6 +609,22 @@ export function PrdRevampPage() {
                 ]}
               />
             </div>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-border bg-card p-6">
+          <p className="text-xs font-mono uppercase tracking-wider text-primary">Technology assumptions</p>
+          <div className="mt-4 grid gap-3 text-sm text-muted-foreground md:grid-cols-2">
+            {[
+              "Multimodal OCR on handwritten math reaches 85%+ on legible student work.",
+              "Misconception classifier can pass 80% precision on high-confidence signals before launch.",
+              "RAG retrieval can stay under 2 seconds for teacher-facing recommendations.",
+              "Confidence scoring plus teacher override is sufficient for pedagogical safety in MVP.",
+            ].map((item) => (
+              <div key={item} className="rounded-lg border border-border bg-background p-3">
+                {item}
+              </div>
+            ))}
           </div>
         </div>
       </Slide>
@@ -621,44 +657,9 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="Strategic Choices" />
-
-      <Slide id="choices" badge="07 Four Bets" title="Four Bets That Define the Product">
-        <div className="grid gap-4 md:grid-cols-2">
-          {[
-            {
-              icon: ShieldCheck,
-              title: "Precision over recall",
-              body: "Missing some signals is acceptable; false positives permanently damage teacher trust.",
-            },
-            {
-              icon: Lock,
-              title: "Privacy over signal richness",
-              body: "Persist structured tags, not raw student dialogue. Privacy is architecture, not policy copy.",
-            },
-            {
-              icon: BrainCircuit,
-              title: "Grounding over autonomy",
-              body: "Curriculum and teacher method remain source of truth for generated guidance.",
-            },
-            {
-              icon: Target,
-              title: "Depth over breadth",
-              body: "Algebra 2 first, one robust loop first, then broader subject expansion.",
-            },
-          ].map((item) => (
-            <div key={item.title} className="rounded-xl border border-border bg-card p-5">
-              <item.icon className="h-4 w-4 text-primary" />
-              <h3 className="mt-2 text-lg font-semibold tracking-[-0.01em]">{item.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </Slide>
-
       <SectionDivider title="Success Metrics" />
 
-      <Slide id="metrics" badge="08 Metrics" title="The Metrics That Matter">
+      <Slide id="metrics" badge="07 Metrics" title="The Metrics That Matter">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {successMetrics.map((metric) => (
             <div key={metric.label} className="rounded-xl border border-border bg-card p-4">
@@ -674,14 +675,24 @@ export function PrdRevampPage() {
             North-star check: earlier teacher intervention + student clarity before test day.
           </span>
         </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-card p-4 text-sm leading-[1.72] text-muted-foreground">
+          The step-function change is reclaiming 8-10 hours of grading time and reallocating it to proactive, 1:1 student coaching—transitioning the teacher's role from "evaluator" to "coach".
+        </div>
       </Slide>
 
       <SectionDivider title="Why This Problem" />
 
-      <Slide id="close" badge="10 Close" title="What I'd Do in Week One" narrow>
+      <Slide id="close" badge="08 Close" title="What I'd Do in Week One" narrow>
         <div className="space-y-5 text-base leading-[1.72] text-muted-foreground">
           <p>
-            The hardest part of this problem isn't the AI — it's earning the teacher's trust on a Monday morning when they have 30 students waiting. That's the design constraint that shaped every tradeoff in this document.
+            The hardest part of this problem isn't the AI.
+          </p>
+          <p>
+            It's earning a teacher's trust on a Monday morning with 30 restless students waiting.
+          </p>
+          <p>
+            That single moment shaped every tradeoff in this document.
           </p>
           <p>
             In week one I'd be in a classroom. Not demoing software — watching a teacher grade a stack of quizzes and asking what they do with the results. The product has to fit that moment before it can change it.

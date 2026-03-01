@@ -27,6 +27,7 @@ const sectionItems = [
   { id: "pain", label: "The Pain", nav: "Pain" },
   { id: "personas", label: "The Personas", nav: "Personas" },
   { id: "vision", label: "Vision & North Star", nav: "Vision" },
+  { id: "whyglean", label: "Why Glean Wins", nav: "Why Glean" },
   { id: "choices", label: "The Four Bets", nav: "Four Bets" },
   { id: "mvp", label: "MVP", nav: "MVP" },
   { id: "phases", label: "Proof Points", nav: "Proof Points" },
@@ -57,19 +58,19 @@ const cycle = [
   {
     time: "Sunday evening",
     title: "Capture",
-    desc: "Teacher photos quiz stacks. OCR + misconception detection runs overnight.",
+    desc: "Teacher photos quiz stacks. OCR and misconception detection run overnight.",
     image: "/images/phone-capture.jpg",
   },
   {
     time: "Monday 7:30am",
     title: "Brief",
-    desc: "90-second brief with top misconceptions, confidence scores, and grounded resources.",
+    desc: "A 90-second brief shows top misconceptions, confidence, and grounded resources.",
     image: "/images/hero-teacher.jpg",
   },
   {
     time: "Monday class",
     title: "Intervene",
-    desc: "Reteach/scaffold/extend lanes replace one-size-fits-all instruction.",
+    desc: "Reteach, scaffold, and extend lanes replace one-size-fits-all instruction.",
     image: "/images/classroom-bright.jpg",
   },
   {
@@ -197,14 +198,14 @@ export function PrdRevampPage() {
     if (activeAudience === "teacher") {
       return {
         title: "For teachers (Sarah)",
-        body: "Start class with ranked learning intelligence: who is confused, why they are confused, and what to do in period one.",
+        body: "Start class with ranked intelligence: who is stuck, why, and what to do in period one.",
         stat: "From reactive grading to proactive coaching",
       }
     }
 
     return {
       title: "For students (Marcus)",
-      body: "Receive a private mastery map before test day: precise diagnosis and next action, not generic hints.",
+      body: "Get a private mastery map before test day: precise diagnosis and next action.",
       stat: "From score anxiety to clarity of next step",
     }
   }, [activeAudience])
@@ -298,6 +299,15 @@ export function PrdRevampPage() {
           >
             A Learning Intelligence Layer for Middle & High School Classrooms
           </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="mx-auto mt-4 max-w-4xl text-sm leading-[1.6] text-muted-foreground/90 md:text-base"
+          >
+            Glean for Teachers turns student work into real-time misconception insights and curriculum-grounded reteach
+            plans—so teachers intervene before failure compounds.
+          </motion.p>
 
           <motion.button
             initial={{ opacity: 0 }}
@@ -351,16 +361,26 @@ export function PrdRevampPage() {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">Deep dive</p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-[-0.01em]">{painPoints[selectedPain].title}</h3>
-            <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {["Lagged detection", "Class-size bottleneck", "Low-confidence intervention"].map((item) => (
-                <div key={item} className="rounded-lg border border-border bg-background p-3 text-xs text-muted-foreground">
-                  {item}
-                </div>
-              ))}
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">Deep dive</p>
+              <h3 className="mt-2 text-2xl font-semibold tracking-[-0.01em]">{painPoints[selectedPain].title}</h3>
+              <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {["Lagged detection", "Class-size bottleneck", "Low-confidence intervention"].map((item) => (
+                  <div key={item} className="rounded-lg border border-border bg-background p-3 text-xs text-muted-foreground">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-[1.65] text-muted-foreground">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">Example:</p>
+              <p className="mt-2">
+                In Unit 4, a third of the class inverts the discriminant sign. Sarah discovers it on the exam—too late.
+                With Glean, she sees it Sunday night and fixes it Monday period one.
+              </p>
             </div>
           </div>
         </div>
@@ -464,7 +484,8 @@ export function PrdRevampPage() {
             <div className="mt-5 rounded-lg border border-border bg-background p-4">
               <p className="text-xs font-mono uppercase tracking-wider text-primary">Why Glean?</p>
               <p className="mt-2 text-xs leading-[1.72] text-muted-foreground">
-                Indexing a teacher’s curriculum, lesson plans, and LMS data securely relies on the exact architecture—Enterprise Search, Knowledge Graphs, and RAG—that Glean has already perfected for the enterprise.
+                Secure indexing of curriculum, lesson plans, and LMS data relies on the same Enterprise Search, Knowledge
+                Graph, and RAG architecture Glean already runs at enterprise scale.
               </p>
             </div>
           </div>
@@ -510,7 +531,9 @@ export function PrdRevampPage() {
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-lg border border-border bg-background p-3">
                   <p className="text-xs font-mono text-primary">Requirement</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Curriculum-grounded responses over model priors.</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Recommendations grounded in teacher curriculum—not generic AI suggestions.
+                  </p>
                 </div>
                 <div className="rounded-lg border border-border bg-background p-3">
                   <p className="text-xs font-mono text-primary">Trust mechanic</p>
@@ -520,11 +543,50 @@ export function PrdRevampPage() {
             </div>
           </div>
         </div>
+
+        <div className="mt-6 rounded-2xl border border-primary/35 bg-primary/5 p-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+          <p className="text-xs font-mono uppercase tracking-wider text-primary">Monday 7:30am Brief (Teacher View)</p>
+          <div className="mt-4 space-y-2 text-sm text-muted-foreground">
+            <p>Top misconception: Discriminant sign inversion (High confidence)</p>
+            <p>9 students flagged (confidence &gt; 0.8)</p>
+            <p>Suggested action: 10-min reteach + 2 targeted practice problems</p>
+            <p>Curriculum source: Unit 4, Lesson 3</p>
+            <p>Freshness: Updated 9:12pm Sunday</p>
+          </div>
+          <p className="mt-4 text-xs font-mono uppercase tracking-wider text-primary">
+            Confidence-scored and curriculum-grounded.
+          </p>
+        </div>
+      </Slide>
+
+      <SectionDivider title="Why Glean Wins" />
+
+      <Slide id="whyglean" badge="04 Why Glean Wins" title="Why Glean Wins">
+        <div className="mx-auto max-w-4xl space-y-4">
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-xl font-semibold tracking-[-0.01em]">Permissioned Indexing</h3>
+            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+              Secure indexing of curriculum documents, LMS artifacts, and lesson plans with enterprise-grade architecture.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-xl font-semibold tracking-[-0.01em]">Curriculum-Grounded Generation</h3>
+            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+              Recommendations are grounded in teacher materials, not generic AI suggestions.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-xl font-semibold tracking-[-0.01em]">Cross-Classroom Knowledge Graph</h3>
+            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+              Retrieve how similar misconceptions were addressed across classrooms and years.
+            </p>
+          </div>
+        </div>
       </Slide>
 
       <SectionDivider title="The Four Bets" />
 
-      <Slide id="choices" badge="04 Four Bets" title="Four Bets That Define the Product">
+      <Slide id="choices" badge="05 Four Bets" title="Four Bets That Define the Product">
         <div className="grid gap-4 md:grid-cols-2">
           {[
             {
@@ -539,8 +601,8 @@ export function PrdRevampPage() {
             },
             {
               icon: BrainCircuit,
-              title: "Curriculum over LLM Priors",
-              body: "Curriculum and teacher method remain source of truth for generated guidance.",
+              title: "Teacher Curriculum Over Generic AI",
+              body: "Recommendations are grounded in teacher curriculum—not generic AI suggestions.",
             },
             {
               icon: Target,
@@ -559,9 +621,10 @@ export function PrdRevampPage() {
 
       <SectionDivider title="MVP" />
 
-      <Slide id="mvp" badge="05 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
+      <Slide id="mvp" badge="06 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
         <p className="mb-8 max-w-2xl text-sm leading-[1.72] text-muted-foreground">
-          The 24-hour cycle above is the destination. The MVP below is how we prove it works — starting with one school, one subject, and one behavior change.
+          The 24-hour cycle is the destination. The MVP proves it in one school, one subject, and one core behavior
+          change.
         </p>
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-6">
@@ -631,7 +694,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Gates & Next Phases" />
 
-      <Slide id="phases" badge="06 Proof Points" title="Proof Points Before Scaling">
+      <Slide id="phases" badge="07 Proof Points" title="Proof Points Before Scaling">
         <div className="mb-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {[
             ["70%+", "Teachers open brief before 3+ classes/week"],
@@ -659,7 +722,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Success Metrics" />
 
-      <Slide id="metrics" badge="07 Metrics" title="The Metrics That Matter">
+      <Slide id="metrics" badge="08 Metrics" title="The Metrics That Matter">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {successMetrics.map((metric) => (
             <div key={metric.label} className="rounded-xl border border-border bg-card p-4">
@@ -677,13 +740,14 @@ export function PrdRevampPage() {
         </div>
 
         <div className="mt-4 rounded-xl border border-border bg-card p-4 text-sm leading-[1.72] text-muted-foreground">
-          The step-function change is reclaiming 8-10 hours of grading time and reallocating it to proactive, 1:1 student coaching—transitioning the teacher's role from "evaluator" to "coach".
+          The step-function change is predictive teaching—intervening before misconceptions compound. Reclaiming 8–10
+          hours/week funds proactive coaching instead of reactive grading.
         </div>
       </Slide>
 
       <SectionDivider title="Why This Problem" />
 
-      <Slide id="close" badge="08 Close" title="What I'd Do in Week One" narrow>
+      <Slide id="close" badge="09 Close" title="What I'd Do in Week One" narrow>
         <div className="space-y-5 text-base leading-[1.72] text-muted-foreground">
           <p>
             The hardest part of this problem isn't the AI.
@@ -695,7 +759,8 @@ export function PrdRevampPage() {
             That single moment shaped every tradeoff in this document.
           </p>
           <p>
-            In week one I'd be in a classroom. Not demoing software — watching a teacher grade a stack of quizzes and asking what they do with the results. The product has to fit that moment before it can change it.
+            In week one I'd be in a classroom. Not demoing software-watching a teacher grade quizzes and asking what they
+            do with the results. The product must fit that moment before it can change it.
           </p>
           <p>
             That's what excites me about this role: the deployed PM is the feedback loop that the product itself is trying to create.

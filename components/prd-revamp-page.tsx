@@ -10,6 +10,7 @@ import {
   BrainCircuit,
   Check,
   ChevronDown,
+  ChevronRight,
   Github,
   GraduationCap,
   Lock,
@@ -24,35 +25,195 @@ import { cn } from "@/lib/utils"
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
   { id: "toc", label: "Table of Contents", nav: "" },
-  { id: "pain", label: "The Pain", nav: "Pain" },
-  { id: "personas", label: "The Personas", nav: "Personas" },
-  { id: "vision", label: "Vision & North Star", nav: "Vision" },
-  { id: "whyglean", label: "Why Glean Wins", nav: "Why Glean" },
-  { id: "choices", label: "The Four Bets", nav: "Four Bets" },
-  { id: "mvp", label: "MVP", nav: "MVP" },
-  { id: "phases", label: "Proof Points", nav: "Proof Points" },
-  { id: "metrics", label: "Metrics", nav: "Metrics" },
+  { id: "pain", label: "The Core Problem", nav: "The Problem" },
+  { id: "personas", label: "Who This Is For", nav: "Personas" },
+  { id: "vision", label: "North Star", nav: "Vision" },
+  { id: "whyglean", label: "Why Glean?", nav: "Why Glean" },
+  { id: "mvp", label: "How We Start", nav: "The Plan" },
+  { id: "details", label: "The Details", nav: "Details" },
   { id: "close", label: "Close", nav: "Close" },
 ]
 
 const painPoints = [
   {
-    title: "Signal latency",
-    stat: "~3 weeks",
-    detail: "Teachers spot misconceptions weeks too late—after failure has compounded.",
-  },
-  {
-    title: "Coaching deficit",
-    stat: "<2 hrs/wk",
-    detail: "Grading workflows consume the hours meant for 1:1 coaching.",
-  },
-  {
-    title: "Student blind spot",
-    stat: "No why-data",
+    title: "By the time grades are in, students have moved on",
+    stat: "3 WEEKS TO GET EXAM RESULTS BACK",
     detail:
-      "Students get outcome scores but no cognitive diagnosis of what specifically to fix.",
+      "Exam results take weeks to return. By then, students have already moved on to the next unit — building on a foundation that was never solid.",
+    tags: [
+      { label: "Weeks of delay", explanation: "It takes up to 3 weeks for graded exams to return to students" },
+      { label: "Wrong foundation builds", explanation: "Students keep learning on top of concepts they never actually understood" },
+      { label: "No early warning", explanation: "There is no signal to the teacher that a student is lost until it is too late" },
+    ],
+    example: "A student breezes through homework but fails the exam. The teacher finds out three weeks later — after the next unit is halfway done.",
+  },
+  {
+    title: "Grading consumes the time teachers should spend helping students",
+    stat: "TEACHERS HAVE LESS THAN 2 HRS/WEEK LEFT FOR STUDENTS",
+    detail:
+      "Teachers spend 12-15 hours a week grading — leaving less than 2 hours for the 1:1 coaching that actually moves students forward.",
+    tags: [
+      { label: "12-15 hrs grading/week", explanation: "Most of a teacher's week outside class is spent marking papers" },
+      { label: "30 students, 1 teacher", explanation: "The ratio makes individual attention nearly impossible" },
+      { label: "No time to intervene", explanation: "By the time grading is done, the window to help has closed" },
+    ],
+    example: "A teacher finishes grading Sunday night. By then it is too late to reteach — the next class is already planned.",
+  },
+  {
+    title: "Neither the teacher nor the student knows where it went wrong",
+    stat: "NO VISIBILITY INTO WHY A STUDENT IS STUCK",
+    detail:
+      "Students get a score, not a diagnosis. Teachers see what is wrong but not why. Without the why, neither side knows what to fix.",
+    tags: [
+      { label: "Scores without reasons", explanation: "A grade tells you how much was wrong, not which concept broke down" },
+      { label: "Students guess what to study", explanation: "Without a diagnosis, students study broadly instead of targeting the real gap" },
+      { label: "Teachers intervene blind", explanation: "Teachers know a student is struggling but not what specifically to address" },
+    ],
+    example: "A student gets 62% on a quiz and studies more math that night. But the real issue was one specific misunderstanding in step 3 — and nobody pointed to it.",
   },
 ]
+
+const mvpSteps = [
+  {
+    label: "SCAN",
+    who: "Sarah — End of school day",
+    what: "Sarah feeds the day's quizzes into the school scanner. That's it. Takes 2 minutes. Glean does everything else overnight.",
+    why: "This is the only action Sarah needs to take. Everything else is automatic.",
+  },
+  {
+    label: "ANALYZE",
+    who: "Glean — Overnight",
+    what: "Glean reads every answer, figures out what each student got wrong, and matches it to the curriculum Sarah is teaching.",
+    why: "Analysis happens while Sarah sleeps — no extra work required.",
+  },
+  {
+    label: "BRIEF",
+    who: "Sarah — Next morning",
+    what: "Sarah opens a simple summary before class. It shows which students are struggling, with what topic, and how confident Glean is.",
+    why: "One glance gives Sarah everything she needs to adjust her lesson.",
+  },
+  {
+    label: "TEACH",
+    who: "Sarah — In class",
+    what: "Sarah adjusts her lesson based on what Glean found. The suggestion comes directly from her own Unit 4 materials — not generic internet advice.",
+    why: "The fix is grounded in what Sarah already teaches. No extra prep needed.",
+  },
+  {
+    label: "HINT",
+    who: "Marcus — That evening",
+    what: "Marcus gets a specific prompt telling him exactly what to work on and why. Not just study more — a precise, actionable guide.",
+    why: "Marcus stops guessing and starts understanding what he actually got wrong.",
+  },
+]
+
+const whyGleanCards = [
+  {
+    icon: "📚",
+    title: "Suggestions come from your curriculum, not the internet",
+    body: "Glean indexes your school's lesson plans, curriculum documents, and LMS materials. Every recommendation a teacher gets is grounded in what they actually teach — not generic AI suggestions.",
+    contrast: "Unlike generic AI tools that pull from the internet",
+  },
+  {
+    icon: "🏫",
+    title: "Your school gets smarter every year",
+    body: "When a teacher finds a great way to fix a common misconception, that insight doesn't disappear. Glean makes it available to every teacher in the school — so the whole school learns, not just one classroom.",
+    contrast: "Unlike generic AI that learns from one classroom only",
+  },
+  {
+    icon: "🔒",
+    title: "Student data stays private — by design",
+    body: "Glean never stores raw student responses. It only keeps structured insights — what a student misunderstood, not what they wrote. Privacy isn't a policy — it's how the system is built.",
+    contrast: "Privacy isn't a policy — it's architecture",
+  },
+]
+
+const ecosystemNodes = [
+  {
+    icon: "👩‍🏫",
+    label: "Teachers",
+    tagline: "Finally have time to actually teach",
+    outcomes: [
+      "Recover 8-10 hours a week that was going to grading",
+      "Walk into every class knowing exactly who needs help",
+      "Feel like they are doing the job they signed up for",
+    ],
+  },
+  {
+    icon: "🧑‍🎓",
+    label: "Students",
+    tagline: "Stop guessing. Start understanding.",
+    outcomes: [
+      "Understand why they got something wrong — not just that they did",
+      "Study smarter, not longer",
+      "Build real confidence before test day",
+    ],
+  },
+  {
+    icon: "🏫",
+    label: "School",
+    tagline: "Better scores, more funding, stronger rep",
+    outcomes: [
+      "Higher test scores mean a stronger case for funding",
+      "Teachers stay longer when they feel effective",
+      "Data to show what is working across every classroom",
+    ],
+  },
+  {
+    icon: "👨‍👩‍👧",
+    label: "Parents",
+    tagline: "Know how their child is really doing",
+    outcomes: [
+      "No more 'I don't know' when asked about homework",
+      "Child comes home knowing exactly what to review",
+      "Real visibility into their child's learning — not just grades",
+    ],
+  },
+]
+
+const roadmapPhases = [
+  {
+    version: "V0",
+    window: "NOW — 90 DAYS",
+    headline: "One school. One subject. Prove the loop.",
+    items: ["Quiz scanning via school scanner", "Canvas + Google Classroom connection", "Teacher morning summary", "Confidence scoring on every suggestion"],
+  },
+  {
+    version: "V1",
+    window: "4-9 MONTHS",
+    headline: "Student study companion. More subjects. Expand the loop.",
+    items: ["Student-facing study hints", "Algebra 1 + additional subjects", "Engagement tracking", "Teacher feedback loop"],
+  },
+  {
+    version: "V2",
+    window: "9-12 MONTHS",
+    headline: "Every school in the district. Full intelligence. Scale the loop.",
+    items: ["District-wide rollout", "Cross-classroom knowledge sharing", "Parent visibility layer", "District analytics dashboard"],
+  },
+]
+
+const principles = [
+  { title: "Get it right before scaling", body: "Missing some signals is fine. A wrong signal damages trust permanently." },
+  { title: "Protect student privacy first", body: "We store what went wrong — never what was written. Privacy is built in, not bolted on." },
+  { title: "Use your school's own materials", body: "Every suggestion comes from the teacher's own curriculum — not the internet." },
+  { title: "One thing done really well", body: "Algebra 2 first, one robust loop first, then broader expansion." },
+]
+
+const detailsMetrics = {
+  v0: [
+    { target: "70%+", label: "Teachers open their summary before at least 3 classes a week" },
+    { target: "8+ hrs", label: "Saved from grading every week" },
+    { target: "75%+", label: "Suggestions the teacher actually acts on" },
+    { target: "50%+", label: "Classes where teacher adjusts lesson based on Glean's summary" },
+  ],
+  v1: [
+    { target: "60%+", label: "Students come back to the study companion more than once" },
+    { target: "Measurable", label: "Test score improvement in Glean classrooms vs those without" },
+  ],
+  v2: [
+    { target: "District-wide", label: "Adoption across multiple subjects" },
+    { target: "Visible", label: "Overall class performance improvement in schools using Glean" },
+  ],
+}
 
 const cycle = [
   {
@@ -112,12 +273,14 @@ function Slide({
   id,
   badge,
   title,
+  subtitle,
   children,
   narrow = false,
 }: {
   id: string
   badge?: string
   title: string
+  subtitle?: string
   children: React.ReactNode
   narrow?: boolean
 }) {
@@ -129,6 +292,7 @@ function Slide({
             <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">{badge}</p>
           )}
           <h2 className="max-w-4xl text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-5xl">{title}</h2>
+          {subtitle && <p className="mt-4 max-w-3xl text-base leading-[1.72] text-muted-foreground md:text-lg">{subtitle}</p>}
         </header>
         {children}
       </div>
@@ -146,6 +310,34 @@ function SectionDivider({ title }: { title: string }) {
   )
 }
 
+function CollapsibleDrawer({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="rounded-2xl border border-border bg-card">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between px-6 py-5 text-left"
+      >
+        <span className="text-base font-semibold tracking-[-0.01em]">{title}</span>
+        <ChevronRight className={cn("h-4 w-4 text-muted-foreground transition-transform", open && "rotate-90")} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-border px-6 py-6">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export function PrdRevampPage() {
   const [progress, setProgress] = useState(0)
   const [activeSection, setActiveSection] = useState("cover")
@@ -153,6 +345,10 @@ export function PrdRevampPage() {
   const [selectedPain, setSelectedPain] = useState(0)
   const [activeCycle, setActiveCycle] = useState(0)
   const [activeAudience, setActiveAudience] = useState<"teacher" | "student">("teacher")
+  const [activeMvpStep, setActiveMvpStep] = useState(0)
+  const [roadmapOpen, setRoadmapOpen] = useState(false)
+  const [impactModalOpen, setImpactModalOpen] = useState(false)
+  const [hoveredNode, setHoveredNode] = useState<number | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -184,7 +380,10 @@ export function PrdRevampPage() {
       }
     }
     const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false)
+      if (event.key === "Escape") {
+        setIsMenuOpen(false)
+        setImpactModalOpen(false)
+      }
     }
     document.addEventListener("mousedown", handleClickOutside)
     document.addEventListener("keydown", handleEsc)
@@ -297,7 +496,7 @@ export function PrdRevampPage() {
             transition={{ delay: 0.22, duration: 0.55 }}
             className="text-lg leading-[1.45] text-muted-foreground md:text-2xl"
           >
-            A Learning Intelligence Layer for Middle & High School Classrooms
+            Helping teachers see where students are struggling, understand what they know, and personalize what comes next.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
@@ -341,10 +540,15 @@ export function PrdRevampPage() {
         </ol>
       </Slide>
 
-      <SectionDivider title="The Pain" />
+      <SectionDivider title="The Core Problem" />
 
-      <Slide id="pain" badge="01 The Pain" title="Missing Signal Is the Root Problem">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <Slide
+        id="pain"
+        badge="01 THE CORE PROBLEM"
+        title="By the time a teacher knows a student is struggling, it's often too late."
+        subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
+      >
+        <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-3">
             {painPoints.map((point, idx) => (
               <button
@@ -352,7 +556,9 @@ export function PrdRevampPage() {
                 onClick={() => setSelectedPain(idx)}
                 className={cn(
                   "w-full rounded-xl border p-4 text-left transition",
-                  selectedPain === idx ? "border-primary/35 bg-primary/10" : "border-border bg-card hover:border-primary/30"
+                  selectedPain === idx
+                    ? "border-primary/35 border-l-[3px] border-l-primary bg-primary/10"
+                    : "border-border bg-card hover:border-primary/30"
                 )}
               >
                 <p className="text-[11px] font-mono uppercase tracking-wider text-primary">{point.stat}</p>
@@ -361,74 +567,73 @@ export function PrdRevampPage() {
             ))}
           </div>
 
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Deep dive</p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-[-0.01em]">{painPoints[selectedPain].title}</h3>
-              <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                {["Lagged detection", "Class-size bottleneck", "Low-confidence intervention"].map((item) => (
-                  <div key={item} className="rounded-lg border border-border bg-background p-3 text-xs text-muted-foreground">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-[1.65] text-muted-foreground">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Example:</p>
-              <p className="mt-2">
-                In Unit 4, a third of the class inverts the discriminant sign. Sarah discovers it on the exam—too late.
-                With Glean, she sees it Sunday night and fixes it Monday period one.
-              </p>
-            </div>
+          <div className="h-full rounded-2xl border border-border bg-card p-6">
+            <p className="text-xs font-mono uppercase tracking-wider text-primary">WHAT THIS MEANS</p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedPain}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="h-full"
+              >
+                <h3 className="mt-2 text-2xl font-semibold tracking-[-0.01em]">{painPoints[selectedPain].title}</h3>
+                <div className="mt-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                  <p className="mb-2 text-xs font-mono uppercase tracking-wider text-primary">Example:</p>
+                  <p className="text-sm leading-[1.65] text-muted-foreground">{painPoints[selectedPain].example}</p>
+                </div>
+                <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {painPoints[selectedPain].tags.map((tag) => (
+                    <div key={tag.label} className="group relative">
+                      <div className="cursor-default rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-primary/5">
+                        {tag.label}
+                      </div>
+                      <div className="absolute bottom-full left-0 z-10 mb-2 hidden w-52 rounded-lg border border-border bg-background p-2 text-xs text-muted-foreground shadow-lg group-hover:block">
+                        {tag.explanation}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </Slide>
 
-      <SectionDivider title="The Personas" />
+      <SectionDivider title="Meet Sarah and Marcus" />
 
-      <Slide id="personas" badge="02 The Personas" title="Two People, One Broken Feedback Loop">
+      <Slide id="personas" badge="02 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
+        <video autoPlay loop muted playsInline className="mb-8 w-full rounded-2xl object-cover max-h-64 bg-muted">
+          <source src="/videos/personas.mp4" type="video/mp4" />
+        </video>
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
-                <GraduationCap className="h-3.5 w-3.5" />
-                Sarah's weekly constraint
-              </div>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                {["12-15 hours spent grading", "<2 hours for meaningful 1:1 coaching", "Finds misconceptions weeks too late", "Starts Monday without ranked intervention priorities"].map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
+              <GraduationCap className="h-3.5 w-3.5" />
+              A week in Sarah's life
             </div>
-
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Promise</p>
-              <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">
-                Start Monday with ranked intelligence: who is stuck, why, and the exact scaffold to use in period one.
-              </p>
-              <div className="mt-5 rounded-lg border border-border bg-background p-4">
-                <p className="text-2xl font-mono font-bold text-primary">8-10 hrs/week</p>
-                <p className="mt-1 text-xs text-muted-foreground">Potential coaching time reclaimed from grading workflows</p>
-              </div>
+            <p className="mb-4 text-sm text-muted-foreground">Sarah teaches Algebra 2 to 90 students across 3 classes. Here's what her week actually looks like.</p>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "12-15 hours spent grading",
+                "Less than 2 hours left for meaningful 1:1 coaching",
+                "Finds out a student is struggling weeks after it started",
+                "Walks into class each week with no clear sense of which students are falling behind",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
-              <div className="relative h-64">
-                <Image src="/images/student-studying.jpg" alt="Student studying" fill className="object-cover" />
-              </div>
-              <div className="p-5">
-                <p className="text-xs font-mono uppercase tracking-wider text-primary">Marcus's gap</p>
-                <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                  A private mastery map before test day: precise diagnoses, not generic hints.
-                </p>
-              </div>
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <p className="text-xs font-mono uppercase tracking-wider text-primary">A week in Marcus's life</p>
+              <p className="mb-4 mt-3 text-sm text-muted-foreground">Marcus is a 10th grader in Sarah's class. He studies hard but often doesn't know what he's actually getting wrong.</p>
             </div>
 
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -438,13 +643,13 @@ export function PrdRevampPage() {
               </div>
               <div className="space-y-3 text-sm text-muted-foreground">
                 {[
-                  '"Factoring: solid. Discriminant: shaky. Review step 3 tonight."',
-                  "Private mastery map; no ranking or social comparison",
-                  "No grade impact from companion use",
-                  "Socratic prompts grounded in teacher methodology",
+                  "Gets his quiz back with a score — but no explanation of where he went wrong",
+                  "Studies the same way every night, even when it isn't working",
+                  "Has no way to know which specific concept is tripping him up",
+                  "The help he gets is generic — not tied to what his teacher actually taught him",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-3.5 w-3.5 text-primary" />
+                    <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -454,319 +659,393 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="Vision & North Star" />
+      <SectionDivider title="From Grading to Teaching" />
 
-      <Slide id="vision" badge="03 Vision & North Star" title="One Loop, Two People, One Outcome">
-        <div className="grid gap-8 lg:grid-cols-2">
+      <Slide
+        id="vision"
+        badge="03 NORTH STAR"
+        title="Less time marking papers. More time actually helping students."
+        subtitle="Glean works on two sides at once. Teachers get a clear picture of who is struggling and what to do. Students get specific, private guidance on what to fix. Both powered by the same overnight analysis."
+      >
+        <div className="mb-8 grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-6">
-            <div className="mb-4 flex gap-2 rounded-lg bg-secondary p-1">
+            <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Sarah's side</p>
+            <div className="space-y-4">
               {[
-                { key: "teacher", label: "Teacher" },
-                { key: "student", label: "Student" },
-              ].map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveAudience(tab.key as "teacher" | "student")}
-                  className={cn(
-                    "flex-1 rounded-md px-3 py-2 text-xs font-mono uppercase transition",
-                    activeAudience === tab.key ? "bg-primary text-primary-foreground" : "text-muted-foreground"
-                  )}
-                >
-                  {tab.label}
-                </button>
+                { time: "End of class", action: "Feeds quizzes into the school scanner" },
+                { time: "Overnight", action: "Glean reads and analyzes every answer" },
+                { time: "Next morning", action: "Opens a simple summary before class" },
+                { time: "In class", action: "Adjusts lesson based on what Glean found" },
+              ].map((step, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-mono text-primary">{i + 1}</div>
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{step.time}</p>
+                    <p className="text-sm text-muted-foreground">{step.action}</p>
+                  </div>
+                </div>
               ))}
             </div>
-            <h3 className="text-2xl font-semibold tracking-[-0.01em]">{audienceCard.title}</h3>
-            <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{audienceCard.body}</p>
-            <p className="mt-4 inline-flex rounded-md border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary">
-              {audienceCard.stat}
-            </p>
-            <div className="mt-5 rounded-lg border border-border bg-background p-4">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Why Glean?</p>
-              <p className="mt-2 text-xs leading-[1.72] text-muted-foreground">
-                Secure indexing of curriculum, lesson plans, and LMS data relies on the same Enterprise Search, Knowledge
-                Graph, and RAG architecture Glean already runs at enterprise scale.
-              </p>
-            </div>
           </div>
-
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="relative h-64">
-              <Image src="/images/hero-teacher.jpg" alt="Teacher in classroom" fill className="object-cover" />
-            </div>
-            <div className="p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">Design principle</p>
-              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                Build genuine value for students first. Teacher intelligence follows as a byproduct — not the reverse.
-              </p>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Marcus's side</p>
+            <div className="space-y-4">
+              {[
+                { time: "End of school", action: "Finishes homework and submits his work" },
+                { time: "Overnight", action: "Glean flags gaps based on his responses" },
+                { time: "That evening", action: "Gets a specific study hint — not generic advice" },
+                { time: "Next day", action: "Understands exactly what he got wrong and why" },
+              ].map((step, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-mono text-primary">{i + 1}</div>
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{step.time}</p>
+                    <p className="text-sm text-muted-foreground">{step.action}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="space-y-2">
-            {cycle.map((step, idx) => (
+        <div className="mb-6 rounded-2xl border border-border bg-card p-6">
+          <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Product prototype</p>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-xl border border-border bg-background p-4">
+              <p className="mb-3 text-xs font-mono uppercase tracking-wider text-primary">Teacher View — Sarah's morning summary</p>
+              <p className="text-sm font-semibold">Good morning, Sarah. Here's what needs your attention today.</p>
+              <div className="mt-3 rounded-lg border border-primary/20 bg-primary/5 p-3">
+                <p className="mb-1 text-xs font-mono text-primary">Top issue — High confidence</p>
+                <p className="text-sm text-muted-foreground">A third of your class misunderstood the same concept in yesterday's quiz.</p>
+                <p className="mt-2 text-xs text-muted-foreground">Suggested: 10 min reteach at start of class · From your Unit 4, Lesson 3</p>
+              </div>
+            </div>
+            <div className="rounded-xl border border-border bg-background p-4">
+              <p className="mb-3 text-xs font-mono uppercase tracking-wider text-primary">Student View — Marcus's evening hint</p>
+              <p className="text-sm font-semibold">Here's where to focus tonight, Marcus.</p>
+              <div className="mt-3 space-y-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="h-4 w-4 text-primary" /> Factoring — you've got this
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <ArrowRight className="h-4 w-4 text-primary" /> Discriminant — let's work on this one
+                </div>
+              </div>
+              <div className="mt-3 rounded-lg bg-muted p-3 text-xs text-muted-foreground">
+                What do you think happens when the number under the square root is negative? Try working it out before checking your notes.
+              </div>
+              <p className="mt-2 text-[10px] text-muted-foreground/60">No grade impact. Just for you.</p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => setImpactModalOpen(true)}
+          className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
+        >
+          See the full impact
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </Slide>
+
+      <SectionDivider title="Why Glean?" />
+
+      <Slide id="whyglean" badge="04 THE DIFFERENCE" title="Most tools give generic advice. Glean knows your classroom.">
+        <div className="grid gap-6 md:grid-cols-3">
+          {whyGleanCards.map((card) => (
+            <div key={card.title} className="rounded-2xl border border-border bg-card p-6">
+              <span className="text-3xl">{card.icon}</span>
+              <h3 className="mt-3 text-lg font-semibold tracking-[-0.01em]">{card.title}</h3>
+              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">{card.body}</p>
+              <p className="mt-4 text-xs italic text-muted-foreground/60">{card.contrast}</p>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      <SectionDivider title="How We Start" />
+
+      <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
+        <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
+          We're not trying to boil the ocean. We're starting with the smallest version that proves teachers find this useful and students learn better because of it.
+        </p>
+
+        <div className="mb-6 rounded-2xl border border-border bg-card p-6">
+          <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">A week with Glean — click each step</p>
+          <div className="mb-6 flex gap-2 overflow-x-auto">
+            {mvpSteps.map((step, i) => (
               <button
-                key={step.title}
-                onClick={() => setActiveCycle(idx)}
+                key={step.label}
+                onClick={() => setActiveMvpStep(i)}
                 className={cn(
-                  "w-full rounded-xl border p-4 text-left transition",
-                  activeCycle === idx ? "border-primary/35 bg-primary/10" : "border-border bg-card hover:border-primary/30"
+                  "shrink-0 rounded-lg border px-4 py-2 text-xs font-mono uppercase tracking-wider transition",
+                  activeMvpStep === i ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/40"
                 )}
               >
-                <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{step.time}</p>
-                <p className="mt-1 text-sm font-semibold">{step.title}</p>
+                {step.label}
               </button>
             ))}
           </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeMvpStep}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="rounded-xl border border-border bg-background p-5"
+            >
+              <p className="mb-1 text-xs font-mono uppercase tracking-wider text-primary">{mvpSteps[activeMvpStep].who}</p>
+              <p className="mb-3 text-sm leading-[1.72] text-foreground">{mvpSteps[activeMvpStep].what}</p>
+              <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+                <p className="mb-1 text-xs font-mono text-primary">WHY THIS IS IN V0</p>
+                <p className="text-xs text-muted-foreground">{mvpSteps[activeMvpStep].why}</p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+          <div className="mt-4 flex justify-between">
+            <button
+              onClick={() => setActiveMvpStep((p) => Math.max(0, p - 1))}
+              disabled={activeMvpStep === 0}
+              className="text-xs text-muted-foreground transition hover:text-primary disabled:opacity-30"
+            >
+              ← Previous
+            </button>
+            <button
+              onClick={() => setActiveMvpStep((p) => Math.min(mvpSteps.length - 1, p + 1))}
+              disabled={activeMvpStep === mvpSteps.length - 1}
+              className="text-xs text-muted-foreground transition hover:text-primary disabled:opacity-30"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="relative h-72">
-              <Image src={cycle[activeCycle].image} alt={cycle[activeCycle].title} fill className="object-cover" />
-            </div>
-            <div className="p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">{cycle[activeCycle].time}</p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-[-0.01em]">{cycle[activeCycle].title}</h3>
-              <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{cycle[activeCycle].desc}</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border border-border bg-background p-3">
-                  <p className="text-xs font-mono text-primary">Requirement</p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Recommendations grounded in teacher curriculum—not generic AI suggestions.
-                  </p>
+        <div className="mb-6">
+          <button
+            onClick={() => setRoadmapOpen((v) => !v)}
+            className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+          >
+            See the full roadmap
+            <ChevronRight className={cn("h-4 w-4 transition-transform", roadmapOpen && "rotate-90")} />
+          </button>
+          <AnimatePresence>
+            {roadmapOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                  {roadmapPhases.map((phase) => (
+                    <div key={phase.version} className="rounded-xl border border-border bg-card p-4">
+                      <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{phase.window}</p>
+                      <p className="mt-1 text-lg font-semibold">{phase.version}</p>
+                      <p className="mb-3 mt-1 text-xs text-muted-foreground">{phase.headline}</p>
+                      {phase.items.map((item) => (
+                        <div key={item} className="mt-1 flex items-start gap-2 text-xs text-muted-foreground">
+                          <Check className="mt-0.5 h-3 w-3 shrink-0 text-primary" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-                <div className="rounded-lg border border-border bg-background p-3">
-                  <p className="text-xs font-mono text-primary">Trust mechanic</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Confidence-scored outputs with visible uncertainty.</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-4">
+          {principles.map((p) => (
+            <div key={p.title} className="rounded-xl border border-border bg-card p-4">
+              <p className="text-sm font-semibold tracking-[-0.01em]">{p.title}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      <SectionDivider title="The Details" />
+      <Slide id="details" badge="06 DEEP DIVE" title="Want to go deeper? It's all here.">
+        <div className="space-y-4">
+          <CollapsibleDrawer title="How it's built">
+            <div className="space-y-6">
+              <div>
+                <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">The flow</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {[
+                    { node: "Scanner", tech: "School scanner" },
+                    { node: "OCR", tech: "GPT-4V / Google Doc AI" },
+                    { node: "Classifier", tech: "Fine-tuned model" },
+                    { node: "RAG", tech: "Glean Enterprise Search" },
+                    { node: "Teacher Brief", tech: "Canvas / Google Classroom" },
+                  ].map((item, i, arr) => (
+                    <div key={item.node} className="flex items-center gap-2">
+                      <div className="rounded-lg border border-border bg-background p-3 text-center">
+                        <p className="text-xs font-semibold">{item.node}</p>
+                        <p className="text-[10px] text-muted-foreground">{item.tech}</p>
+                      </div>
+                      {i < arr.length - 1 && <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="mt-6 rounded-2xl border border-primary/35 bg-primary/5 p-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
-          <p className="text-xs font-mono uppercase tracking-wider text-primary">Monday 7:30am Brief (Teacher View)</p>
-          <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <p>Top misconception: Discriminant sign inversion (High confidence)</p>
-            <p>9 students flagged (confidence &gt; 0.8)</p>
-            <p>Suggested action: 10-min reteach + 2 targeted practice problems</p>
-            <p>Curriculum source: Unit 4, Lesson 3</p>
-            <p>Freshness: Updated 9:12pm Sunday</p>
-          </div>
-          <p className="mt-4 text-xs font-mono uppercase tracking-wider text-primary">
-            Confidence-scored and curriculum-grounded.
-          </p>
-        </div>
-      </Slide>
-
-      <SectionDivider title="Why Glean Wins" />
-
-      <Slide id="whyglean" badge="04 Why Glean Wins" title="Why Glean Wins">
-        <div className="mx-auto max-w-4xl space-y-4">
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <h3 className="text-xl font-semibold tracking-[-0.01em]">Permissioned Indexing</h3>
-            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Secure indexing of curriculum documents, LMS artifacts, and lesson plans with enterprise-grade architecture.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <h3 className="text-xl font-semibold tracking-[-0.01em]">Curriculum-Grounded Generation</h3>
-            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Recommendations are grounded in teacher materials, not generic AI suggestions.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <h3 className="text-xl font-semibold tracking-[-0.01em]">Cross-Classroom Knowledge Graph</h3>
-            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Retrieve how similar misconceptions were addressed across classrooms and years.
-            </p>
-          </div>
-        </div>
-      </Slide>
-
-      <SectionDivider title="The Four Bets" />
-
-      <Slide id="choices" badge="05 Four Bets" title="Four Bets That Define the Product">
-        <div className="grid gap-4 md:grid-cols-2">
-          {[
-            {
-              icon: ShieldCheck,
-              title: "Precision over recall",
-              body: "Missing some signals is acceptable; false positives permanently damage teacher trust.",
-            },
-            {
-              icon: Lock,
-              title: "Structure over surveillance",
-              body: "Persist structured tags, not raw student dialogue. Privacy is architecture, not policy copy.",
-            },
-            {
-              icon: BrainCircuit,
-              title: "Teacher Curriculum Over Generic AI",
-              body: "Recommendations are grounded in teacher curriculum—not generic AI suggestions.",
-            },
-            {
-              icon: Target,
-              title: "Depth over breadth",
-              body: "Algebra 2 first, one robust loop first, then broader subject expansion.",
-            },
-          ].map((item) => (
-            <div key={item.title} className="rounded-xl border border-border bg-card p-5">
-              <item.icon className="h-4 w-4 text-primary" />
-              <h3 className="mt-2 text-lg font-semibold tracking-[-0.01em]">{item.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </Slide>
-
-      <SectionDivider title="MVP" />
-
-      <Slide id="mvp" badge="06 MVP" title="3 Engineers, 3 Months: Start Narrow, Prove Behavior Change">
-        <p className="mb-8 max-w-2xl text-sm leading-[1.72] text-muted-foreground">
-          The 24-hour cycle is the destination. The MVP proves it in one school, one subject, and one core behavior
-          change.
-        </p>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">What ships in 90 days</p>
-            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {[
-                "Mobile quiz capture (photo -> OCR -> misconception tags)",
-                "Canvas + Google Classroom ingestion",
-                "Monday pre-class brief",
-                "Class-level confidence + freshness indicators",
-                "Curriculum-grounded reteach retrieval",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-3.5 w-3.5 text-primary" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-xs font-mono uppercase tracking-wider text-primary">What we intentionally delay</p>
-            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {[
-                "Full student companion",
-                "District analytics suite",
-                "Multi-subject expansion",
-                "Policy-level grade model changes",
-                "Parent-facing dashboards",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <X className="mt-0.5 h-3.5 w-3.5 text-muted-foreground" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <AppendixDialog
-                title="Pilot GTM"
-                triggerLabel="Open GTM"
-                content={[
-                  "Land with 3-5 Algebra teachers in one school.",
-                  "Expand to department once behavior change is visible.",
-                  "Expand district-wide after security + efficacy proof.",
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 rounded-2xl border border-border bg-card p-6">
-          <p className="text-xs font-mono uppercase tracking-wider text-primary">Technology assumptions</p>
-          <div className="mt-4 grid gap-3 text-sm text-muted-foreground md:grid-cols-2">
-            {[
-              "Multimodal OCR on handwritten math reaches 85%+ on legible student work.",
-              "Misconception classifier can pass 80% precision on high-confidence signals before launch.",
-              "RAG retrieval can stay under 2 seconds for teacher-facing recommendations.",
-              "Confidence scoring plus teacher override is sufficient for pedagogical safety in MVP.",
-            ].map((item) => (
-              <div key={item} className="rounded-lg border border-border bg-background p-3">
-                {item}
+              <div className="grid gap-3 md:grid-cols-3">
+                {[
+                  "OCR accuracy on messy handwriting -> 85% confidence threshold + teacher review flag",
+                  "Misconception misclassification -> teacher override with one click",
+                  "Retrieval latency -> hard 2-second limit before launch",
+                ].map((risk) => (
+                  <div key={risk} className="rounded-xl border border-border bg-background p-3 text-xs text-muted-foreground">
+                    {risk}
+                  </div>
+                ))}
               </div>
-            ))}
+
+              <div className="grid gap-3 md:grid-cols-2">
+                {[
+                  "We'd rather flag 5 students we're sure about than flag 20 and be wrong half the time",
+                  "Glean never saves what a student wrote - only what they got wrong. Privacy by design, not policy",
+                ].map((t) => (
+                  <div key={t} className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-muted-foreground">
+                    {t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CollapsibleDrawer>
+
+          <CollapsibleDrawer title="How we get into schools">
+            <div className="space-y-5 text-sm text-muted-foreground">
+              <p>
+                <span className="font-semibold text-foreground">Who we sell to:</span> Department Head &rarr; results
+                visible &rarr; Principal &rarr; District
+              </p>
+              <p>
+                <span className="font-semibold text-foreground">30-day free pilot:</span> Week 1-2 (setup + first scan)
+                &rarr; Week 3-4 (first brief + classroom use)
+              </p>
+              <p>
+                <span className="font-semibold text-foreground">Pricing:</span> Flat monthly fee per school
+                (~$500-800/month), district license once proven
+              </p>
+              <div className="rounded-xl border border-border bg-background p-4">
+                <p className="text-sm font-semibold text-foreground">Why Algebra 2 first</p>
+                <div className="mt-2 space-y-2 text-xs">
+                  {[
+                    "Standard concept progression across schools",
+                    "High misconception frequency and measurable reteach impact",
+                    "Clear assessment loops within one term",
+                    "Existing teacher pain is immediate and explicit",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-2">
+                      <ArrowRight className="mt-0.5 h-3 w-3 text-primary" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs">
+                The grading objection addressed: Scanner already in school, Canvas already used, teacher's only new
+                action is feeding quizzes through scanner.
+              </p>
+            </div>
+          </CollapsibleDrawer>
+
+          <CollapsibleDrawer title="How we know it's working">
+            <div className="space-y-5">
+              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                {detailsMetrics.v0.map((metric) => (
+                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
+                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {detailsMetrics.v1.map((metric) => (
+                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
+                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {detailsMetrics.v2.map((metric) => (
+                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
+                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-[1.72] text-muted-foreground">
+                Teachers catch learning gaps before the exam. Students arrive at test day knowing exactly what they
+                understood — and what they didn't.
+              </div>
+            </div>
+          </CollapsibleDrawer>
+        </div>
+      </Slide>
+
+      <SectionDivider title="Before You Go" />
+
+      <section
+        id="close"
+        className="min-h-screen border-b border-border/60 px-6 py-28 md:px-10 lg:px-14 scroll-mt-16"
+        style={{ backgroundColor: "#1c1c1c", color: "#ffffff" }}
+      >
+        <div className="mx-auto w-full max-w-4xl">
+          <header className="mb-10">
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">07 CLOSE</p>
+            <p
+              style={{
+                fontStyle: "italic",
+                fontSize: "18px",
+                color: "#9ca3af",
+                marginBottom: "48px",
+                lineHeight: 1.7,
+              }}
+            >
+              This is a product I'd want to exist. Here's what I'd do first.
+            </p>
+            <h2
+              className="max-w-4xl text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-5xl"
+              style={{ color: "#ffffff" }}
+            >
+              What I'd Do in Week One
+            </h2>
+          </header>
+
+          <div style={{ display: "grid", gap: "28px" }}>
+            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
+              The hardest part of this problem isn't the technology. It's earning a <strong style={{ color: "#ffffff" }}>teacher's trust</strong> on a Monday morning with 30 restless students waiting. That single moment shaped every decision in this document.
+            </p>
+            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
+              In week one I'd be <strong style={{ color: "#ffffff" }}>in a classroom</strong>. Not showing software — watching a teacher grade quizzes and asking what they do with the results. The product has to <strong style={{ color: "#ffffff" }}>fit that moment</strong> before it can change it.
+            </p>
+            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
+              That's what excites me about this role: the <strong style={{ color: "#ffffff" }}>deployed PM</strong> is the feedback loop that the product itself is trying to create.
+            </p>
           </div>
-        </div>
-      </Slide>
 
-      <SectionDivider title="Gates & Next Phases" />
+          <div
+            style={{
+              width: "48px",
+              height: "1px",
+              background: "#374151",
+              margin: "48px 0",
+            }}
+          />
 
-      <Slide id="phases" badge="07 Proof Points" title="Proof Points Before Scaling">
-        <div className="mb-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {[
-            ["70%+", "Teachers open brief before 3+ classes/week"],
-            ["50%+", "Monday classes address top flagged misconception"],
-            ["8+ hrs", "Grading time reclaimed weekly"],
-            ["75%+", "High-confidence precision"],
-          ].map(([value, text]) => (
-            <div key={text} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-2xl font-mono font-bold text-primary">{value}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{text}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="grid gap-3 md:grid-cols-3">
-          {phases.map((phase) => (
-            <div key={phase.name} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{phase.window}</p>
-              <p className="mt-1 text-xl font-semibold tracking-[-0.01em]">{phase.name}</p>
-              <p className="mt-2 text-xs text-muted-foreground">{phase.outcome}</p>
-            </div>
-          ))}
-        </div>
-      </Slide>
-
-      <SectionDivider title="Success Metrics" />
-
-      <Slide id="metrics" badge="08 Metrics" title="The Metrics That Matter">
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {successMetrics.map((metric) => (
-            <div key={metric.label} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-xl font-mono font-bold text-primary">{metric.target}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{metric.label}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 rounded-xl border border-primary/25 bg-primary/10 p-4 text-sm text-foreground/90">
-          <span className="inline-flex items-center gap-2">
-            <Radar className="h-4 w-4 text-primary" />
-            North-star check: earlier teacher intervention + student clarity before test day.
-          </span>
-        </div>
-
-        <div className="mt-4 rounded-xl border border-border bg-card p-4 text-sm leading-[1.72] text-muted-foreground">
-          The step-function change is predictive teaching—intervening before misconceptions compound. Reclaiming 8–10
-          hours/week funds proactive coaching instead of reactive grading.
-        </div>
-      </Slide>
-
-      <SectionDivider title="Why This Problem" />
-
-      <Slide id="close" badge="09 Close" title="What I'd Do in Week One" narrow>
-        <div className="space-y-5 text-base leading-[1.72] text-muted-foreground">
-          <p>
-            The hardest part of this problem isn't the AI.
-          </p>
-          <p>
-            It's earning a teacher's trust on a Monday morning with 30 restless students waiting.
-          </p>
-          <p>
-            That single moment shaped every tradeoff in this document.
-          </p>
-          <p>
-            In week one I'd be in a classroom. Not demoing software-watching a teacher grade quizzes and asking what they
-            do with the results. The product must fit that moment before it can change it.
-          </p>
-          <p>
-            That's what excites me about this role: the deployed PM is the feedback loop that the product itself is trying to create.
+          <p style={{ fontSize: "20px", color: "#ffffff", fontWeight: 600, lineHeight: 1.6 }}>
+            Week one starts with a classroom. Everything else follows.
           </p>
         </div>
-      </Slide>
+      </section>
 
       <footer className="border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-10 lg:px-14">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
@@ -777,6 +1056,74 @@ export function PrdRevampPage() {
           </button>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {impactModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/60 p-6"
+            onClick={() => setImpactModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-background p-8 shadow-2xl"
+            >
+              <button
+                onClick={() => setImpactModalOpen(false)}
+                className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground hover:bg-secondary"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <p className="mb-2 text-xs font-mono uppercase tracking-wider text-primary">The full impact</p>
+              <h3 className="mb-6 text-2xl font-semibold tracking-[-0.01em]">How Glean changes things for everyone in the room</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {ecosystemNodes.map((node, i) => (
+                  <motion.div
+                    key={node.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="cursor-pointer rounded-xl border border-border bg-card p-4 transition hover:border-primary/40 hover:bg-primary/5"
+                    onMouseEnter={() => setHoveredNode(i)}
+                    onMouseLeave={() => setHoveredNode(null)}
+                  >
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="text-2xl">{node.icon}</span>
+                      <div>
+                        <p className="text-sm font-semibold">{node.label}</p>
+                        <p className="text-xs text-muted-foreground">{node.tagline}</p>
+                      </div>
+                    </div>
+                    <AnimatePresence>
+                      {hoveredNode === i && (
+                        <motion.ul
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-3 space-y-1 overflow-hidden"
+                        >
+                          {node.outcomes.map((outcome) => (
+                            <li key={outcome} className="flex items-start gap-2 text-xs text-muted-foreground">
+                              <Check className="mt-0.5 h-3 w-3 shrink-0 text-primary" />
+                              {outcome}
+                            </li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }

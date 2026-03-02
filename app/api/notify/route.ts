@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server"
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID
 
-// Simple in-memory rate limiter: max 1 notification per 60 seconds
+// Simple in-memory rate limiter: max 1 notification per 5 seconds (prevents double-fires only)
 let lastNotification = 0
-const COOLDOWN_MS = 60_000
+const COOLDOWN_MS = 5_000
 
 export async function POST(req: NextRequest) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {

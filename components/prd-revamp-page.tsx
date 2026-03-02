@@ -550,7 +550,7 @@ export function PrdRevampPage() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="text-5xl font-semibold leading-[0.94] tracking-[-0.03em] md:text-8xl"
+            className="text-4xl font-semibold leading-[0.94] tracking-[-0.03em] sm:text-5xl md:text-7xl lg:text-8xl"
           >
             Glean for Teachers
           </motion.h1>
@@ -662,14 +662,14 @@ export function PrdRevampPage() {
                 <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {painPoints[selectedPain].tags.map((tag) => (
-                    <div key={tag.label} className="group relative" onMouseEnter={() => setHasHovered(true)}>
-                      <div className="cursor-default rounded-lg border border-dashed border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-primary/5">
+                    <div key={tag.label} className="group relative" onMouseEnter={() => setHasHovered(true)} onClick={() => setHasHovered(true)}>
+                      <div className="cursor-default rounded-lg border border-dashed border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-primary/5 active:border-primary/40 active:bg-primary/5">
                         <span className="inline-flex items-center gap-1.5">
                           {tag.label}
                           <Info className="h-3 w-3 text-muted-foreground/50" />
                         </span>
                       </div>
-                      <div className="absolute bottom-full left-0 z-10 mb-2 hidden w-52 rounded-lg border border-border bg-background p-2 text-xs text-muted-foreground shadow-lg group-hover:block">
+                      <div className="absolute bottom-full left-0 z-10 mb-2 hidden w-52 rounded-lg border border-border bg-background p-2 text-xs text-muted-foreground shadow-lg group-hover:block group-focus-within:block">
                         {tag.explanation}
                       </div>
                     </div>
@@ -687,7 +687,7 @@ export function PrdRevampPage() {
       <SectionDivider title="Meet Sarah and Marcus" />
 
       <Slide id="personas" badge="02 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-6">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_auto_1fr]">
           <div className="h-full rounded-2xl border border-border bg-card p-6">
             <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
               <GraduationCap className="h-3.5 w-3.5" />
@@ -711,9 +711,9 @@ export function PrdRevampPage() {
             </div>
           </div>
 
-          <div className="w-[280px]">
+          <div className="order-first w-full lg:order-none lg:w-[280px]">
             {personasVideoError ? (
-              <div className="flex h-full max-h-[480px] min-h-[420px] w-full items-center justify-center rounded-2xl bg-muted">
+              <div className="flex h-full max-h-[300px] min-h-[250px] w-full items-center justify-center rounded-2xl bg-muted lg:max-h-[480px] lg:min-h-[420px]">
                 <p className="text-sm text-muted-foreground">Video loading...</p>
               </div>
             ) : (
@@ -723,7 +723,7 @@ export function PrdRevampPage() {
                 muted
                 playsInline
                 onError={() => setPersonasVideoError(true)}
-                className="h-full max-h-[480px] w-full rounded-2xl object-cover"
+                className="h-full max-h-[300px] w-full rounded-2xl object-cover lg:max-h-[480px]"
               >
                 <source src="/videos/personas.mp4" type="video/mp4" />
               </video>
@@ -771,12 +771,12 @@ export function PrdRevampPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="my-8 rounded-2xl bg-[#1c1c1c] px-10 py-12"
+          className="my-8 rounded-2xl bg-[#1c1c1c] px-6 py-8 md:px-10 md:py-12"
         >
-          <p className="text-center text-2xl font-semibold leading-snug text-gray-400 md:text-3xl">
+          <p className="text-center text-xl font-semibold leading-snug text-gray-400 sm:text-2xl md:text-3xl">
             Every tool before this made grading faster.
           </p>
-          <p className="mt-2 text-center text-2xl font-bold leading-snug text-white md:text-3xl">
+          <p className="mt-2 text-center text-xl font-bold leading-snug text-white sm:text-2xl md:text-3xl">
             Glean makes grading irrelevant.
           </p>
           <div className="mx-auto mt-6 h-[2px] w-12 bg-primary" />
@@ -786,18 +786,18 @@ export function PrdRevampPage() {
         </motion.div>
 
         <div className="mb-8 rounded-2xl border border-border bg-card p-6">
-          <div className="mb-3 grid grid-cols-2">
+          <div className="mb-3 grid grid-cols-1 sm:grid-cols-2">
             <p className="text-[10px] font-mono uppercase tracking-wider text-red-400">BEFORE</p>
-            <p className="text-[10px] font-mono uppercase tracking-wider text-primary">WITH GLEAN</p>
+            <p className="mt-2 text-[10px] font-mono uppercase tracking-wider text-primary sm:mt-0">WITH GLEAN</p>
           </div>
-          <div className="grid grid-cols-2 divide-x divide-border">
-            <div className="pr-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-0 sm:divide-x sm:divide-border">
+            <div className="sm:pr-4">
               <div className="rounded-xl border border-red-100 bg-red-50 p-4">
                 <p className="text-sm text-foreground">Sarah grades for 12 hours. Finds out Marcus was lost 3 weeks later.</p>
                 <p className="mt-2 text-sm text-foreground">Marcus gets a score. Studies the wrong things all week.</p>
               </div>
             </div>
-            <div className="pl-4">
+            <div className="sm:pl-4">
               <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
                 <p className="text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who to help and how.</p>
                 <p className="mt-2 text-sm text-foreground">The teacher opens a 90-second brief. Knows exactly who to help before class starts.</p>
@@ -822,8 +822,7 @@ export function PrdRevampPage() {
         <iframe
           src={V0_PROTOTYPE_URL}
           width="100%"
-          height="600px"
-          className="rounded-2xl border border-border"
+          className="h-[350px] rounded-2xl border border-border md:h-[600px]"
           allow="fullscreen"
           onError={() => setPrototypeIframeError(true)}
           title="Glean for Teachers v0 prototype"
@@ -845,7 +844,7 @@ export function PrdRevampPage() {
       <SectionDivider title="Why Glean?" />
 
       <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools give generic advice. Glean knows your classroom.">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/curriculum.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Curriculum grounded suggestions" />
             <h3 className="text-lg font-semibold tracking-[-0.01em]">Your curriculum. Not the internet.</h3>
@@ -863,7 +862,7 @@ export function PrdRevampPage() {
         </div>
 
         <div className="mt-6 w-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
-          <div className="grid grid-cols-[1fr_1fr] items-center gap-8">
+          <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[1fr_1fr] md:gap-8">
             <img src="/images/network.jpg" className="h-48 w-full rounded-xl object-cover" alt="Network effect across classrooms" />
             <div>
               <h3 className="text-lg font-semibold tracking-[-0.01em]">The whole school learns, not just one classroom.</h3>
@@ -1061,8 +1060,8 @@ export function PrdRevampPage() {
           <div className="mt-6">
           {activeTab === "built" && (
             <div className="space-y-6">
-              <div className="overflow-hidden rounded-xl border border-border">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto rounded-xl border border-border">
+                <table className="w-full min-w-[600px] text-sm">
                   <thead className="bg-muted/40">
                     <tr className="border-b border-border">
                       <th className="px-4 py-3 text-left font-semibold">Step</th>
@@ -1121,7 +1120,7 @@ export function PrdRevampPage() {
                 </table>
               </div>
 
-              <div className="mt-6 flex gap-4">
+              <div className="mt-6 flex flex-col gap-4 md:flex-row">
                 <div className="flex-1">
                   <button
                     onClick={toggleRisk}
@@ -1305,8 +1304,8 @@ export function PrdRevampPage() {
 
           {activeTab === "metrics" && (
             <div className="space-y-5">
-              <div className="overflow-hidden rounded-xl border border-border">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto rounded-xl border border-border">
+                <table className="w-full min-w-[500px] text-sm">
                   <thead className="bg-muted/40">
                     <tr className="border-b border-border">
                       <th className="px-4 py-3 text-left font-semibold">The question</th>
@@ -1349,7 +1348,7 @@ export function PrdRevampPage() {
 
               <div className="mt-6 border-t border-border pt-6">
                 <p className="mb-4 text-sm font-semibold text-foreground">If those pass, we then ask:</p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div className="rounded-xl border border-border bg-card p-4">
                     <p className="text-base font-semibold tracking-[-0.01em] text-primary">Do students learn more?</p>
                     <p className="mt-1 text-xs text-muted-foreground">
@@ -1469,14 +1468,8 @@ export function PrdRevampPage() {
           <header className="mb-10">
             <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">09 CLOSE</p>
             <p
-              style={{
-                fontStyle: "italic",
-                fontSize: "20px",
-                color: "#d1d5db",
-                marginBottom: "48px",
-                lineHeight: 1.7,
-                fontWeight: 500,
-              }}
+              className="text-base italic leading-relaxed text-gray-300 mb-8 font-medium sm:text-lg md:text-xl md:mb-12"
+              style={{ lineHeight: 1.7 }}
             >
               This is a product I'd want to exist. Here's what I'd do first.
             </p>
@@ -1488,15 +1481,15 @@ export function PrdRevampPage() {
             </h2>
           </header>
 
-          <div style={{ display: "grid", gap: "28px" }}>
-            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
-              The hardest part of this problem isn't the technology. It's earning a <strong style={{ color: "#ffffff" }}>teacher's trust</strong> on a Monday morning with 30 restless students waiting. That single moment shaped every decision in this document.
+          <div className="grid gap-5 md:gap-7">
+            <p className="text-sm leading-relaxed text-gray-300 sm:text-base md:text-[17px]" style={{ lineHeight: 1.85 }}>
+              The hardest part of this problem isn't the technology. It's earning a <strong className="text-white">teacher's trust</strong> on a Monday morning with 30 restless students waiting. That single moment shaped every decision in this document.
             </p>
-            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
-              In week one I'd be <strong style={{ color: "#ffffff" }}>in a classroom</strong>. Not showing software — watching a teacher grade quizzes and asking what they do with the results. The product has to <strong style={{ color: "#ffffff" }}>fit that moment</strong> before it can change it.
+            <p className="text-sm leading-relaxed text-gray-300 sm:text-base md:text-[17px]" style={{ lineHeight: 1.85 }}>
+              In week one I'd be <strong className="text-white">in a classroom</strong>. Not showing software — watching a teacher grade quizzes and asking what they do with the results. The product has to <strong className="text-white">fit that moment</strong> before it can change it.
             </p>
-            <p style={{ color: "#d1d5db", fontSize: "17px", lineHeight: 1.85 }}>
-              That's what excites me about this role: the <strong style={{ color: "#ffffff" }}>deployed PM</strong> is the feedback loop that the product itself is trying to create.
+            <p className="text-sm leading-relaxed text-gray-300 sm:text-base md:text-[17px]" style={{ lineHeight: 1.85 }}>
+              That's what excites me about this role: the <strong className="text-white">deployed PM</strong> is the feedback loop that the product itself is trying to create.
             </p>
           </div>
 
@@ -1509,7 +1502,7 @@ export function PrdRevampPage() {
             }}
           />
 
-          <p style={{ fontSize: "20px", color: "#ffffff", fontWeight: 600, lineHeight: 1.6 }}>
+          <p className="text-base font-semibold leading-relaxed text-white sm:text-lg md:text-xl" style={{ lineHeight: 1.6 }}>
             Week one starts with a classroom. Everything else follows.
           </p>
 
@@ -1520,13 +1513,13 @@ export function PrdRevampPage() {
             >
               WANT TO CONTINUE THE CONVERSATION?
             </p>
-            <div className="mt-4 flex gap-4">
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <a
                 href="https://www.linkedin.com/in/iamgauravmittal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackExternalLink("linkedin_footer", "https://www.linkedin.com/in/iamgauravmittal/")}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
                   <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.14V23h-4v-7.63c0-1.82-.03-4.16-2.54-4.16-2.54 0-2.93 1.98-2.93 4.03V23h-4V8z" />
@@ -1536,10 +1529,10 @@ export function PrdRevampPage() {
               <a
                 href="mailto:gmittal1557@gmail.com"
                 onClick={() => trackExternalLink("email_footer", "mailto:gmittal1557@gmail.com")}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
               >
                 <Mail className="h-4 w-4" />
-                gmittal1557@gmail.com
+                <span className="truncate">gmittal1557@gmail.com</span>
               </a>
             </div>
           </div>
@@ -1547,7 +1540,7 @@ export function PrdRevampPage() {
       </section>
 
       <footer className="border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-10 lg:px-14">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 sm:flex-row">
           <p>Glean for Teachers · Forward PM Assignment</p>
           <button onClick={() => { scrollTo("cover"); trackButtonClick("back_to_top", "footer") }} className="inline-flex items-center gap-1 text-primary">
             Back to top

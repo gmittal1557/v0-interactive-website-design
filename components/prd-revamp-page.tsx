@@ -844,20 +844,20 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Why Glean?" />
 
-      <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools give generic advice. Glean knows your classroom.">
+      <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools start from scratch. Glean already has the infrastructure.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/curriculum.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Curriculum grounded suggestions" />
             <h3 className="text-lg font-semibold tracking-[-0.01em]">Your curriculum. Not the internet.</h3>
             <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Glean indexes your school's lesson plans, curriculum documents, and LMS materials. Every suggestion is grounded in what you actually teach — not generic AI advice pulled from the web.
+              Glean's enterprise search already indexes organizational knowledge for Fortune 500 companies. The same RAG architecture that surfaces internal docs for a sales team can index a school's lesson plans, curriculum guides, and LMS materials — grounding every suggestion in what the teacher actually teaches.
             </p>
           </div>
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/privacy.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Privacy by design" />
             <h3 className="text-lg font-semibold tracking-[-0.01em]">Student data stays private — by architecture.</h3>
             <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Glean never stores what a student wrote. Only what they misunderstood. Privacy isn't a policy we added at the end — it's a constraint we built around from day one.
+              Glean never stores what a student wrote — only what they misunderstood. Glean's existing enterprise platform already handles SOC 2, HIPAA, and role-based access controls. FERPA compliance is an extension of infrastructure that already exists, not something built from scratch.
             </p>
           </div>
         </div>
@@ -868,11 +868,11 @@ export function PrdRevampPage() {
             <div>
               <h3 className="text-lg font-semibold tracking-[-0.01em]">The whole school learns, not just one classroom.</h3>
               <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                When a teacher finds a great way to fix a common misconception, that insight doesn't disappear. Glean surfaces it for every teacher in the school. The longer Glean is used, the smarter the whole school gets — a compounding advantage no single-classroom tool can replicate.
+                Glean's knowledge graph connects information across an entire organization. Applied to education, when one teacher finds an effective way to address a common misconception, that insight is surfaced to every teacher in the district who encounters the same gap. The longer Glean is used, the smarter the whole school gets — a compounding data asset no single-classroom tool can replicate.
               </p>
               <div className="mt-4 rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
                 <p className="text-sm font-medium text-primary">
-                  Unlike generic AI that resets with every new user — Glean's value compounds across your entire school.
+                  Glean's enterprise knowledge graph, multimodal AI, and existing district procurement relationships make this a natural extension — not a greenfield bet.
                 </p>
               </div>
             </div>

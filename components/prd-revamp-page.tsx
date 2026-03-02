@@ -405,6 +405,15 @@ export function PrdRevampPage() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Notify on page visit
+  useEffect(() => {
+    fetch("/api/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ referrer: document.referrer || "direct" }),
+    }).catch(() => {})
+  }, [])
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!menuRef.current) return

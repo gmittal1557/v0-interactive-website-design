@@ -965,6 +965,38 @@ export function PrdRevampPage() {
           </div>
         </div>
 
+        <div className="mb-6 rounded-2xl border border-border bg-card p-6">
+          <p className="mb-4 text-[11px] font-mono uppercase tracking-wider text-primary">What's happening under the hood</p>
+          <div className="flex flex-col gap-0 md:flex-row md:items-stretch md:gap-0">
+            {[
+              { step: "Ingest", tech: "School scanner", desc: "Quiz images captured" },
+              { step: "Extract", tech: "GPT-4V / Doc AI", desc: "Handwriting → structured text" },
+              { step: "Classify", tech: "Fine-tuned model", desc: "Misconception tagging + confidence" },
+              { step: "Ground", tech: "Glean Enterprise Search", desc: "Matched to teacher's curriculum" },
+              { step: "Deliver", tech: "Canvas / GClassroom", desc: "Brief in teacher's existing LMS" },
+            ].map((item, i, arr) => (
+              <div key={item.step} className="flex items-stretch md:flex-1">
+                <div className="flex flex-1 flex-col rounded-lg border border-border bg-background p-3 text-center">
+                  <p className="text-xs font-semibold text-foreground">{item.step}</p>
+                  <p className="mt-1 text-[10px] font-mono text-primary">{item.tech}</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">{item.desc}</p>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="flex items-center justify-center px-1 text-muted-foreground/30 md:px-2">
+                    <span className="hidden md:inline">→</span>
+                    <span className="md:hidden">↓</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 rounded-lg border border-primary/15 bg-primary/5 px-4 py-2.5 text-center">
+            <p className="text-xs text-muted-foreground">
+              Each step runs overnight. The teacher's only action is feeding quizzes through the scanner — <span className="text-foreground font-medium">2 minutes at end of day</span>.
+            </p>
+          </div>
+        </div>
+
         <div className="mb-6 rounded-xl border border-border bg-muted/40 px-5 py-4">
           <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
             NOT IN THIS MVP

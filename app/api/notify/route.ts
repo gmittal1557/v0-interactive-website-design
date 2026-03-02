@@ -28,9 +28,13 @@ export async function POST(req: NextRequest) {
     const ua = req.headers.get("user-agent") || "unknown"
     const isMobile = /mobile|android|iphone/i.test(ua)
     const device = isMobile ? "Mobile" : "Desktop"
+    const city = req.headers.get("x-vercel-ip-city") || ""
+    const region = req.headers.get("x-vercel-ip-country-region") || ""
+    const country = req.headers.get("x-vercel-ip-country") || ""
+    const location = [city, region, country].filter(Boolean).join(", ") || "Unknown"
     const timestamp = new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
 
-    const message = `New visitor on Glean for Teachers\n\nDevice: ${device}\nReferrer: ${referrer}\nTime: ${timestamp} ET`
+    const message = `New visitor on Glean for Teachers\n\nDevice: ${device}\nLocation: ${location}\nReferrer: ${referrer}\nTime: ${timestamp} ET`
 
     const tgRes = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,

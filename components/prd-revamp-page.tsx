@@ -675,8 +675,8 @@ export function PrdRevampPage() {
                     </div>
                   ))}
                 </div>
-                {selectedPain === 0 && !hasHovered && (
-                  <p className="mt-2 text-[10px] italic text-muted-foreground/40">Hover any tag to learn more</p>
+                {!hasHovered && (
+                  <p className="mt-2 text-[10px] italic text-muted-foreground/40">Tap any tag for details</p>
                 )}
               </motion.div>
             </AnimatePresence>
@@ -746,7 +746,7 @@ export function PrdRevampPage() {
                 "Gets his quiz back with a score — but no explanation of where he went wrong",
                 "Studies the same way every night, even when it isn't working",
                 "Has no way to know which specific concept is tripping him up",
-                "The help he gets is generic — not tied to what his teacher actually taught him",
+                "Gets generic study advice from the internet — nothing connected to what Sarah actually taught",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-2">
                   <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
@@ -777,11 +777,11 @@ export function PrdRevampPage() {
             Every tool before this made grading faster.
           </p>
           <p className="mt-2 text-center text-xl font-bold leading-snug text-white sm:text-2xl md:text-3xl">
-            Glean makes grading irrelevant.
+            Glean makes the insight automatic.
           </p>
           <div className="mx-auto mt-6 h-[2px] w-12 bg-primary" />
           <p className="mt-4 text-center text-sm text-gray-500">
-            That's the difference between a better tool and a different category.
+            That's the difference between a faster workflow and a smarter classroom.
           </p>
         </motion.div>
 
@@ -799,8 +799,8 @@ export function PrdRevampPage() {
             </div>
             <div className="sm:pl-4">
               <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
-                <p className="text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who to help and how.</p>
-                <p className="mt-2 text-sm text-foreground">The teacher opens a 90-second brief. Knows exactly who to help before class starts.</p>
+                <p className="text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who needs help and on what concept.</p>
+                <p className="mt-2 text-sm text-foreground">Marcus gets a private study hint that night — tied to Sarah's actual lesson, not generic internet advice.</p>
               </div>
             </div>
           </div>
@@ -819,6 +819,7 @@ export function PrdRevampPage() {
           </a>
         </div>
         <p className="mb-3 text-xs italic text-muted-foreground">Click through to explore the teacher and student views</p>
+        <p className="mb-3 text-[11px] text-muted-foreground/60">(Best experienced on desktop — or open directly in v0)</p>
         <iframe
           src={V0_PROTOTYPE_URL}
           width="100%"

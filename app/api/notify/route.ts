@@ -28,9 +28,9 @@ export async function POST(req: NextRequest) {
     const ua = req.headers.get("user-agent") || "unknown"
     const isMobile = /mobile|android|iphone/i.test(ua)
     const device = isMobile ? "Mobile" : "Desktop"
-    const timestamp = new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
+    const timestamp = new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
 
-    const message = `New visitor on Glean for Teachers\n\nDevice: ${device}\nReferrer: ${referrer}\nTime: ${timestamp} PT`
+    const message = `New visitor on Glean for Teachers\n\nDevice: ${device}\nReferrer: ${referrer}\nTime: ${timestamp} ET`
 
     const tgRes = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,

@@ -1,143 +1,165 @@
-# Glean for Teachers — Interactive PRD Website
+# Glean for Teachers — Product Spec
 
-An interactive, scroll-based product narrative for a **Forward Deployed PM take-home**.
-Built in **Next.js + React + Tailwind + Framer Motion** with rich section-level interactions.
+Live demo: [https://gleanforteachers.vercel.app/](https://gleanforteachers.vercel.app/)
 
-- Live site: [https://gleanforteachers.vercel.app/](https://gleanforteachers.vercel.app/)
-- Stack: Next.js 16, React 19, Tailwind, Framer Motion, Lucide
+## 1) Product Summary
 
----
+**Glean for Teachers** is a learning intelligence layer for middle and high school classrooms.
+It converts student work into high-confidence misconception signals so teachers can intervene **before** failure compounds.
 
-## What This Project Is
+Core promise:
+- Less time grading
+- More time teaching
+- Better in-class decisions before the next period starts
 
-This site is a narrative PRD experience, not a static doc. It walks through:
+## 2) Who This Is For
 
-1. The core problem in classrooms
-2. Personas (teacher + student)
-3. North-star product vision
-4. Why Glean is defensible
-5. MVP scope and phased plan
-6. MVP technical spec and GTM details
-7. Open questions and close
+Primary user:
+- **Teacher** (MVP focus)
 
-It is designed for fast scanning with progressive depth:
-- top-level story for first-pass readers
-- interactive detail layers for deeper review
+Secondary users (later phases):
+- Student
+- Department head / school leadership
+- District stakeholders
 
----
+## 3) Problem Statement
 
-## Visual Architecture
+Today’s grading workflow creates delayed, low-quality feedback loops:
+- Teachers learn about gaps too late (often weeks later)
+- Grading consumes time needed for targeted intervention
+- Scores explain outcomes, not causes
 
-```mermaid
-flowchart TD
-  A[Cover + TOC] --> B[01 Core Problem]
-  B --> C[02 Personas]
-  C --> D[03 Vision]
-  D --> E[04 Why Glean]
-  E --> F[05 The Plan]
-  F --> G[06 MVP Spec]
-  G --> H[08 Open Questions]
-  H --> I[09 Close]
-```
+Result: teachers teach without reliable signal, and students keep building on weak foundations.
 
-### Section rendering model
+## 4) North Star Vision
 
-- `SectionDivider` (beige separator)
-- `Slide` (full-screen content block)
-- sticky header + dropdown navigation + scroll progress bar
+A teacher starts the day with a short, trusted brief:
+- Who is likely stuck
+- On which concept
+- What to do in class immediately
 
----
+The product shifts classrooms from **reactive grading** to **predictive teaching**.
 
-## Tech Stack
+## 5) MVP Scope (Teacher-Only)
 
-- **Framework**: Next.js (App Router)
-- **UI**: React + Tailwind CSS
-- **Animation**: Framer Motion (`AnimatePresence`, entrance/transitions)
-- **Icons**: Lucide React
-- **Deployment**: Vercel
+### In scope
+- Quiz ingestion from existing school scanner workflow
+- OCR + misconception classification pipeline
+- Confidence-scored teacher brief before class
+- Curriculum-grounded reteach recommendations in teacher LMS context
 
----
+### Explicitly out of scope (MVP)
+- Student-facing hinting/study companion
 
-## Key File Map
+Rationale:
+- Trust must be earned with teachers first
+- Student surfaces are unlocked after teacher-loop reliability is proven
 
+## 6) MVP Workflow
+
+1. **Scan**: Teacher submits quizzes (2-minute end-of-day action)
+2. **Analyze**: Overnight OCR + classification + confidence scoring
+3. **Brief**: Teacher sees high-signal flags before class
+4. **Teach**: Teacher adjusts lesson based on grounded recommendations
+
+## 7) Product Requirements
+
+### Functional requirements
+- Ingest scanned student work reliably
+- Extract structured responses from messy handwriting
+- Classify misconceptions at concept level
+- Retrieve curriculum-aligned guidance from school materials
+- Deliver teacher brief in existing workflow (Canvas/Google Classroom context)
+
+### Non-functional requirements
+- Privacy-first storage model (structured insights, not raw student text)
+- <2s retrieval response for surfaced recommendations
+- High precision default threshold for trust protection
+
+## 8) Technical Architecture (MVP)
+
+Pipeline:
+- Scanner input
+- Text recognition (`GPT-4V` / `Google Doc AI`)
+- Fine-tuned misconception classifier
+- Curriculum retrieval via Glean-style enterprise search
+- Teacher brief delivery
+
+Key design choices:
+- **Precision over recall** early on
+- **Privacy by design** as architecture, not policy
+
+## 9) Go-to-Market Plan
+
+Pilot motion:
+- 30-day free pilot with one Algebra 2 teacher
+- Weeks 1–2: setup + first scans
+- Weeks 3–4: live classroom use
+
+Commercial motion:
+- Department head proof -> principal confidence -> school budget
+- School license first; district expansion after clear outcomes
+
+Why Algebra 2 first:
+- Standardized concept progression
+- Frequent misconception patterns
+- Fast evidence loop within a term
+
+## 10) Success Metrics
+
+### MVP (must-pass)
+- 70%+ teachers open morning summary before 3+ classes/week
+- 8+ hours/week grading time reclaimed
+- 50%+ classes show lesson adjustment based on brief
+- 75%+ surfaced flags are acted on by teachers
+
+### Next questions (post-MVP)
+- Do student outcomes improve vs control classes?
+- Does student engagement sustain once student tooling is introduced?
+
+## 11) Open Questions
+
+1. Will teachers change planned lessons based on AI signal under classroom pressure?
+2. What confidence threshold maximizes trust without missing too many true gaps?
+3. How much FERPA/compliance friction appears in district procurement?
+4. Does classifier quality generalize beyond math-heavy subjects?
+
+## 12) Repository Implementation Map
+
+Core implementation is in:
 - `components/prd-revamp-page.tsx`
-  - Main page component
-  - Section content, data arrays, and interaction state
+
+Primary editable content models:
+- `sectionItems` (navigation/section structure)
+- `mvpSteps` (MVP walkthrough)
+- `roadmapPhases` (phase progression)
+- `V0_PROTOTYPE_URL` (embedded prototype source)
+- `ecosystemNodes` (impact modal)
+
+Assets:
 - `public/videos/personas.mp4`
-  - Center persona video asset
 - `public/images/*.jpg`
-  - Why Glean section imagery
 
----
-
-## Local Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Run
+## 13) Local Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open: `http://localhost:3000` (or next available port)
-
-### Production build
+Build:
 
 ```bash
 npm run build
 npm run start
 ```
 
----
+## 14) Deployment
 
-## Interaction Design Notes
-
-- **Sticky top nav** with section-aware active state
-- **Progress bar** tied to scroll depth
-- **Tabbed deep-dive spec** for architecture / GTM / metrics
-- **Animated modal** for ecosystem-level impact
-- **Interactive cards/tables** for skim-first comprehension
+- Host: Vercel
+- Base branch: `main`
+- Production URL: [https://gleanforteachers.vercel.app/](https://gleanforteachers.vercel.app/)
 
 ---
 
-## Content/UX Principles Used
-
-- Keep primary narrative linear
-- Put detail behind interaction affordances
-- Prioritize teacher-loop proof in MVP before student tooling
-- Make strategic tradeoffs explicit (signal precision, privacy by design)
-
----
-
-## Deployment
-
-This project is Vercel-ready.
-
-1. Connect GitHub repo in Vercel
-2. Set branch to `main`
-3. Deploy
-
-Any push to `main` can auto-deploy.
-
----
-
-## Customization Pointers
-
-In `components/prd-revamp-page.tsx`, update:
-
-- `sectionItems` for nav labels/order
-- `mvpSteps` for plan walkthrough content
-- `roadmapPhases` for phased rollout language
-- `V0_PROTOTYPE_URL` for embedded prototype source
-- `ecosystemNodes` for impact modal content
-
----
-
-## License
-
-Private interview/take-home project content.
+This README captures the product spec represented by the interactive website.

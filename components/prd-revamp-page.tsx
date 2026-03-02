@@ -1184,7 +1184,7 @@ export function PrdRevampPage() {
                       <div>
                         <p className="text-sm font-semibold">Key risks</p>
                         <p className={cn("mt-1 text-xs", openRisk ? "text-primary-foreground/70" : "text-muted-foreground")}>
-                          3 risks we've already planned for
+                          4 risks we've already planned for
                         </p>
                       </div>
                       {openRisk ? (
@@ -1216,6 +1216,7 @@ export function PrdRevampPage() {
                                 mitigation: "Teacher can override with one click",
                               },
                               { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
+                              { risk: "Student identity resolution on paper quizzes", mitigation: "MVP generates printable quizzes with per-student QR codes. Deterministic match to roster — no reliance on handwriting recognition for identity." },
                             ].map((item) => (
                               <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
                                 <p className="text-xs font-semibold">{item.risk}</p>

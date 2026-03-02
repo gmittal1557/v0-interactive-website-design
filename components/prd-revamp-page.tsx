@@ -1379,7 +1379,7 @@ export function PrdRevampPage() {
 
       <Slide
         id="openquestions"
-        badge="08 OPEN QUESTIONS"
+        badge="07 OPEN QUESTIONS"
         title="What we'll learn as we build."
         subtitle="Four questions we don't yet have perfect answers to — and how we'll get them."
       >

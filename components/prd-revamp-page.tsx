@@ -286,6 +286,7 @@ function Slide({
   badge,
   title,
   subtitle,
+  headerExtra,
   children,
   narrow = false,
 }: {
@@ -293,6 +294,7 @@ function Slide({
   badge?: string
   title: string
   subtitle?: string
+  headerExtra?: React.ReactNode
   children: React.ReactNode
   narrow?: boolean
 }) {
@@ -305,6 +307,7 @@ function Slide({
           )}
           <h2 className="max-w-4xl text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-5xl">{title}</h2>
           {subtitle && <p className="mt-4 max-w-3xl text-base leading-[1.72] text-muted-foreground md:text-lg">{subtitle}</p>}
+          {headerExtra}
         </header>
         {children}
       </div>
@@ -617,8 +620,8 @@ export function PrdRevampPage() {
         badge="01 THE CORE PROBLEM"
         title="By the time a teacher knows a student is struggling, it's often too late."
         subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
+        headerExtra={<p className="mt-2 text-[10px] text-muted-foreground/40 italic">Sources: NCES Teacher Survey, McKinsey K-12 research, National Education Association</p>}
       >
-        <p className="mt-2 text-[10px] text-muted-foreground/40 italic">Sources: NCES Teacher Survey, McKinsey K-12 research, National Education Association</p>
         <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex h-full flex-col gap-3">
             <p className="mb-3 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">Select a problem</p>

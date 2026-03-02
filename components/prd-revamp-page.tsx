@@ -686,6 +686,14 @@ export function PrdRevampPage() {
             </AnimatePresence>
           </div>
         </div>
+        <div className="mt-10 rounded-xl border border-primary/20 bg-primary/5 px-6 py-5 text-center">
+          <p className="text-sm font-semibold text-foreground md:text-base">
+            The problem isn't grading speed. It's signal latency.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            The information to help every student already exists in the teacher's quizzes and assignments — it's just never been extracted, structured, and delivered before class starts.
+          </p>
+        </div>
       </Slide>
 
       <SectionDivider title="Meet Sarah and Marcus" />

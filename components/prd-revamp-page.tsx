@@ -884,7 +884,7 @@ export function PrdRevampPage() {
 
       <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
         <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
-          We're not trying to boil the ocean. We're starting with the smallest version that proves one thing: teachers get a reliable signal and act on it before the next class.
+          The MVP proves one thing: if teachers get a reliable misconception signal from existing student work, will they act on it before the next class?
         </p>
 
         <div className="mb-6 rounded-2xl border border-border bg-card p-6">
@@ -896,7 +896,7 @@ export function PrdRevampPage() {
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="text-[11px] italic text-muted-foreground"
               >
-                ← click each step to explore
+                ← explore each step
               </motion.span>
             )}
           </div>

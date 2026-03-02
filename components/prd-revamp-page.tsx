@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Github,
   GraduationCap,
+  Info,
   Lock,
   Radar,
   ShieldCheck,
@@ -343,10 +344,15 @@ export function PrdRevampPage() {
   const [activeSection, setActiveSection] = useState("cover")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedPain, setSelectedPain] = useState(0)
+  const [hasHovered, setHasHovered] = useState(false)
   const [activeCycle, setActiveCycle] = useState(0)
   const [activeAudience, setActiveAudience] = useState<"teacher" | "student">("teacher")
   const [activeMvpStep, setActiveMvpStep] = useState(0)
   const [roadmapOpen, setRoadmapOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<"built" | "gtm" | "metrics">("built")
+  const [openRisk, setOpenRisk] = useState(false)
+  const [openPrinciples, setOpenPrinciples] = useState(false)
+  const [personasVideoError, setPersonasVideoError] = useState(false)
   const [impactModalOpen, setImpactModalOpen] = useState(false)
   const [hoveredNode, setHoveredNode] = useState<number | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -414,6 +420,22 @@ export function PrdRevampPage() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
     setIsMenuOpen(false)
+  }
+
+  const toggleRisk = () => {
+    setOpenRisk((prev) => {
+      const next = !prev
+      if (next) setOpenPrinciples(false)
+      return next
+    })
+  }
+
+  const togglePrinciples = () => {
+    setOpenPrinciples((prev) => {
+      const next = !prev
+      if (next) setOpenRisk(false)
+      return next
+    })
   }
 
   return (
@@ -549,25 +571,31 @@ export function PrdRevampPage() {
         subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
       >
         <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-3">
+          <div className="flex h-full flex-col gap-3">
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">Select a problem</p>
             {painPoints.map((point, idx) => (
               <button
                 key={point.title}
                 onClick={() => setSelectedPain(idx)}
                 className={cn(
-                  "w-full rounded-xl border p-4 text-left transition",
+                  "w-full flex-1 cursor-pointer rounded-xl border p-4 text-left transition hover:border-l-[3px] hover:border-l-primary/50",
                   selectedPain === idx
                     ? "border-primary/35 border-l-[3px] border-l-primary bg-primary/10"
                     : "border-border bg-card hover:border-primary/30"
                 )}
               >
-                <p className="text-[11px] font-mono uppercase tracking-wider text-primary">{point.stat}</p>
-                <p className="mt-1 text-sm font-semibold">{point.title}</p>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-mono uppercase tracking-wider text-primary">{point.stat}</p>
+                    <p className="mt-1 text-sm font-semibold">{point.title}</p>
+                  </div>
+                  <ChevronRight className={cn("mt-0.5 h-3.5 w-3.5 shrink-0", selectedPain === idx ? "text-primary" : "text-muted-foreground")} />
+                </div>
               </button>
             ))}
           </div>
 
-          <div className="h-full rounded-2xl border border-border bg-card p-6">
+          <div className="h-full min-h-[400px] rounded-2xl border border-border bg-card p-6">
             <p className="text-xs font-mono uppercase tracking-wider text-primary">WHAT THIS MEANS</p>
             <AnimatePresence mode="wait">
               <motion.div
@@ -586,9 +614,12 @@ export function PrdRevampPage() {
                 <p className="mt-3 text-sm leading-[1.72] text-muted-foreground">{painPoints[selectedPain].detail}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {painPoints[selectedPain].tags.map((tag) => (
-                    <div key={tag.label} className="group relative">
-                      <div className="cursor-default rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-primary/5">
-                        {tag.label}
+                    <div key={tag.label} className="group relative" onMouseEnter={() => setHasHovered(true)}>
+                      <div className="cursor-default rounded-lg border border-dashed border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-primary/5">
+                        <span className="inline-flex items-center gap-1.5">
+                          {tag.label}
+                          <Info className="h-3 w-3 text-muted-foreground/50" />
+                        </span>
                       </div>
                       <div className="absolute bottom-full left-0 z-10 mb-2 hidden w-52 rounded-lg border border-border bg-background p-2 text-xs text-muted-foreground shadow-lg group-hover:block">
                         {tag.explanation}
@@ -596,6 +627,9 @@ export function PrdRevampPage() {
                     </div>
                   ))}
                 </div>
+                {selectedPain === 0 && !hasHovered && (
+                  <p className="mt-2 text-[10px] italic text-muted-foreground/40">Hover any tag to learn more</p>
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -605,16 +639,15 @@ export function PrdRevampPage() {
       <SectionDivider title="Meet Sarah and Marcus" />
 
       <Slide id="personas" badge="02 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
-        <video autoPlay loop muted playsInline className="mb-8 w-full rounded-2xl object-cover max-h-64 bg-muted">
-          <source src="/videos/personas.mp4" type="video/mp4" />
-        </video>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-6">
+          <div className="h-full rounded-2xl border border-border bg-card p-6">
             <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
               <GraduationCap className="h-3.5 w-3.5" />
               A week in Sarah's life
             </div>
-            <p className="mb-4 text-sm text-muted-foreground">Sarah teaches Algebra 2 to 90 students across 3 classes. Here's what her week actually looks like.</p>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Sarah teaches Algebra 2 to 90 students across 3 classes. Here's what her week actually looks like.
+            </p>
             <div className="space-y-3 text-sm text-muted-foreground">
               {[
                 "12-15 hours spent grading",
@@ -630,30 +663,48 @@ export function PrdRevampPage() {
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <p className="text-xs font-mono uppercase tracking-wider text-primary">A week in Marcus's life</p>
-              <p className="mb-4 mt-3 text-sm text-muted-foreground">Marcus is a 10th grader in Sarah's class. He studies hard but often doesn't know what he's actually getting wrong.</p>
-            </div>
+          <div className="w-[280px]">
+            {personasVideoError ? (
+              <div className="flex h-full max-h-[480px] min-h-[420px] w-full items-center justify-center rounded-2xl bg-muted">
+                <p className="text-sm text-muted-foreground">Video loading...</p>
+              </div>
+            ) : (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                onError={() => setPersonasVideoError(true)}
+                className="h-full max-h-[480px] w-full rounded-2xl object-cover"
+              >
+                <source src="/videos/personas.mp4" type="video/mp4" />
+              </video>
+            )}
+            <p className="mt-3 text-center text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+              A day in the life
+            </p>
+          </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
-                <BookOpen className="h-3.5 w-3.5" />
-                What he sees
-              </div>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                {[
-                  "Gets his quiz back with a score — but no explanation of where he went wrong",
-                  "Studies the same way every night, even when it isn't working",
-                  "Has no way to know which specific concept is tripping him up",
-                  "The help he gets is generic — not tied to what his teacher actually taught him",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="h-full rounded-2xl border border-border bg-card p-6">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
+              <BookOpen className="h-3.5 w-3.5" />
+              A week in Marcus's life
+            </div>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Marcus is a 10th grader in Sarah's class. He studies hard but often doesn't know what he's actually getting wrong.
+            </p>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "Gets his quiz back with a score — but no explanation of where he went wrong",
+                "Studies the same way every night, even when it isn't working",
+                "Has no way to know which specific concept is tripping him up",
+                "The help he gets is generic — not tied to what his teacher actually taught him",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <ArrowRight className="mt-0.5 h-3.5 w-3.5 text-primary" />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -868,71 +919,205 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="The Details" />
-      <Slide id="details" badge="06 DEEP DIVE" title="Want to go deeper? It's all here.">
-        <div className="space-y-4">
-          <CollapsibleDrawer title="How it's built">
+      <SectionDivider title="The MVP" />
+      <Slide
+        id="details"
+        badge="06 MVP SPEC"
+        title="The MVP, in detail."
+      >
+        <div className="space-y-6">
+          <div className="flex flex-wrap gap-2">
+            {[
+              { key: "built", label: "How it's built" },
+              { key: "gtm", label: "Go-to-Market" },
+              { key: "metrics", label: "Success Metrics" },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key as "built" | "gtm" | "metrics")}
+                className={cn(
+                  "rounded-lg border px-4 py-2 text-sm transition",
+                  activeTab === tab.key
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border text-muted-foreground hover:border-primary/40"
+                )}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {activeTab === "built" && (
             <div className="space-y-6">
-              <div>
-                <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">The flow</p>
-                <div className="flex flex-wrap items-center gap-2">
-                  {[
-                    { node: "Scanner", tech: "School scanner" },
-                    { node: "OCR", tech: "GPT-4V / Google Doc AI" },
-                    { node: "Classifier", tech: "Fine-tuned model" },
-                    { node: "RAG", tech: "Glean Enterprise Search" },
-                    { node: "Teacher Brief", tech: "Canvas / Google Classroom" },
-                  ].map((item, i, arr) => (
-                    <div key={item.node} className="flex items-center gap-2">
-                      <div className="rounded-lg border border-border bg-background p-3 text-center">
-                        <p className="text-xs font-semibold">{item.node}</p>
-                        <p className="text-[10px] text-muted-foreground">{item.tech}</p>
-                      </div>
-                      {i < arr.length - 1 && <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />}
+              <div className="overflow-hidden rounded-xl border border-border">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40">
+                    <tr className="border-b border-border">
+                      <th className="px-4 py-3 text-left font-semibold">Step</th>
+                      <th className="px-4 py-3 text-left font-semibold">What happens</th>
+                      <th className="px-4 py-3 text-left font-semibold">Tech</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {
+                        step: "Submit",
+                        what: "Teacher feeds quiz into the school scanner",
+                        tech: "School scanner",
+                      },
+                      {
+                        step: "Extract",
+                        what: "Handwriting converted to structured text",
+                        tech: "GPT-4V / Google Doc AI",
+                      },
+                      {
+                        step: "Classify",
+                        what: "Each answer mapped to a concept and scored for confidence",
+                        tech: "Fine-tuned misconception classifier",
+                      },
+                      {
+                        step: "Retrieve",
+                        what: "Gap matched to teacher's own curriculum materials",
+                        tech: "Glean Enterprise Search",
+                      },
+                      {
+                        step: "Deliver",
+                        what: "Summary pushed to teacher's LMS before next class",
+                        tech: "Canvas / Google Classroom",
+                      },
+                    ].map((row, idx) => (
+                      <tr
+                        key={row.step}
+                        className={cn(
+                          "border-b border-border last:border-b-0 hover:bg-muted/30",
+                          idx % 2 === 0 ? "bg-background" : "bg-muted/10"
+                        )}
+                      >
+                        <td className="px-4 py-3 font-semibold">{row.step}</td>
+                        <td className="px-4 py-3">{row.what}</td>
+                        <td className="px-4 py-3 text-muted-foreground">{row.tech}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <button
+                  onClick={toggleRisk}
+                  className="rounded-2xl border border-border bg-card px-5 py-4 text-left"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold">Key risks</p>
+                      <p className="mt-1 text-xs text-muted-foreground">3 risks we've already planned for</p>
                     </div>
-                  ))}
+                    <ChevronRight className={cn("mt-0.5 h-4 w-4 text-muted-foreground transition-transform", openRisk && "rotate-90")} />
+                  </div>
+                </button>
+
+                <button
+                  onClick={togglePrinciples}
+                  className="rounded-2xl border border-border bg-card px-5 py-4 text-left"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold">Design principles</p>
+                      <p className="mt-1 text-xs text-muted-foreground">2 decisions that shaped the architecture</p>
+                    </div>
+                    <ChevronRight
+                      className={cn("mt-0.5 h-4 w-4 text-muted-foreground transition-transform", openPrinciples && "rotate-90")}
+                    />
+                  </div>
+                </button>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {openRisk && (
+                  <motion.div
+                    key="risk-panel"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        {
+                          risk: "OCR on messy handwriting",
+                          mitigation: "85% confidence threshold + teacher review flag",
+                        },
+                        {
+                          risk: "Misconception misclassification",
+                          mitigation: "Teacher can override with one click",
+                        },
+                        { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
+                      ].map((item) => (
+                        <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
+                          <p className="text-xs font-semibold">{item.risk}</p>
+                          <p className="mt-1 text-xs text-muted-foreground">{item.mitigation}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+                {openPrinciples && (
+                  <motion.div
+                    key="principles-panel"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        {
+                          principle: "Precision over recall",
+                          detail: "We'd rather flag 5 students we're sure about than flag 20 and be wrong half the time",
+                        },
+                        {
+                          principle: "Privacy by design",
+                          detail:
+                            "Glean never saves what a student wrote — only what they got wrong. Not policy — architecture",
+                        },
+                      ].map((item) => (
+                        <div key={item.principle} className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                          <p className="text-xs font-semibold">{item.principle}</p>
+                          <p className="mt-1 text-xs text-muted-foreground">{item.detail}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {activeTab === "gtm" && (
+            <div className="space-y-5">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <p className="text-xs font-mono uppercase tracking-wider text-primary">Pilot</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    30-day free pilot with one Algebra 2 teacher. Weeks 1-2: setup + first scan. Weeks 3-4: first brief + classroom use.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <p className="text-xs font-mono uppercase tracking-wider text-primary">Prove</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Department Head sees results. Principal gets summary report. Trust is earned before we ask for budget.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <p className="text-xs font-mono uppercase tracking-wider text-primary">Scale</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    School-wide license at ~$500-800/month. District license once outcomes are proven across subjects.
+                  </p>
                 </div>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-3">
-                {[
-                  "OCR accuracy on messy handwriting -> 85% confidence threshold + teacher review flag",
-                  "Misconception misclassification -> teacher override with one click",
-                  "Retrieval latency -> hard 2-second limit before launch",
-                ].map((risk) => (
-                  <div key={risk} className="rounded-xl border border-border bg-background p-3 text-xs text-muted-foreground">
-                    {risk}
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid gap-3 md:grid-cols-2">
-                {[
-                  "We'd rather flag 5 students we're sure about than flag 20 and be wrong half the time",
-                  "Glean never saves what a student wrote - only what they got wrong. Privacy by design, not policy",
-                ].map((t) => (
-                  <div key={t} className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-muted-foreground">
-                    {t}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CollapsibleDrawer>
-
-          <CollapsibleDrawer title="How we get into schools">
-            <div className="space-y-5 text-sm text-muted-foreground">
-              <p>
-                <span className="font-semibold text-foreground">Who we sell to:</span> Department Head &rarr; results
-                visible &rarr; Principal &rarr; District
-              </p>
-              <p>
-                <span className="font-semibold text-foreground">30-day free pilot:</span> Week 1-2 (setup + first scan)
-                &rarr; Week 3-4 (first brief + classroom use)
-              </p>
-              <p>
-                <span className="font-semibold text-foreground">Pricing:</span> Flat monthly fee per school
-                (~$500-800/month), district license once proven
-              </p>
               <div className="rounded-xl border border-border bg-background p-4">
                 <p className="text-sm font-semibold text-foreground">Why Algebra 2 first</p>
                 <div className="mt-2 space-y-2 text-xs">
@@ -949,45 +1134,58 @@ export function PrdRevampPage() {
                   ))}
                 </div>
               </div>
-              <p className="text-xs">
+              <p className="text-xs italic text-muted-foreground">
                 The grading objection addressed: Scanner already in school, Canvas already used, teacher's only new
                 action is feeding quizzes through scanner.
               </p>
             </div>
-          </CollapsibleDrawer>
+          )}
 
-          <CollapsibleDrawer title="How we know it's working">
+          {activeTab === "metrics" && (
             <div className="space-y-5">
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                {detailsMetrics.v0.map((metric) => (
-                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
-                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
-                  </div>
-                ))}
+              <div>
+                <p className="mb-3 text-sm font-semibold tracking-[-0.01em]">MVP targets</p>
+                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                  {detailsMetrics.v0.map((metric) => (
+                    <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
+                      <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {detailsMetrics.v1.map((metric) => (
-                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
-                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
-                  </div>
-                ))}
+
+              <div>
+                <p className="mb-3 text-sm font-semibold tracking-[-0.01em]">Later phase goals</p>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {[
+                    {
+                      target: "Measurable test score lift",
+                      label: "Improvement in unit assessments vs. control classrooms (target: 0.3+ SD effect size)",
+                    },
+                    {
+                      target: "60%+ student return rate",
+                      label: "Students use the study companion more than once per week",
+                    },
+                    {
+                      target: "District-wide adoption",
+                      label: "Expansion across multiple subjects in at least one district within 12 months",
+                    },
+                  ].map((metric) => (
+                    <div key={metric.target} className="rounded-xl border border-border bg-background p-4">
+                      <p className="text-base font-semibold tracking-[-0.01em] text-primary">{metric.target}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {detailsMetrics.v2.map((metric) => (
-                  <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
-                    <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
-                  </div>
-                ))}
-              </div>
+
               <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm leading-[1.72] text-muted-foreground">
                 Teachers catch learning gaps before the exam. Students arrive at test day knowing exactly what they
                 understood — and what they didn't.
               </div>
             </div>
-          </CollapsibleDrawer>
+          )}
         </div>
       </Slide>
 

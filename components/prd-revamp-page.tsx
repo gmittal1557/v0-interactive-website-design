@@ -29,13 +29,15 @@ const sectionItems = [
   { id: "toc", label: "Table of Contents", nav: "" },
   { id: "pain", label: "The Core Problem", nav: "The Problem" },
   { id: "personas", label: "Who This Is For", nav: "Personas" },
-  { id: "vision", label: "North Star", nav: "Vision" },
+  { id: "vision", label: "The Vision", nav: "Vision" },
   { id: "whyglean", label: "Why Glean?", nav: "Why Glean" },
-  { id: "mvp", label: "How We Start", nav: "The Plan" },
-  { id: "details", label: "The Details", nav: "Details" },
+  { id: "mvp", label: "The MVP", nav: "The Plan" },
+  { id: "details", label: "MVP Spec", nav: "MVP Spec" },
+  { id: "openquestions", label: "Open Questions", nav: "Open Questions" },
   { id: "close", label: "Close", nav: "Close" },
 ]
 
+// TODO: Replace with your live v0 embed URL before submission
 const V0_PROTOTYPE_URL = "https://v0-glean-for-teachers-prototype.vercel.app/"
 
 const painPoints = [
@@ -81,8 +83,8 @@ const mvpSteps = [
   {
     label: "SCAN",
     who: "TEACHER — End of school day",
-    what: "Sarah feeds the day's quizzes into the school scanner. That's it. Takes 2 minutes. Glean does everything else overnight.",
-    why: "This is the only action Sarah needs to take. Everything else is automatic.",
+    what: "The teacher feeds the day's quizzes into the school scanner. That's it. Takes 2 minutes. Glean does everything else overnight.",
+    why: "This is the only action the teacher needs to take. Everything else is automatic.",
   },
   {
     label: "ANALYZE",
@@ -93,13 +95,13 @@ const mvpSteps = [
   {
     label: "BRIEF",
     who: "TEACHER — Next morning",
-    what: "Sarah opens a simple summary before class. It shows which students are struggling, with what topic, and how confident Glean is.",
+    what: "The teacher opens a simple summary before class. It shows which students need attention, on what topic, and how confident Glean is.",
     why: "One glance gives Sarah everything she needs to adjust her lesson.",
   },
   {
     label: "TEACH",
     who: "TEACHER — In class",
-    what: "Sarah adjusts her lesson based on what Glean found. The suggestion comes directly from her own Unit 4 materials — not generic internet advice.",
+    what: "The teacher adjusts the lesson based on what Glean found. Every suggestion comes directly from their own curriculum materials — not generic internet advice.",
     why: "The fix is grounded in what Sarah already teaches. No extra prep needed.",
   },
 ]
@@ -127,7 +129,7 @@ const whyGleanCards = [
 
 const ecosystemNodes = [
   {
-    icon: "👩‍🏫",
+    icon: "teachers",
     label: "Teachers",
     tagline: "Finally have time to actually teach",
     outcomes: [
@@ -137,7 +139,7 @@ const ecosystemNodes = [
     ],
   },
   {
-    icon: "🧑‍🎓",
+    icon: "students",
     label: "Students",
     tagline: "Stop guessing. Start understanding.",
     outcomes: [
@@ -147,7 +149,7 @@ const ecosystemNodes = [
     ],
   },
   {
-    icon: "🏫",
+    icon: "school",
     label: "School",
     tagline: "Better scores, more funding, stronger rep",
     outcomes: [
@@ -157,7 +159,7 @@ const ecosystemNodes = [
     ],
   },
   {
-    icon: "👨‍👩‍👧",
+    icon: "parents",
     label: "Parents",
     tagline: "Know how their child is really doing",
     outcomes: [
@@ -347,6 +349,7 @@ export function PrdRevampPage() {
   const [activeMvpStep, setActiveMvpStep] = useState(0)
   const [roadmapOpen, setRoadmapOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<"built" | "gtm" | "metrics">("built")
+  const [hasTabInteracted, setHasTabInteracted] = useState(false)
   const [openRisk, setOpenRisk] = useState(false)
   const [openPrinciples, setOpenPrinciples] = useState(false)
   const [openAlgebraWhy, setOpenAlgebraWhy] = useState(false)
@@ -699,7 +702,7 @@ export function PrdRevampPage() {
               </video>
             )}
             <p className="mt-3 text-center text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-              A day in the life
+              A week without Glean
             </p>
           </div>
 
@@ -734,7 +737,7 @@ export function PrdRevampPage() {
         id="vision"
         badge="03 NORTH STAR"
         title="Less time marking papers. More time actually helping students."
-        subtitle="Glean works on two sides at once. Teachers get a clear picture of who is struggling and what to do. Students get specific, private guidance on what to fix. Both powered by the same overnight analysis."
+        subtitle="Glean gives teachers a clear picture of who is struggling and exactly what to do — powered by overnight analysis of student work. No extra grading. No guessing. Just signal."
       >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -756,19 +759,21 @@ export function PrdRevampPage() {
         </motion.div>
 
         <div className="mb-8 rounded-2xl border border-border bg-card p-6">
+          <div className="mb-3 grid grid-cols-2">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-red-400">BEFORE</p>
+            <p className="text-[10px] font-mono uppercase tracking-wider text-primary">WITH GLEAN</p>
+          </div>
           <div className="grid grid-cols-2 divide-x divide-border">
             <div className="pr-4">
               <div className="rounded-xl border border-red-100 bg-red-50 p-4">
-                <p className="text-xs font-mono uppercase tracking-wider text-red-600">TODAY</p>
-                <p className="mt-2 text-sm text-foreground">Sarah grades for 12 hours. Finds out Marcus was lost 3 weeks later.</p>
+                <p className="text-sm text-foreground">Sarah grades for 12 hours. Finds out Marcus was lost 3 weeks later.</p>
                 <p className="mt-2 text-sm text-foreground">Marcus gets a score. Studies the wrong things all week.</p>
               </div>
             </div>
             <div className="pl-4">
               <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
-                <p className="text-xs font-mono uppercase tracking-wider text-primary">WITH GLEAN</p>
-                <p className="mt-2 text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who to help and how.</p>
-                <p className="mt-2 text-sm text-foreground">Marcus gets a precise hint. Studies the right thing that night.</p>
+                <p className="text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who to help and how.</p>
+                <p className="mt-2 text-sm text-foreground">The teacher opens a 90-second brief. Knows exactly who to help before class starts.</p>
               </div>
             </div>
           </div>
@@ -847,7 +852,7 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="The MVP" />
+      <SectionDivider title="Building the MVP" />
 
       <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
         <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
@@ -979,13 +984,25 @@ export function PrdRevampPage() {
         </div>
       </Slide>
 
-      <SectionDivider title="The MVP" />
+      <SectionDivider title="The MVP Spec" />
       <Slide
         id="details"
         badge="06 MVP SPEC"
         title="The MVP, in detail."
       >
-        <div className="space-y-6">
+        <div className="rounded-2xl border border-border bg-card p-6">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">EXPLORE THE SPEC</p>
+            {!hasTabInteracted && (
+              <motion.span
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="text-[11px] italic text-muted-foreground"
+              >
+                ← select a view
+              </motion.span>
+            )}
+          </div>
           <div className="flex flex-wrap gap-2">
             {[
               { key: "built", label: "How it's built" },
@@ -994,19 +1011,24 @@ export function PrdRevampPage() {
             ].map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => setActiveTab(tab.key as "built" | "gtm" | "metrics")}
+                onClick={() => {
+                  setActiveTab(tab.key as "built" | "gtm" | "metrics")
+                  if (tab.key !== "built") setHasTabInteracted(true)
+                }}
                 className={cn(
-                  "rounded-lg border px-4 py-2 text-sm transition",
+                  "rounded-lg border px-4 py-2 text-sm transition-all duration-150",
                   activeTab === tab.key
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border text-muted-foreground hover:border-primary/40"
+                    : "border border-border bg-muted text-muted-foreground hover:border-primary/40 hover:bg-muted/80 hover:text-foreground"
                 )}
               >
+                <span className={cn("mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary/40", activeTab === tab.key && "hidden")} />
                 {tab.label}
               </button>
             ))}
           </div>
 
+          <div className="mt-6">
           {activeTab === "built" && (
             <div className="space-y-6">
               <div className="overflow-hidden rounded-xl border border-border">
@@ -1319,6 +1341,90 @@ export function PrdRevampPage() {
               </div>
             </div>
           )}
+          </div>
+        </div>
+      </Slide>
+
+      <SectionDivider title="Open Questions" />
+
+      <Slide
+        id="openquestions"
+        badge="08 OPEN QUESTIONS"
+        title="What we'll learn as we build."
+        subtitle="Four questions we don't yet have perfect answers to — and how we'll get them."
+      >
+        <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="flex flex-col gap-4 rounded-2xl border border-border border-l-[3px] border-l-primary bg-card p-6">
+            <div>
+              <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">01</p>
+              <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
+                Will a teacher change their lesson based on an AI signal — on a Monday morning with 30 students waiting?
+              </p>
+            </div>
+            <p className="text-sm italic leading-relaxed text-muted-foreground">
+              If teachers read the brief but don't act on it, Glean is a nice-to-have — not a must-have.
+            </p>
+            <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
+              <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Track lesson adjustment rate in weeks 2–4 of the pilot. Under 30% adoption means the signal presentation needs rethinking before we scale.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl border border-border border-l-[3px] border-l-primary bg-card p-6">
+            <div>
+              <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">02</p>
+              <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
+                Where's the line between a useful flag and crying wolf?
+              </p>
+            </div>
+            <p className="text-sm italic leading-relaxed text-muted-foreground">
+              One false flag that embarrasses a teacher in front of their class destroys trust permanently.
+            </p>
+            <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
+              <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Launch with a high-confidence-only filter — top 15% of signals. Analyse teacher override patterns in weeks 4–8 to calibrate before widening.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl border border-border border-l-[3px] border-l-primary bg-card p-6">
+            <div>
+              <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">03</p>
+              <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
+                Will schools trust us with raw student work — and does FERPA compliance create friction we haven't fully mapped?
+              </p>
+            </div>
+            <p className="text-sm italic leading-relaxed text-muted-foreground">
+              In K12, a single data concern raised by a district IT team can kill a pilot before it starts.
+            </p>
+            <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
+              <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Store structured insights only — never raw responses. Complete a FERPA legal review before the pilot and produce a one-page data processing agreement schools can sign in under a day.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl border border-border border-l-[3px] border-l-primary bg-card p-6">
+            <div>
+              <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">04</p>
+              <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
+                If students care about grades and not understanding, will they engage with feedback that has no grade attached?
+              </p>
+            </div>
+            <p className="text-sm italic leading-relaxed text-muted-foreground">
+              The student value prop collapses if the incentive system works against us.
+            </p>
+            <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
+              <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Frame all student-facing features as 'no grade impact — just for you.' Measure return rate in Phase 2. If engagement is low, test whether linking insights to score improvement changes behaviour.
+              </p>
+            </div>
+          </div>
         </div>
       </Slide>
 
@@ -1331,7 +1437,7 @@ export function PrdRevampPage() {
       >
         <div className="mx-auto w-full max-w-4xl">
           <header className="mb-10">
-            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">07 CLOSE</p>
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">09 CLOSE</p>
             <p
               style={{
                 fontStyle: "italic",
@@ -1455,7 +1561,12 @@ export function PrdRevampPage() {
                     onMouseLeave={() => setHoveredNode(null)}
                   >
                     <div className="mb-2 flex items-center gap-2">
-                      <span className="text-2xl">{node.icon}</span>
+                      <span className="rounded-md bg-primary/10 p-1.5">
+                        {node.icon === "teachers" && <GraduationCap className="h-5 w-5 text-primary" />}
+                        {node.icon === "students" && <BookOpen className="h-5 w-5 text-primary" />}
+                        {node.icon === "school" && <Target className="h-5 w-5 text-primary" />}
+                        {node.icon === "parents" && <ShieldCheck className="h-5 w-5 text-primary" />}
+                      </span>
                       <div>
                         <p className="text-sm font-semibold">{node.label}</p>
                         <p className="text-xs text-muted-foreground">{node.tagline}</p>

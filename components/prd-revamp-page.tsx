@@ -995,6 +995,9 @@ export function PrdRevampPage() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               Marcus inverts the sign in 3 of 4 quiz problems → classified as <span className="font-medium text-foreground">"sign inversion in quadratic formula"</span> with high confidence → matched to Sarah's Unit 4, Lesson 3 slides → surfaces in Monday's brief: <span className="italic">"11 students inverting signs — reteach recommended, 10 min."</span>
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Every signal includes a confidence score. Teachers can override with one click — and that feedback retrains the classifier.
+            </p>
           </div>
           <div className="mt-4 rounded-lg border border-primary/15 bg-primary/5 px-4 py-2.5 text-center">
             <p className="text-xs text-muted-foreground">

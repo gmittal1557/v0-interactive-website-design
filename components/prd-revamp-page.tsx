@@ -1467,7 +1467,7 @@ export function PrdRevampPage() {
       >
         <div className="mx-auto w-full max-w-4xl">
           <header className="mb-10">
-            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">09 CLOSE</p>
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">08 CLOSE</p>
             <p
               className="text-base italic leading-relaxed text-gray-300 mb-8 font-medium sm:text-lg md:text-xl md:mb-12"
               style={{ lineHeight: 1.7 }}

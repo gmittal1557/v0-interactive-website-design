@@ -23,6 +23,18 @@ import {
 } from "lucide-react"
 import { AppendixDialog } from "@/components/appendix-dialog"
 import { cn } from "@/lib/utils"
+import {
+  trackSectionView,
+  trackNavClick,
+  trackTocClick,
+  trackButtonClick,
+  trackTabSwitch,
+  trackToggle,
+  trackExternalLink,
+  trackPainPointSelect,
+  trackMvpStepView,
+  trackScrollDepth,
+} from "@/lib/tracking"
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
@@ -360,17 +372,26 @@ export function PrdRevampPage() {
   const [hoveredNode, setHoveredNode] = useState<number | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
+  const prevSectionRef = useRef("cover")
+
   useEffect(() => {
     const onScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      setProgress(totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0)
+      const pct = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0
+      setProgress(pct)
+      trackScrollDepth(pct)
 
       for (let i = sectionItems.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionItems[i].id)
         if (!el) continue
         const rect = el.getBoundingClientRect()
         if (rect.top <= window.innerHeight * 0.25) {
-          setActiveSection(sectionItems[i].id)
+          const newSection = sectionItems[i].id
+          if (newSection !== prevSectionRef.current) {
+            prevSectionRef.current = newSection
+            trackSectionView(newSection)
+          }
+          setActiveSection(newSection)
           break
         }
       }
@@ -420,15 +441,17 @@ export function PrdRevampPage() {
 
   const activeNav = sectionItems.find((s) => s.id === activeSection)
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (id: string, source?: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
     setIsMenuOpen(false)
+    if (source) trackNavClick(`${source}:${id}`)
   }
 
   const toggleRisk = () => {
     setOpenRisk((prev) => {
       const next = !prev
       if (next) setOpenPrinciples(false)
+      trackToggle("key_risks", next)
       return next
     })
   }
@@ -437,6 +460,7 @@ export function PrdRevampPage() {
     setOpenPrinciples((prev) => {
       const next = !prev
       if (next) setOpenRisk(false)
+      trackToggle("design_principles", next)
       return next
     })
   }
@@ -453,6 +477,7 @@ export function PrdRevampPage() {
               href="https://github.com/gmittal1557/v0-interactive-website-design"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackExternalLink("github", "https://github.com/gmittal1557/v0-interactive-website-design")}
               className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:bg-secondary hover:text-foreground"
               aria-label="Open GitHub repository"
             >
@@ -462,6 +487,7 @@ export function PrdRevampPage() {
               href="https://www.linkedin.com/in/iamgauravmittal/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackExternalLink("linkedin", "https://www.linkedin.com/in/iamgauravmittal/")}
               className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:bg-secondary hover:text-foreground"
               aria-label="Open LinkedIn profile"
             >
@@ -471,6 +497,7 @@ export function PrdRevampPage() {
             </a>
             <a
               href="mailto:gmittal1557@gmail.com"
+              onClick={() => trackExternalLink("email", "mailto:gmittal1557@gmail.com")}
               className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:bg-secondary hover:text-foreground"
               aria-label="Send email"
             >
@@ -500,7 +527,7 @@ export function PrdRevampPage() {
                   {sectionItems.filter((item) => item.nav).map((item, i) => (
                     <button
                       key={item.id}
-                      onClick={() => scrollTo(item.id)}
+                      onClick={() => scrollTo(item.id, "menu")}
                       className={cn(
                         "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-xs transition",
                         activeSection === item.id ? "bg-primary/10 text-foreground" : "text-muted-foreground hover:bg-secondary"
@@ -555,7 +582,7 @@ export function PrdRevampPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.4 }}
-            onClick={() => scrollTo("toc")}
+            onClick={() => { scrollTo("toc"); trackButtonClick("scroll_to_explore", "cover") }}
             className="mx-auto mt-16 inline-flex items-center gap-2 text-xs text-muted-foreground"
           >
             Scroll to explore
@@ -569,7 +596,7 @@ export function PrdRevampPage() {
           {sectionItems.filter((s) => s.nav).map((item, i) => (
             <li key={item.id}>
               <button
-                onClick={() => scrollTo(item.id)}
+                onClick={() => { scrollTo(item.id); trackTocClick(item.id) }}
                 className="group flex w-full items-center justify-between rounded-lg border border-border/70 px-4 py-3 text-left transition hover:border-primary/40 hover:bg-primary/5"
               >
                 <div className="flex items-center gap-3">
@@ -597,7 +624,7 @@ export function PrdRevampPage() {
             {painPoints.map((point, idx) => (
               <button
                 key={point.title}
-                onClick={() => setSelectedPain(idx)}
+                onClick={() => { setSelectedPain(idx); trackPainPointSelect(idx, point.title) }}
                 className={cn(
                   "w-full flex-1 cursor-pointer rounded-xl border p-4 text-left transition hover:border-l-[3px] hover:border-l-primary/50",
                   selectedPain === idx
@@ -785,6 +812,7 @@ export function PrdRevampPage() {
             href={V0_PROTOTYPE_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackExternalLink("prototype_v0", V0_PROTOTYPE_URL)}
             className="text-xs text-primary hover:underline"
           >
             ↗ Open in v0
@@ -807,7 +835,7 @@ export function PrdRevampPage() {
         )}
 
         <button
-          onClick={() => setImpactModalOpen(true)}
+          onClick={() => { setImpactModalOpen(true); trackButtonClick("impact_modal", "vision") }}
           className="mt-4 ml-auto inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
         >
           See who else this changes things for →
@@ -879,6 +907,7 @@ export function PrdRevampPage() {
                 onClick={() => {
                   setActiveMvpStep(i)
                   if (i > 0) setHasInteracted(true)
+                  trackMvpStepView(step.label, i)
                 }}
                 className={cn(
                   "shrink-0 rounded-lg border px-4 py-2 text-xs font-mono uppercase tracking-wider transition",
@@ -935,7 +964,7 @@ export function PrdRevampPage() {
 
         <div className="mb-6">
           <button
-            onClick={() => setRoadmapOpen((v) => !v)}
+            onClick={() => { setRoadmapOpen((v) => { trackToggle("roadmap", !v); return !v }) }}
             className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
           >
             See the full roadmap
@@ -1014,6 +1043,7 @@ export function PrdRevampPage() {
                 onClick={() => {
                   setActiveTab(tab.key as "built" | "gtm" | "metrics")
                   if (tab.key !== "built") setHasTabInteracted(true)
+                  trackTabSwitch(tab.key, "mvp_spec")
                 }}
                 className={cn(
                   "rounded-lg border px-4 py-2 text-sm transition-all duration-150",
@@ -1218,7 +1248,7 @@ export function PrdRevampPage() {
                     30-day free pilot with one Algebra 2 teacher. Weeks 1-2: setup + first scan. Weeks 3-4: first brief + classroom use.
                   </p>
                   <button
-                    onClick={() => setOpenAlgebraWhy((v) => !v)}
+                    onClick={() => { setOpenAlgebraWhy((v) => { trackToggle("algebra_2_why", !v); return !v }) }}
                     className="mt-3 text-left text-xs text-primary"
                   >
                     Why Algebra 2 first ›
@@ -1495,6 +1525,7 @@ export function PrdRevampPage() {
                 href="https://www.linkedin.com/in/iamgauravmittal/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackExternalLink("linkedin_footer", "https://www.linkedin.com/in/iamgauravmittal/")}
                 className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -1504,6 +1535,7 @@ export function PrdRevampPage() {
               </a>
               <a
                 href="mailto:gmittal1557@gmail.com"
+                onClick={() => trackExternalLink("email_footer", "mailto:gmittal1557@gmail.com")}
                 className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
               >
                 <Mail className="h-4 w-4" />
@@ -1517,7 +1549,7 @@ export function PrdRevampPage() {
       <footer className="border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-10 lg:px-14">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
           <p>Glean for Teachers · Forward PM Assignment</p>
-          <button onClick={() => scrollTo("cover")} className="inline-flex items-center gap-1 text-primary">
+          <button onClick={() => { scrollTo("cover"); trackButtonClick("back_to_top", "footer") }} className="inline-flex items-center gap-1 text-primary">
             Back to top
             <ArrowRight className="h-3 w-3" />
           </button>

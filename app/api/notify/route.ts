@@ -8,12 +8,16 @@ let lastNotification = 0
 const COOLDOWN_MS = 5_000
 
 export async function POST(req: NextRequest) {
+  console.log("[notify] called, BOT_TOKEN exists:", !!TELEGRAM_BOT_TOKEN, "CHAT_ID exists:", !!TELEGRAM_CHAT_ID)
+
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+    console.log("[notify] Telegram not configured")
     return NextResponse.json({ ok: false, error: "Telegram not configured" }, { status: 500 })
   }
 
   const now = Date.now()
   if (now - lastNotification < COOLDOWN_MS) {
+    console.log("[notify] throttled")
     return NextResponse.json({ ok: true, throttled: true })
   }
   lastNotification = now
@@ -23,16 +27,12 @@ export async function POST(req: NextRequest) {
     const referrer = body.referrer || "direct"
     const ua = req.headers.get("user-agent") || "unknown"
     const isMobile = /mobile|android|iphone/i.test(ua)
-    const device = isMobile ? "📱 Mobile" : "💻 Desktop"
+    const device = isMobile ? "Mobile" : "Desktop"
     const timestamp = new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
 
-    const message =
-      `🔔 *New visitor on Glean for Teachers*\n\n` +
-      `${device}\n` +
-      `🔗 Referrer: ${referrer}\n` +
-      `🕐 ${timestamp} PT`
+    const message = `New visitor on Glean for Teachers\n\nDevice: ${device}\nReferrer: ${referrer}\nTime: ${timestamp} PT`
 
-    await fetch(
+    const tgRes = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
         method: "POST",
@@ -40,13 +40,16 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           text: message,
-          parse_mode: "Markdown",
         }),
       }
     )
 
-    return NextResponse.json({ ok: true })
-  } catch {
+    const tgData = await tgRes.json()
+    console.log("[notify] Telegram response:", JSON.stringify(tgData))
+
+    return NextResponse.json({ ok: tgData.ok, telegramResponse: tgData })
+  } catch (err) {
+    console.error("[notify] error:", err)
     return NextResponse.json({ ok: false, error: "Failed to send" }, { status: 500 })
   }
 }

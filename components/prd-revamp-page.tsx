@@ -1587,8 +1587,8 @@ export function PrdRevampPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
                     className="cursor-pointer rounded-xl border border-border bg-card p-4 transition hover:border-primary/40 hover:bg-primary/5"
+                    onClick={() => setHoveredNode(hoveredNode === i ? null : i)}
                     onMouseEnter={() => setHoveredNode(i)}
-                    onMouseLeave={() => setHoveredNode(null)}
                   >
                     <div className="mb-2 flex items-center gap-2">
                       <span className="rounded-md bg-primary/10 p-1.5">

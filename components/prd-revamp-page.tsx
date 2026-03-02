@@ -15,6 +15,7 @@ import {
   GraduationCap,
   Info,
   Lock,
+  Mail,
   Radar,
   ShieldCheck,
   Target,
@@ -34,6 +35,8 @@ const sectionItems = [
   { id: "details", label: "The Details", nav: "Details" },
   { id: "close", label: "Close", nav: "Close" },
 ]
+
+const V0_PROTOTYPE_URL = "https://v0-glean-for-teachers-prototype.vercel.app/"
 
 const painPoints = [
   {
@@ -77,33 +80,27 @@ const painPoints = [
 const mvpSteps = [
   {
     label: "SCAN",
-    who: "Sarah — End of school day",
+    who: "TEACHER — End of school day",
     what: "Sarah feeds the day's quizzes into the school scanner. That's it. Takes 2 minutes. Glean does everything else overnight.",
     why: "This is the only action Sarah needs to take. Everything else is automatic.",
   },
   {
     label: "ANALYZE",
-    who: "Glean — Overnight",
+    who: "GLEAN — Overnight",
     what: "Glean reads every answer, figures out what each student got wrong, and matches it to the curriculum Sarah is teaching.",
     why: "Analysis happens while Sarah sleeps — no extra work required.",
   },
   {
     label: "BRIEF",
-    who: "Sarah — Next morning",
+    who: "TEACHER — Next morning",
     what: "Sarah opens a simple summary before class. It shows which students are struggling, with what topic, and how confident Glean is.",
     why: "One glance gives Sarah everything she needs to adjust her lesson.",
   },
   {
     label: "TEACH",
-    who: "Sarah — In class",
+    who: "TEACHER — In class",
     what: "Sarah adjusts her lesson based on what Glean found. The suggestion comes directly from her own Unit 4 materials — not generic internet advice.",
     why: "The fix is grounded in what Sarah already teaches. No extra prep needed.",
-  },
-  {
-    label: "HINT",
-    who: "Marcus — That evening",
-    what: "Marcus gets a specific prompt telling him exactly what to work on and why. Not just study more — a precise, actionable guide.",
-    why: "Marcus stops guessing and starts understanding what he actually got wrong.",
   },
 ]
 
@@ -173,19 +170,19 @@ const ecosystemNodes = [
 
 const roadmapPhases = [
   {
-    version: "V0",
+    version: "MVP",
     window: "NOW — 90 DAYS",
     headline: "One school. One subject. Prove the loop.",
     items: ["Quiz scanning via school scanner", "Canvas + Google Classroom connection", "Teacher morning summary", "Confidence scoring on every suggestion"],
   },
   {
-    version: "V1",
+    version: "PHASE 2",
     window: "4-9 MONTHS",
-    headline: "Student study companion. More subjects. Expand the loop.",
+    headline: "Student tooling unlocked. More subjects. Expand the loop.",
     items: ["Student-facing study hints", "Algebra 1 + additional subjects", "Engagement tracking", "Teacher feedback loop"],
   },
   {
-    version: "V2",
+    version: "NORTH STAR",
     window: "9-12 MONTHS",
     headline: "Every school in the district. Full intelligence. Scale the loop.",
     items: ["District-wide rollout", "Cross-classroom knowledge sharing", "Parent visibility layer", "District analytics dashboard"],
@@ -352,7 +349,10 @@ export function PrdRevampPage() {
   const [activeTab, setActiveTab] = useState<"built" | "gtm" | "metrics">("built")
   const [openRisk, setOpenRisk] = useState(false)
   const [openPrinciples, setOpenPrinciples] = useState(false)
+  const [openAlgebraWhy, setOpenAlgebraWhy] = useState(false)
   const [personasVideoError, setPersonasVideoError] = useState(false)
+  const [prototypeIframeError, setPrototypeIframeError] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [impactModalOpen, setImpactModalOpen] = useState(false)
   const [hoveredNode, setHoveredNode] = useState<number | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -454,6 +454,24 @@ export function PrdRevampPage() {
               aria-label="Open GitHub repository"
             >
               <Github className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/iamgauravmittal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:bg-secondary hover:text-foreground"
+              aria-label="Open LinkedIn profile"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
+                <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.14V23h-4v-7.63c0-1.82-.03-4.16-2.54-4.16-2.54 0-2.93 1.98-2.93 4.03V23h-4V8z" />
+              </svg>
+            </a>
+            <a
+              href="mailto:gmittal1557@gmail.com"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-muted-foreground transition hover:bg-secondary hover:text-foreground"
+              aria-label="Send email"
+            >
+              <Mail className="h-3.5 w-3.5" />
             </a>
           </div>
 
@@ -718,116 +736,145 @@ export function PrdRevampPage() {
         title="Less time marking papers. More time actually helping students."
         subtitle="Glean works on two sides at once. Teachers get a clear picture of who is struggling and what to do. Students get specific, private guidance on what to fix. Both powered by the same overnight analysis."
       >
-        <div className="mb-8 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Sarah's side</p>
-            <div className="space-y-4">
-              {[
-                { time: "End of class", action: "Feeds quizzes into the school scanner" },
-                { time: "Overnight", action: "Glean reads and analyzes every answer" },
-                { time: "Next morning", action: "Opens a simple summary before class" },
-                { time: "In class", action: "Adjusts lesson based on what Glean found" },
-              ].map((step, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-mono text-primary">{i + 1}</div>
-                  <div>
-                    <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{step.time}</p>
-                    <p className="text-sm text-muted-foreground">{step.action}</p>
-                  </div>
-                </div>
-              ))}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="my-8 rounded-2xl bg-[#1c1c1c] px-10 py-12"
+        >
+          <p className="text-center text-2xl font-semibold leading-snug text-gray-400 md:text-3xl">
+            Every tool before this made grading faster.
+          </p>
+          <p className="mt-2 text-center text-2xl font-bold leading-snug text-white md:text-3xl">
+            Glean makes grading irrelevant.
+          </p>
+          <div className="mx-auto mt-6 h-[2px] w-12 bg-primary" />
+          <p className="mt-4 text-center text-sm text-gray-500">
+            That's the difference between a better tool and a different category.
+          </p>
+        </motion.div>
+
+        <div className="mb-8 rounded-2xl border border-border bg-card p-6">
+          <div className="grid grid-cols-2 divide-x divide-border">
+            <div className="pr-4">
+              <div className="rounded-xl border border-red-100 bg-red-50 p-4">
+                <p className="text-xs font-mono uppercase tracking-wider text-red-600">TODAY</p>
+                <p className="mt-2 text-sm text-foreground">Sarah grades for 12 hours. Finds out Marcus was lost 3 weeks later.</p>
+                <p className="mt-2 text-sm text-foreground">Marcus gets a score. Studies the wrong things all week.</p>
+              </div>
             </div>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Marcus's side</p>
-            <div className="space-y-4">
-              {[
-                { time: "End of school", action: "Finishes homework and submits his work" },
-                { time: "Overnight", action: "Glean flags gaps based on his responses" },
-                { time: "That evening", action: "Gets a specific study hint — not generic advice" },
-                { time: "Next day", action: "Understands exactly what he got wrong and why" },
-              ].map((step, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-mono text-primary">{i + 1}</div>
-                  <div>
-                    <p className="text-[10px] font-mono uppercase tracking-wider text-primary">{step.time}</p>
-                    <p className="text-sm text-muted-foreground">{step.action}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="pl-4">
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                <p className="text-xs font-mono uppercase tracking-wider text-primary">WITH GLEAN</p>
+                <p className="mt-2 text-sm text-foreground">Sarah opens a 90-second brief. Knows exactly who to help and how.</p>
+                <p className="mt-2 text-sm text-foreground">Marcus gets a precise hint. Studies the right thing that night.</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mb-6 rounded-2xl border border-border bg-card p-6">
-          <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">Product prototype</p>
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-xl border border-border bg-background p-4">
-              <p className="mb-3 text-xs font-mono uppercase tracking-wider text-primary">Teacher View — Sarah's morning summary</p>
-              <p className="text-sm font-semibold">Good morning, Sarah. Here's what needs your attention today.</p>
-              <div className="mt-3 rounded-lg border border-primary/20 bg-primary/5 p-3">
-                <p className="mb-1 text-xs font-mono text-primary">Top issue — High confidence</p>
-                <p className="text-sm text-muted-foreground">A third of your class misunderstood the same concept in yesterday's quiz.</p>
-                <p className="mt-2 text-xs text-muted-foreground">Suggested: 10 min reteach at start of class · From your Unit 4, Lesson 3</p>
-              </div>
-            </div>
-            <div className="rounded-xl border border-border bg-background p-4">
-              <p className="mb-3 text-xs font-mono uppercase tracking-wider text-primary">Student View — Marcus's evening hint</p>
-              <p className="text-sm font-semibold">Here's where to focus tonight, Marcus.</p>
-              <div className="mt-3 space-y-2">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-primary" /> Factoring — you've got this
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <ArrowRight className="h-4 w-4 text-primary" /> Discriminant — let's work on this one
-                </div>
-              </div>
-              <div className="mt-3 rounded-lg bg-muted p-3 text-xs text-muted-foreground">
-                What do you think happens when the number under the square root is negative? Try working it out before checking your notes.
-              </div>
-              <p className="mt-2 text-[10px] text-muted-foreground/60">No grade impact. Just for you.</p>
-            </div>
-          </div>
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <p className="text-xs font-mono uppercase tracking-wider text-primary">INTERACTIVE PROTOTYPE</p>
+          <a
+            href={V0_PROTOTYPE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-primary hover:underline"
+          >
+            ↗ Open in v0
+          </a>
         </div>
+        <p className="mb-3 text-xs italic text-muted-foreground">Click through to explore the teacher and student views</p>
+        <iframe
+          src={V0_PROTOTYPE_URL}
+          width="100%"
+          height="600px"
+          className="rounded-2xl border border-border"
+          allow="fullscreen"
+          onError={() => setPrototypeIframeError(true)}
+          title="Glean for Teachers v0 prototype"
+        />
+        {prototypeIframeError && (
+          <div className="mt-3 flex min-h-[120px] items-center justify-center rounded-2xl bg-muted">
+            <p className="text-sm text-muted-foreground">Prototype loading — open directly in v0 ↗</p>
+          </div>
+        )}
 
         <button
           onClick={() => setImpactModalOpen(true)}
-          className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
+          className="mt-4 ml-auto inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
         >
-          See the full impact
-          <ArrowRight className="h-4 w-4" />
+          See who else this changes things for →
         </button>
       </Slide>
 
       <SectionDivider title="Why Glean?" />
 
-      <Slide id="whyglean" badge="04 THE DIFFERENCE" title="Most tools give generic advice. Glean knows your classroom.">
-        <div className="grid gap-6 md:grid-cols-3">
-          {whyGleanCards.map((card) => (
-            <div key={card.title} className="rounded-2xl border border-border bg-card p-6">
-              <span className="text-3xl">{card.icon}</span>
-              <h3 className="mt-3 text-lg font-semibold tracking-[-0.01em]">{card.title}</h3>
-              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">{card.body}</p>
-              <p className="mt-4 text-xs italic text-muted-foreground/60">{card.contrast}</p>
+      <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools give generic advice. Glean knows your classroom.">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
+            <img src="/images/curriculum.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Curriculum grounded suggestions" />
+            <h3 className="text-lg font-semibold tracking-[-0.01em]">Your curriculum. Not the internet.</h3>
+            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+              Glean indexes your school's lesson plans, curriculum documents, and LMS materials. Every suggestion is grounded in what you actually teach — not generic AI advice pulled from the web.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
+            <img src="/images/privacy.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Privacy by design" />
+            <h3 className="text-lg font-semibold tracking-[-0.01em]">Student data stays private — by architecture.</h3>
+            <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+              Glean never stores what a student wrote. Only what they misunderstood. Privacy isn't a policy we added at the end — it's a constraint we built around from day one.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 w-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
+          <div className="grid grid-cols-[1fr_1fr] items-center gap-8">
+            <img src="/images/network.jpg" className="h-48 w-full rounded-xl object-cover" alt="Network effect across classrooms" />
+            <div>
+              <h3 className="text-lg font-semibold tracking-[-0.01em]">The whole school learns, not just one classroom.</h3>
+              <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
+                When a teacher finds a great way to fix a common misconception, that insight doesn't disappear. Glean surfaces it for every teacher in the school. The longer Glean is used, the smarter the whole school gets — a compounding advantage no single-classroom tool can replicate.
+              </p>
+              <div className="mt-4 rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
+                <p className="text-sm font-medium text-primary">
+                  Unlike generic AI that resets with every new user — Glean's value compounds across your entire school.
+                </p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </Slide>
 
-      <SectionDivider title="How We Start" />
+      <SectionDivider title="The MVP" />
 
       <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
         <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
-          We're not trying to boil the ocean. We're starting with the smallest version that proves teachers find this useful and students learn better because of it.
+          We're not trying to boil the ocean. We're starting with the smallest version that proves one thing: teachers get a reliable signal and act on it before the next class.
         </p>
 
         <div className="mb-6 rounded-2xl border border-border bg-card p-6">
-          <p className="mb-4 text-xs font-mono uppercase tracking-wider text-primary">A week with Glean — click each step</p>
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <p className="text-xs font-mono uppercase tracking-wider text-primary">A week with Glean</p>
+            {!hasInteracted && (
+              <motion.span
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-[11px] italic text-muted-foreground"
+              >
+                ← click each step to explore
+              </motion.span>
+            )}
+          </div>
           <div className="mb-6 flex gap-2 overflow-x-auto">
             {mvpSteps.map((step, i) => (
               <button
                 key={step.label}
-                onClick={() => setActiveMvpStep(i)}
+                onClick={() => {
+                  setActiveMvpStep(i)
+                  if (i > 0) setHasInteracted(true)
+                }}
                 className={cn(
                   "shrink-0 rounded-lg border px-4 py-2 text-xs font-mono uppercase tracking-wider transition",
                   activeMvpStep === i ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary/40"
@@ -849,7 +896,7 @@ export function PrdRevampPage() {
               <p className="mb-1 text-xs font-mono uppercase tracking-wider text-primary">{mvpSteps[activeMvpStep].who}</p>
               <p className="mb-3 text-sm leading-[1.72] text-foreground">{mvpSteps[activeMvpStep].what}</p>
               <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
-                <p className="mb-1 text-xs font-mono text-primary">WHY THIS IS IN V0</p>
+                <p className="mb-1 text-xs font-mono text-primary">WHY THIS IS IN THE MVP</p>
                 <p className="text-xs text-muted-foreground">{mvpSteps[activeMvpStep].why}</p>
               </div>
             </motion.div>
@@ -872,10 +919,19 @@ export function PrdRevampPage() {
           </div>
         </div>
 
+        <div className="mb-6 rounded-xl border border-border bg-muted/40 px-5 py-4">
+          <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+            NOT IN THIS MVP
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Student-facing study hints are deliberately out of scope. We need to prove teachers trust the signal before we put it in front of students. Marcus gets his tooling in Phase 2 — once the teacher loop is working.
+          </p>
+        </div>
+
         <div className="mb-6">
           <button
             onClick={() => setRoadmapOpen((v) => !v)}
-            className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary transition hover:bg-primary/10"
           >
             See the full roadmap
             <ChevronRight className={cn("h-4 w-4 transition-transform", roadmapOpen && "rotate-90")} />
@@ -909,6 +965,10 @@ export function PrdRevampPage() {
           </AnimatePresence>
         </div>
 
+        <div className="mt-6 border-t border-border pt-6" />
+        <p className="mb-3 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+          WHAT GUIDES EVERY MVP DECISION
+        </p>
         <div className="grid gap-3 md:grid-cols-4">
           {principles.map((p) => (
             <div key={p.title} className="rounded-xl border border-border bg-card p-4">
@@ -956,6 +1016,7 @@ export function PrdRevampPage() {
                       <th className="px-4 py-3 text-left font-semibold">Step</th>
                       <th className="px-4 py-3 text-left font-semibold">What happens</th>
                       <th className="px-4 py-3 text-left font-semibold">Tech</th>
+                      <th className="px-4 py-3 text-left font-semibold">Why this choice</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -964,26 +1025,31 @@ export function PrdRevampPage() {
                         step: "Submit",
                         what: "Teacher feeds quiz into the school scanner",
                         tech: "School scanner",
+                        why: "Zero new hardware — scanner already exists in school",
                       },
                       {
                         step: "Extract",
                         what: "Handwriting converted to structured text",
                         tech: "GPT-4V / Google Doc AI",
+                        why: "GPT-4V handles messy student handwriting better than standard OCR",
                       },
                       {
                         step: "Classify",
                         what: "Each answer mapped to a concept and scored for confidence",
                         tech: "Fine-tuned misconception classifier",
+                        why: "Fine-tuned on education data — generic models miss subject-specific errors",
                       },
                       {
                         step: "Retrieve",
                         what: "Gap matched to teacher's own curriculum materials",
                         tech: "Glean Enterprise Search",
+                        why: "Glean's enterprise search grounds suggestions in the teacher's own materials",
                       },
                       {
                         step: "Deliver",
                         what: "Summary pushed to teacher's LMS before next class",
                         tech: "Canvas / Google Classroom",
+                        why: "Canvas and Google Classroom are already open on the teacher's screen every morning",
                       },
                     ].map((row, idx) => (
                       <tr
@@ -996,102 +1062,128 @@ export function PrdRevampPage() {
                         <td className="px-4 py-3 font-semibold">{row.step}</td>
                         <td className="px-4 py-3">{row.what}</td>
                         <td className="px-4 py-3 text-muted-foreground">{row.tech}</td>
+                        <td className="px-4 py-3 text-xs italic text-muted-foreground">{row.why}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <button
-                  onClick={toggleRisk}
-                  className="rounded-2xl border border-border bg-card px-5 py-4 text-left"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-semibold">Key risks</p>
-                      <p className="mt-1 text-xs text-muted-foreground">3 risks we've already planned for</p>
+              <div className="mt-6 flex gap-4">
+                <div className="flex-1">
+                  <button
+                    onClick={toggleRisk}
+                    className={cn(
+                      "w-full rounded-2xl border px-5 py-4 text-left transition-all duration-200",
+                      openRisk ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold">Key risks</p>
+                        <p className={cn("mt-1 text-xs", openRisk ? "text-primary-foreground/70" : "text-muted-foreground")}>
+                          3 risks we've already planned for
+                        </p>
+                      </div>
+                      {openRisk ? (
+                        <X className="mt-0.5 h-4 w-4" />
+                      ) : (
+                        <ChevronRight className="mt-0.5 h-4 w-4 text-muted-foreground" />
+                      )}
                     </div>
-                    <ChevronRight className={cn("mt-0.5 h-4 w-4 text-muted-foreground transition-transform", openRisk && "rotate-90")} />
-                  </div>
-                </button>
+                  </button>
 
-                <button
-                  onClick={togglePrinciples}
-                  className="rounded-2xl border border-border bg-card px-5 py-4 text-left"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-semibold">Design principles</p>
-                      <p className="mt-1 text-xs text-muted-foreground">2 decisions that shaped the architecture</p>
+                  <AnimatePresence>
+                    {openRisk && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="ml-2 mt-2 border-l-2 border-primary pl-4">
+                          <div className="grid grid-cols-1 gap-2">
+                            {[
+                              {
+                                risk: "OCR on messy handwriting",
+                                mitigation: "85% confidence threshold + teacher review flag",
+                              },
+                              {
+                                risk: "Misconception misclassification",
+                                mitigation: "Teacher can override with one click",
+                              },
+                              { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
+                            ].map((item) => (
+                              <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
+                                <p className="text-xs font-semibold">{item.risk}</p>
+                                <p className="mt-1 text-xs text-muted-foreground">{item.mitigation}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <div className="flex-1">
+                  <button
+                    onClick={togglePrinciples}
+                    className={cn(
+                      "w-full rounded-2xl border px-5 py-4 text-left transition-all duration-200",
+                      openPrinciples ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card text-foreground"
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold">Design principles</p>
+                        <p className={cn("mt-1 text-xs", openPrinciples ? "text-primary-foreground/70" : "text-muted-foreground")}>
+                          2 decisions that shaped the architecture
+                        </p>
+                      </div>
+                      {openPrinciples ? (
+                        <X className="mt-0.5 h-4 w-4" />
+                      ) : (
+                        <ChevronRight className="mt-0.5 h-4 w-4 text-muted-foreground" />
+                      )}
                     </div>
-                    <ChevronRight
-                      className={cn("mt-0.5 h-4 w-4 text-muted-foreground transition-transform", openPrinciples && "rotate-90")}
-                    />
-                  </div>
-                </button>
+                  </button>
+
+                  <AnimatePresence>
+                    {openPrinciples && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="ml-2 mt-2 border-l-2 border-primary pl-4">
+                          <div className="grid grid-cols-1 gap-2">
+                            {[
+                              {
+                                principle: "Precision over recall",
+                                detail: "We'd rather flag 5 students we're sure about than flag 20 and be wrong half the time",
+                              },
+                              {
+                                principle: "Privacy by design",
+                                detail:
+                                  "Glean never saves what a student wrote — only what they got wrong. Not policy — architecture",
+                              },
+                            ].map((item) => (
+                              <div key={item.principle} className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                                <p className="text-xs font-semibold">{item.principle}</p>
+                                <p className="mt-1 text-xs text-muted-foreground">{item.detail}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
-
-              <AnimatePresence mode="wait">
-                {openRisk && (
-                  <motion.div
-                    key="risk-panel"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        {
-                          risk: "OCR on messy handwriting",
-                          mitigation: "85% confidence threshold + teacher review flag",
-                        },
-                        {
-                          risk: "Misconception misclassification",
-                          mitigation: "Teacher can override with one click",
-                        },
-                        { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
-                      ].map((item) => (
-                        <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
-                          <p className="text-xs font-semibold">{item.risk}</p>
-                          <p className="mt-1 text-xs text-muted-foreground">{item.mitigation}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-                {openPrinciples && (
-                  <motion.div
-                    key="principles-panel"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid grid-cols-2 gap-3">
-                      {[
-                        {
-                          principle: "Precision over recall",
-                          detail: "We'd rather flag 5 students we're sure about than flag 20 and be wrong half the time",
-                        },
-                        {
-                          principle: "Privacy by design",
-                          detail:
-                            "Glean never saves what a student wrote — only what they got wrong. Not policy — architecture",
-                        },
-                      ].map((item) => (
-                        <div key={item.principle} className="rounded-xl border border-primary/20 bg-primary/5 p-4">
-                          <p className="text-xs font-semibold">{item.principle}</p>
-                          <p className="mt-1 text-xs text-muted-foreground">{item.detail}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           )}
 
@@ -1103,6 +1195,37 @@ export function PrdRevampPage() {
                   <p className="mt-2 text-sm text-muted-foreground">
                     30-day free pilot with one Algebra 2 teacher. Weeks 1-2: setup + first scan. Weeks 3-4: first brief + classroom use.
                   </p>
+                  <button
+                    onClick={() => setOpenAlgebraWhy((v) => !v)}
+                    className="mt-3 text-left text-xs text-primary"
+                  >
+                    Why Algebra 2 first ›
+                  </button>
+                  <AnimatePresence>
+                    {openAlgebraWhy && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-2 space-y-2 text-xs text-muted-foreground">
+                          {[
+                            "Standard concept progression across schools",
+                            "High misconception frequency and measurable reteach impact",
+                            "Clear assessment loops within one term",
+                            "Existing teacher pain is immediate and explicit",
+                          ].map((item) => (
+                            <div key={item} className="flex items-start gap-2">
+                              <ArrowRight className="mt-0.5 h-3 w-3 text-primary" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-xs font-mono uppercase tracking-wider text-primary">Prove</p>
@@ -1117,66 +1240,76 @@ export function PrdRevampPage() {
                   </p>
                 </div>
               </div>
-
-              <div className="rounded-xl border border-border bg-background p-4">
-                <p className="text-sm font-semibold text-foreground">Why Algebra 2 first</p>
-                <div className="mt-2 space-y-2 text-xs">
-                  {[
-                    "Standard concept progression across schools",
-                    "High misconception frequency and measurable reteach impact",
-                    "Clear assessment loops within one term",
-                    "Existing teacher pain is immediate and explicit",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-2">
-                      <ArrowRight className="mt-0.5 h-3 w-3 text-primary" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 px-5 py-4">
+                <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">
+                  THE OBJECTION WE ALREADY SOLVED
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Scanner already in school. Canvas already open every morning. The teacher's only new action is feeding quizzes through the scanner — 2 minutes at the end of class.
+                </p>
               </div>
-              <p className="text-xs italic text-muted-foreground">
-                The grading objection addressed: Scanner already in school, Canvas already used, teacher's only new
-                action is feeding quizzes through scanner.
-              </p>
             </div>
           )}
 
           {activeTab === "metrics" && (
             <div className="space-y-5">
-              <div>
-                <p className="mb-3 text-sm font-semibold tracking-[-0.01em]">MVP targets</p>
-                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                  {detailsMetrics.v0.map((metric) => (
-                    <div key={metric.label} className="rounded-xl border border-border bg-background p-4">
-                      <p className="text-lg font-mono font-bold text-primary">{metric.target}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
-                    </div>
-                  ))}
-                </div>
+              <div className="overflow-hidden rounded-xl border border-border">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40">
+                    <tr className="border-b border-border">
+                      <th className="px-4 py-3 text-left font-semibold">The question</th>
+                      <th className="px-4 py-3 text-left font-semibold">How we measure it</th>
+                      <th className="px-4 py-3 text-left font-semibold">Why it matters</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {
+                        q: "Are teachers actually using it?",
+                        m: "70%+ open their morning summary before at least 3 classes a week",
+                        w: "Proves habit formation — not just novelty",
+                      },
+                      {
+                        q: "Is it saving real time?",
+                        m: "8+ hours reclaimed from grading every week",
+                        w: "Proves the core value proposition is real",
+                      },
+                      {
+                        q: "Is it changing what happens in class?",
+                        m: "50%+ of teachers adjust their lesson based on Glean's brief",
+                        w: "Proves it's not just read — it's acted on",
+                      },
+                      {
+                        q: "Are suggestions trusted?",
+                        m: "75%+ of flagged students are ones the teacher acts on",
+                        w: "Proves signal quality — not just volume",
+                      },
+                    ].map((row) => (
+                      <tr key={row.q} className="border-b border-border last:border-b-0">
+                        <td className="px-4 py-3 font-semibold">{row.q}</td>
+                        <td className="px-4 py-3 text-muted-foreground">{row.m}</td>
+                        <td className="px-4 py-3 text-muted-foreground">{row.w}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
-              <div>
-                <p className="mb-3 text-sm font-semibold tracking-[-0.01em]">Later phase goals</p>
-                <div className="grid gap-3 md:grid-cols-2">
-                  {[
-                    {
-                      target: "Measurable test score lift",
-                      label: "Improvement in unit assessments vs. control classrooms (target: 0.3+ SD effect size)",
-                    },
-                    {
-                      target: "60%+ student return rate",
-                      label: "Students use the study companion more than once per week",
-                    },
-                    {
-                      target: "District-wide adoption",
-                      label: "Expansion across multiple subjects in at least one district within 12 months",
-                    },
-                  ].map((metric) => (
-                    <div key={metric.target} className="rounded-xl border border-border bg-background p-4">
-                      <p className="text-base font-semibold tracking-[-0.01em] text-primary">{metric.target}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">{metric.label}</p>
-                    </div>
-                  ))}
+              <div className="mt-6 border-t border-border pt-6">
+                <p className="mb-4 text-sm font-semibold text-foreground">If those pass, we then ask:</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-border bg-card p-4">
+                    <p className="text-base font-semibold tracking-[-0.01em] text-primary">Do students learn more?</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Measurable test score improvement vs. control classrooms (target: 0.3+ SD effect size)
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-border bg-card p-4">
+                    <p className="text-base font-semibold tracking-[-0.01em] text-primary">Does it reach students?</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Once teacher trust is established, we add student-facing hints. Target: 60%+ of students engage with the study companion more than once per week
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -1194,7 +1327,7 @@ export function PrdRevampPage() {
       <section
         id="close"
         className="min-h-screen border-b border-border/60 px-6 py-28 md:px-10 lg:px-14 scroll-mt-16"
-        style={{ backgroundColor: "#1c1c1c", color: "#ffffff" }}
+        style={{ backgroundColor: "#1c1c1c", color: "#ffffff", paddingBottom: "80px" }}
       >
         <div className="mx-auto w-full max-w-4xl">
           <header className="mb-10">
@@ -1202,10 +1335,11 @@ export function PrdRevampPage() {
             <p
               style={{
                 fontStyle: "italic",
-                fontSize: "18px",
-                color: "#9ca3af",
+                fontSize: "20px",
+                color: "#d1d5db",
                 marginBottom: "48px",
                 lineHeight: 1.7,
+                fontWeight: 500,
               }}
             >
               This is a product I'd want to exist. Here's what I'd do first.
@@ -1242,6 +1376,35 @@ export function PrdRevampPage() {
           <p style={{ fontSize: "20px", color: "#ffffff", fontWeight: 600, lineHeight: 1.6 }}>
             Week one starts with a classroom. Everything else follows.
           </p>
+
+          <div className="mt-12">
+            <p
+              className="text-[11px] font-mono uppercase tracking-wider"
+              style={{ color: "#6b7280" }}
+            >
+              WANT TO CONTINUE THE CONVERSATION?
+            </p>
+            <div className="mt-4 flex gap-4">
+              <a
+                href="https://www.linkedin.com/in/iamgauravmittal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                  <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.14V23h-4v-7.63c0-1.82-.03-4.16-2.54-4.16-2.54 0-2.93 1.98-2.93 4.03V23h-4V8z" />
+                </svg>
+                Connect on LinkedIn
+              </a>
+              <a
+                href="mailto:gmittal1557@gmail.com"
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium text-gray-300 transition hover:border-primary hover:text-primary"
+              >
+                <Mail className="h-4 w-4" />
+                gmittal1557@gmail.com
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

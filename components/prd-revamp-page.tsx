@@ -618,6 +618,7 @@ export function PrdRevampPage() {
         title="By the time a teacher knows a student is struggling, it's often too late."
         subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
       >
+        <p className="mt-2 text-[10px] text-muted-foreground/40 italic">Sources: NCES Teacher Survey, McKinsey K-12 research, National Education Association</p>
         <div className="grid items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex h-full flex-col gap-3">
             <p className="mb-3 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">Select a problem</p>

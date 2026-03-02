@@ -1339,7 +1339,7 @@ export function PrdRevampPage() {
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-xs font-mono uppercase tracking-wider text-primary">Scale</p>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    School-wide license at ~$500-800/month. District license once outcomes are proven across subjects.
+                    School-wide license at ~$500-800/month. District license once outcomes are proven — framed around test score improvement, teacher retention, and scalable best-practice sharing across schools.
                   </p>
                 </div>
               </div>

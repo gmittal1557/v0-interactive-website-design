@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ArrowDown,
@@ -35,6 +36,15 @@ import {
   trackMvpStepView,
   trackScrollDepth,
 } from "@/lib/tracking"
+
+const ClassifierDiagram = dynamic(() => import("./classifier-diagram"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-[500px] items-center justify-center rounded-xl border border-border bg-muted/30">
+      <p className="text-sm text-muted-foreground">Loading diagram...</p>
+    </div>
+  ),
+})
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
@@ -374,6 +384,7 @@ export function PrdRevampPage() {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [impactModalOpen, setImpactModalOpen] = useState(false)
   const [hoveredNode, setHoveredNode] = useState<number | null>(null)
+  const [classifyExpanded, setClassifyExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   const prevSectionRef = useRef("cover")
@@ -1088,11 +1099,30 @@ export function PrdRevampPage() {
               { step: "Deliver", tech: "Canvas / GClassroom", desc: "Brief in teacher's existing LMS" },
             ].map((item, i, arr) => (
               <div key={item.step} className="flex items-stretch md:flex-1">
-                <div className="flex flex-1 flex-col rounded-lg border border-border bg-background p-3 text-center">
-                  <p className="text-xs font-semibold text-foreground">{item.step}</p>
-                  <p className="mt-1 text-[10px] font-mono text-primary">{item.tech}</p>
-                  <p className="mt-1 text-[10px] text-muted-foreground">{item.desc}</p>
-                </div>
+                {item.step === "Classify" ? (
+                  <button
+                    onClick={() => setClassifyExpanded((p) => !p)}
+                    className={cn(
+                      "flex flex-1 flex-col rounded-lg border p-3 text-center transition-all duration-200 cursor-pointer",
+                      classifyExpanded
+                        ? "border-primary bg-primary/5 shadow-md"
+                        : "border-border bg-background hover:border-primary/40 hover:shadow-md"
+                    )}
+                  >
+                    <div className="flex items-center justify-center gap-1">
+                      <p className="text-xs font-semibold text-foreground">{item.step}</p>
+                      <ChevronDown className={cn("h-3 w-3 text-primary transition-transform duration-200", classifyExpanded && "rotate-180")} />
+                    </div>
+                    <p className="mt-1 text-[10px] font-mono text-primary">{item.tech}</p>
+                    <p className="mt-1 text-[10px] text-muted-foreground">{item.desc}</p>
+                  </button>
+                ) : (
+                  <div className="flex flex-1 flex-col rounded-lg border border-border bg-background p-3 text-center">
+                    <p className="text-xs font-semibold text-foreground">{item.step}</p>
+                    <p className="mt-1 text-[10px] font-mono text-primary">{item.tech}</p>
+                    <p className="mt-1 text-[10px] text-muted-foreground">{item.desc}</p>
+                  </div>
+                )}
                 {i < arr.length - 1 && (
                   <div className="flex items-center justify-center px-1 text-muted-foreground/30 md:px-2">
                     <span className="hidden md:inline">→</span>
@@ -1102,6 +1132,40 @@ export function PrdRevampPage() {
               </div>
             ))}
           </div>
+
+          {/* Classify expanded detail */}
+          <AnimatePresence>
+            {classifyExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 space-y-4">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-4">
+                      <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-blue-600">Multiple Choice</p>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        Each wrong answer choice is a distractor designed to capture a specific misconception. When students pick the same wrong answer, the system maps that choice to its known misconception category. No LLM needed — the quiz design is the classification mechanism.
+                      </p>
+                    </div>
+                    <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-4">
+                      <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-purple-600">Free Response</p>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        The LLM reads the student&apos;s typed work, extracts their step-by-step reasoning, compares it against the reference solution, and identifies where the reasoning diverges. The divergence is classified against the misconception ontology.
+                      </p>
+                    </div>
+                  </div>
+                  <ClassifierDiagram />
+                  <p className="text-center text-xs text-muted-foreground">
+                    The misconception ontology is built from published research, refined with pilot teacher annotations, and continuously improved through teacher override feedback.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="mt-4 rounded-lg border border-border bg-muted/30 px-4 py-3">
             <p className="mb-2 text-[10px] font-mono uppercase tracking-wider text-primary">Example signal</p>
             <p className="text-sm leading-relaxed text-muted-foreground">

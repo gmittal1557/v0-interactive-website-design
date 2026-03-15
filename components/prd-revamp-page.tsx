@@ -38,6 +38,7 @@ import {
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
+  { id: "author", label: "About the Author", nav: "About" },
   { id: "toc", label: "Table of Contents", nav: "" },
   { id: "pain", label: "The Core Problem", nav: "The Problem" },
   { id: "personas", label: "Who This Is For", nav: "Personas" },
@@ -93,15 +94,15 @@ const painPoints = [
 
 const mvpSteps = [
   {
-    label: "SCAN",
-    who: "TEACHER — End of school day",
-    what: "The teacher feeds the day's quizzes into the school scanner. That's it. Takes 2 minutes. Glean does everything else overnight.",
-    why: "This is the only action the teacher needs to take. Everything else is automatic.",
+    label: "CONNECT",
+    who: "IT ADMIN — One-time setup",
+    what: "Glean connects to the school's Canvas or Google Classroom instance via API — the same way it connects to Salesforce or Slack for enterprise clients. Once connected, every quiz and assignment submission flows into Glean automatically. The teacher does nothing new.",
+    why: "Zero new teacher behavior. Glean reads from systems the school already uses and trusts.",
   },
   {
     label: "ANALYZE",
     who: "GLEAN — Overnight",
-    what: "Glean reads every answer, figures out what each student got wrong, and matches it to the curriculum Sarah is teaching.",
+    what: "Glean pulls student submissions overnight, maps wrong answers to known misconception patterns using distractor analysis, and clusters students by error type. For free-response submissions, an LLM analyzes typed reasoning to classify the specific point of misunderstanding.",
     why: "Analysis happens while Sarah sleeps — no extra work required.",
   },
   {
@@ -187,7 +188,7 @@ const roadmapPhases = [
     version: "MVP",
     window: "NOW — 90 DAYS",
     headline: "One school. One subject. Prove the loop.",
-    items: ["Quiz scanning via school scanner", "Canvas + Google Classroom connection", "Teacher morning summary", "Confidence scoring on every suggestion"],
+    items: ["Canvas + Google Classroom LMS connector", "Overnight misconception analysis", "Teacher morning summary", "Confidence scoring on every suggestion"],
   },
   {
     version: "PHASE 2",
@@ -231,7 +232,7 @@ const cycle = [
   {
     time: "Sunday evening",
     title: "Capture",
-    desc: "Teacher photos quiz stacks. OCR and misconception detection run overnight.",
+    desc: "Glean syncs with Canvas overnight. Student submissions are pulled and parsed automatically.",
     image: "/images/phone-capture.jpg",
   },
   {
@@ -603,6 +604,114 @@ export function PrdRevampPage() {
         </div>
       </section>
 
+      <SectionDivider title="About the Author" />
+
+      {/* About the Author */}
+      <section id="author" className="relative border-b border-border/60 px-6 py-28 md:px-10 lg:px-14 scroll-mt-16">
+        <div className="mx-auto w-full max-w-6xl">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 text-[11px] font-mono uppercase tracking-[0.18em] text-primary"
+          >
+            01 ABOUT THE AUTHOR
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col gap-10 md:flex-row md:gap-12"
+          >
+            {/* Left column */}
+            <div className="w-full md:w-[280px] md:flex-shrink-0">
+              {/* Photo */}
+              <div className="rounded-xl overflow-hidden w-full md:w-[280px] border border-border" style={{ height: 340 }}>
+                <Image src="/images/author-baa.jpg" alt="Gaurav Mittal at the Boston Marathon B.A.A." width={280} height={340} className="h-full w-full object-cover" />
+              </div>
+
+              {/* Outside Work card */}
+              <div className="mt-4 rounded-lg px-4 py-4 bg-muted/60 border border-border">
+                <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.18em] text-primary">Outside Work</p>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <p>🏃 Boston Marathon finisher</p>
+                  <p>🃏 Bridge enthusiast</p>
+                  <p>🌶️ Ghost pepper survivor</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div className="flex-1 min-w-[280px]">
+              <h3 className="text-2xl font-semibold tracking-[-0.02em]">Gaurav Mittal</h3>
+              <p className="mt-1 text-[13px] text-muted-foreground">
+                IIT Kanpur CS · Tuck MBA (Dartmouth)
+              </p>
+              <p className="mt-3 text-[14px] italic text-muted-foreground">
+                &ldquo;I build AI agents that work in messy, real-world environments, at scale.&rdquo;
+              </p>
+
+              <p className="mt-8 mb-5 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">
+                EXPERIENCE
+              </p>
+
+              <div className="space-y-5">
+                {/* EY-Parthenon */}
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="font-semibold">EY-Parthenon</span>
+                    <span className="text-[12px] font-mono ml-1 text-primary">Director of PM</span>
+                  </div>
+                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
+                    Building AI agents for Fortune 500 clients
+                  </p>
+                </div>
+
+                {/* CarGurus */}
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="font-semibold">CarGurus</span>
+                    <span className="text-[12px] font-mono ml-1 text-primary">Group PM</span>
+                  </div>
+                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
+                    Scaled auto financing platform and LLM dealer copilot
+                  </p>
+                </div>
+
+                {/* Swiggy */}
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="font-semibold">Swiggy</span>
+                    <span className="text-[12px] font-mono ml-1 text-primary">PM</span>
+                  </div>
+                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
+                    Search and discovery for India&apos;s largest food marketplace
+                  </p>
+                </div>
+
+                {/* Travel.AI */}
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="font-semibold">Travel.AI</span>
+                    <span className="text-[12px] font-mono ml-1 text-primary">Co-Founder</span>
+                  </div>
+                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
+                    Built a travel app for backpackers
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <Slide id="toc" badge="Glean for Teachers" title="Table of Contents" narrow>
         <ol className="space-y-2">
           {sectionItems.filter((s) => s.nav).map((item, i) => (
@@ -626,7 +735,7 @@ export function PrdRevampPage() {
 
       <Slide
         id="pain"
-        badge="01 THE CORE PROBLEM"
+        badge="02 THE CORE PROBLEM"
         title="By the time a teacher knows a student is struggling, it's often too late."
         subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
         headerExtra={<p className="mt-2 text-[10px] text-muted-foreground/40 italic">Sources: NCES Teacher Survey, McKinsey K-12 research, National Education Association</p>}
@@ -707,7 +816,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Meet Sarah and Marcus" />
 
-      <Slide id="personas" badge="02 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
+      <Slide id="personas" badge="03 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_auto_1fr]">
           <div className="h-full rounded-2xl border border-border bg-card p-6">
             <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
@@ -783,8 +892,8 @@ export function PrdRevampPage() {
 
       <Slide
         id="vision"
-        badge="03 NORTH STAR"
-        title="Less time marking papers. More time actually helping students."
+        badge="04 NORTH STAR"
+        title="Less time chasing signals. More time actually helping students."
         subtitle="Glean gives teachers a clear picture of who is struggling and exactly what to do — powered by overnight analysis of student work. No extra grading. No guessing. Just signal."
       >
         <motion.div
@@ -798,7 +907,7 @@ export function PrdRevampPage() {
             Every tool before this made grading faster.
           </p>
           <p className="mt-2 text-center text-xl font-bold leading-snug text-white sm:text-2xl md:text-3xl">
-            Glean makes the insight automatic.
+            Glean makes the insight automatic — by reading the data that already flows through Canvas.
           </p>
           <div className="mx-auto mt-6 h-[2px] w-12 bg-primary" />
           <p className="mt-4 text-center text-sm text-gray-500">
@@ -865,7 +974,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Why Glean?" />
 
-      <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools start from scratch. Glean already has the infrastructure.">
+      <Slide id="whyglean" badge="05 WHY GLEAN" title="Most tools start from scratch. Glean already has the infrastructure.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/curriculum.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Curriculum grounded suggestions" />
@@ -903,9 +1012,9 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Building the MVP" />
 
-      <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
+      <Slide id="mvp" badge="06 THE PLAN" title="We're not building everything at once. Here's why.">
         <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
-          The MVP proves one thing: if teachers get a reliable misconception signal from existing student work, will they act on it before the next class?
+          The MVP proves one thing: if teachers get a reliable misconception signal from work students already submit in Canvas, will they act on it before the next class?
         </p>
 
         <div className="mb-6 rounded-2xl border border-border bg-card p-6">
@@ -978,9 +1087,9 @@ export function PrdRevampPage() {
           <p className="mb-4 text-[11px] font-mono uppercase tracking-wider text-primary">What's happening under the hood</p>
           <div className="flex flex-col gap-0 md:flex-row md:items-stretch md:gap-0">
             {[
-              { step: "Ingest", tech: "School scanner", desc: "Quiz images captured" },
-              { step: "Extract", tech: "GPT-4V / Doc AI", desc: "Handwriting → structured text" },
-              { step: "Classify", tech: "Fine-tuned model", desc: "Misconception tagging + confidence" },
+              { step: "Sync", tech: "Canvas / GClassroom API", desc: "Student submissions pulled automatically" },
+              { step: "Parse", tech: "Submission parser + LLM", desc: "Answers extracted, free-response reasoning analyzed" },
+              { step: "Classify", tech: "Distractor analysis + fine-tuned model", desc: "Wrong answers mapped to known misconception patterns" },
               { step: "Ground", tech: "Glean Enterprise Search", desc: "Matched to teacher's curriculum" },
               { step: "Deliver", tech: "Canvas / GClassroom", desc: "Brief in teacher's existing LMS" },
             ].map((item, i, arr) => (
@@ -1002,7 +1111,7 @@ export function PrdRevampPage() {
           <div className="mt-4 rounded-lg border border-border bg-muted/30 px-4 py-3">
             <p className="mb-2 text-[10px] font-mono uppercase tracking-wider text-primary">Example signal</p>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Marcus inverts the sign in 3 of 4 quiz problems → classified as <span className="font-medium text-foreground">"sign inversion in quadratic formula"</span> with high confidence → matched to Sarah's Unit 4, Lesson 3 slides → surfaces in Monday's brief: <span className="italic">"11 students inverting signs — reteach recommended, 10 min."</span>
+              Marcus selects the same wrong answer on 3 of 4 quadratic formula questions — each wrong answer corresponds to a sign inversion error in the distractor mapping → classified as <span className="font-medium text-foreground">"sign inversion in quadratic formula"</span> with high confidence → matched to Sarah's Unit 4, Lesson 3 slides → surfaces in Monday's brief: <span className="italic">"11 students inverting signs — reteach recommended, 10 min."</span>
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
               Every signal includes a confidence score. Teachers can override with one click — and that feedback retrains the classifier.
@@ -1010,7 +1119,7 @@ export function PrdRevampPage() {
           </div>
           <div className="mt-4 rounded-lg border border-primary/15 bg-primary/5 px-4 py-2.5 text-center">
             <p className="text-xs text-muted-foreground">
-              Each step runs overnight. The teacher's only action is feeding quizzes through the scanner — <span className="text-foreground font-medium">2 minutes at end of day</span>.
+              Each step runs overnight. The teacher's only action is what she already does — assign a quiz in Canvas. <span className="text-foreground font-medium">Glean does everything else</span>.
             </p>
           </div>
         </div>
@@ -1020,7 +1129,7 @@ export function PrdRevampPage() {
             NOT IN THIS MVP
           </p>
           <p className="text-sm text-muted-foreground">
-            Student-facing study hints are deliberately out of scope. We need to prove teachers trust the signal before we put it in front of students. Marcus gets his tooling in Phase 2 — once the teacher loop is working.
+            Student-facing study hints and handwritten work analysis are deliberately out of scope. We start with digital submissions to prove teachers trust the signal — no new teacher behavior required. Deeper analysis of handwritten reasoning (via photo uploads or scanning) and student-facing tooling come in Phase 2, once the core loop is working.
           </p>
         </div>
 
@@ -1078,7 +1187,7 @@ export function PrdRevampPage() {
       <SectionDivider title="The MVP Spec" />
       <Slide
         id="details"
-        badge="06 MVP SPEC"
+        badge="07 MVP SPEC"
         title="The MVP, in detail."
       >
         <div className="rounded-2xl border border-border bg-card p-6">
@@ -1136,22 +1245,22 @@ export function PrdRevampPage() {
                   <tbody>
                     {[
                       {
-                        step: "Submit",
-                        what: "Teacher feeds quiz into the school scanner",
-                        tech: "School scanner",
-                        why: "Zero new hardware — scanner already exists in school",
+                        step: "Connect",
+                        what: "Glean syncs with Canvas or Google Classroom via API",
+                        tech: "LMS Connector (OAuth)",
+                        why: "Same connector architecture Glean uses for Salesforce and Slack — proven at scale",
                       },
                       {
-                        step: "Extract",
-                        what: "Handwriting converted to structured text",
-                        tech: "GPT-4V / Google Doc AI",
-                        why: "GPT-4V handles messy student handwriting better than standard OCR",
+                        step: "Parse",
+                        what: "Student responses extracted and structured from submissions",
+                        tech: "Submission parser + LLM",
+                        why: "Multiple choice answers parsed directly; free-response analyzed by LLM for reasoning",
                       },
                       {
                         step: "Classify",
-                        what: "Each answer mapped to a concept and scored for confidence",
-                        tech: "Fine-tuned misconception classifier",
-                        why: "Fine-tuned on education data — generic models miss subject-specific errors",
+                        what: "Each answer mapped to a known misconception pattern and scored for confidence",
+                        tech: "Distractor analysis + fine-tuned classifier",
+                        why: "Wrong answer choices mapped to misconception taxonomy; LLM classifies free-response errors",
                       },
                       {
                         step: "Retrieve",
@@ -1220,15 +1329,15 @@ export function PrdRevampPage() {
                           <div className="grid grid-cols-1 gap-2">
                             {[
                               {
-                                risk: "OCR on messy handwriting",
-                                mitigation: "85% confidence threshold + teacher review flag",
+                                risk: "Signal depth from answer-only data",
+                                mitigation: "Multiple choice submissions reveal which misconception, but not the reasoning behind it. We mitigate this by using well-designed distractor mappings and supplementing with free-response analysis where available. Handwritten reasoning analysis is a Phase 2 enhancement.",
                               },
                               {
                                 risk: "Misconception misclassification",
                                 mitigation: "Teacher can override with one click",
                               },
                               { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
-                              { risk: "Student identity resolution on paper quizzes", mitigation: "MVP generates printable quizzes with per-student QR codes. Deterministic match to roster — no reliance on handwriting recognition for identity." },
+                              { risk: "LMS API rate limits and sync reliability", mitigation: "Incremental sync with retry logic. Canvas and Google Classroom APIs are well-documented and stable — Glean already manages similar connectors at enterprise scale." },
                             ].map((item) => (
                               <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
                                 <p className="text-xs font-semibold">{item.risk}</p>
@@ -1308,7 +1417,7 @@ export function PrdRevampPage() {
                 <div className="rounded-xl border border-border bg-card p-4">
                   <p className="text-xs font-mono uppercase tracking-wider text-primary">Pilot</p>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    30-day free pilot with one Algebra 2 teacher. Weeks 1-2: setup + first scan. Weeks 3-4: first brief + classroom use.
+                    30-day free pilot with one Algebra 2 teacher. Weeks 1-2: LMS connection + first sync. Weeks 3-4: first brief + classroom use.
                   </p>
                   <button
                     onClick={() => { setOpenAlgebraWhy((v) => { trackToggle("algebra_2_why", !v); return !v }) }}
@@ -1360,7 +1469,7 @@ export function PrdRevampPage() {
                   THE OBJECTION WE ALREADY SOLVED
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Scanner already in school. Canvas already open every morning. The teacher's only new action is feeding quizzes through the scanner — 2 minutes at the end of class.
+                  Canvas already open every morning. Glean connects via the same API that schools already trust. The teacher's only action is what she already does — assign a quiz. Glean handles the rest.
                 </p>
               </div>
             </div>
@@ -1442,7 +1551,7 @@ export function PrdRevampPage() {
 
       <Slide
         id="openquestions"
-        badge="07 OPEN QUESTIONS"
+        badge="08 OPEN QUESTIONS"
         title="What we'll learn as we build."
         subtitle="Four questions we don't yet have perfect answers to — and how we'll get them."
       >
@@ -1487,16 +1596,16 @@ export function PrdRevampPage() {
             <div>
               <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">03</p>
               <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
-                Will schools trust us with raw student work — and does FERPA compliance create friction we haven't fully mapped?
+                Will district IT teams approve a new LMS integration — and does FERPA compliance create friction we haven't fully mapped?
               </p>
             </div>
             <p className="text-sm italic leading-relaxed text-muted-foreground">
-              In K12, a single data concern raised by a district IT team can kill a pilot before it starts.
+              Schools already trust Canvas and Google Classroom with student data. Glean reads from those systems — but adding a new integration still requires IT approval.
             </p>
             <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
               <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Store structured insights only — never raw responses. Complete a FERPA legal review before the pilot and produce a one-page data processing agreement schools can sign in under a day.
+                Glean connects through standard OAuth APIs that Canvas and Google Classroom already support for third-party tools. Store structured insights only — never raw submissions. Produce a one-page data processing agreement schools can sign in under a day.
               </p>
             </div>
           </div>
@@ -1530,7 +1639,7 @@ export function PrdRevampPage() {
       >
         <div className="mx-auto w-full max-w-4xl">
           <header className="mb-10">
-            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">08 CLOSE</p>
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">09 CLOSE</p>
             <p
               className="text-base italic leading-relaxed text-gray-300 mb-8 font-medium sm:text-lg md:text-xl md:mb-12"
               style={{ lineHeight: 1.7 }}
@@ -1550,7 +1659,7 @@ export function PrdRevampPage() {
               The hardest part of this problem isn't the technology. It's earning a <strong className="text-white">teacher's trust</strong> on a Monday morning with 30 restless students waiting. That single moment shaped every decision in this document.
             </p>
             <p className="text-sm leading-relaxed text-gray-300 sm:text-base md:text-[17px]" style={{ lineHeight: 1.85 }}>
-              In week one I'd be <strong className="text-white">in a classroom</strong>. Not showing software — watching a teacher grade quizzes and asking what they do with the results. The product has to <strong className="text-white">fit that moment</strong> before it can change it.
+              In week one I'd be <strong className="text-white">in a classroom</strong>. Not showing software — watching how a teacher uses Canvas after a quiz, what she looks at first, and what she wishes the data could tell her. The product has to <strong className="text-white">fit that moment</strong> before it can change it.
             </p>
             <p className="text-sm leading-relaxed text-gray-300 sm:text-base md:text-[17px]" style={{ lineHeight: 1.85 }}>
               That's what excites me about this role: the <strong className="text-white">deployed PM</strong> is the feedback loop that the product itself is trying to create.

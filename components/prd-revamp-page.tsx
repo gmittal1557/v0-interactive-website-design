@@ -1479,9 +1479,9 @@ export function PrdRevampPage() {
                         w: "Proves habit formation — not just novelty",
                       },
                       {
-                        q: "Is it saving real time?",
-                        m: "8+ hours reclaimed from grading every week",
-                        w: "Proves the core value proposition is real",
+                        q: "Are teachers coming back?",
+                        m: "70%+ of teachers who used the brief in week 1 still use it in week 4",
+                        w: "Proves sustained value — not just novelty",
                       },
                       {
                         q: "Is it changing what happens in class?",

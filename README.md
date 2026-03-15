@@ -43,31 +43,33 @@ The product shifts classrooms from **reactive grading** to **predictive teaching
 ## 5) MVP Scope (Teacher-Only)
 
 ### In scope
-- Quiz ingestion from existing school scanner workflow
-- OCR + misconception classification pipeline
+- LMS connector ingestion from Canvas/Google Classroom
+- Distractor analysis + LLM classification pipeline
 - Confidence-scored teacher brief before class
 - Curriculum-grounded reteach recommendations in teacher LMS context
 
 ### Explicitly out of scope (MVP)
 - Student-facing hinting/study companion
+- Handwritten work analysis (Phase 2)
 
 Rationale:
 - Trust must be earned with teachers first
+- Zero new teacher behavior — start with digital submissions
 - Student surfaces are unlocked after teacher-loop reliability is proven
 
 ## 6) MVP Workflow
 
-1. **Scan**: Teacher submits quizzes (2-minute end-of-day action)
-2. **Analyze**: Overnight OCR + classification + confidence scoring
+1. **Connect**: IT admin connects Canvas/Google Classroom via API (one-time setup)
+2. **Analyze**: Overnight distractor analysis + LLM classification + confidence scoring
 3. **Brief**: Teacher sees high-signal flags before class
 4. **Teach**: Teacher adjusts lesson based on grounded recommendations
 
 ## 7) Product Requirements
 
 ### Functional requirements
-- Ingest scanned student work reliably
-- Extract structured responses from messy handwriting
-- Classify misconceptions at concept level
+- Sync student submissions from Canvas/Google Classroom via API
+- Parse and structure responses from digital submissions
+- Classify misconceptions at concept level using distractor analysis
 - Retrieve curriculum-aligned guidance from school materials
 - Deliver teacher brief in existing workflow (Canvas/Google Classroom context)
 
@@ -79,10 +81,10 @@ Rationale:
 ## 8) Technical Architecture (MVP)
 
 Pipeline:
-- Scanner input
-- Text recognition (`GPT-4V` / `Google Doc AI`)
-- Fine-tuned misconception classifier
-- Curriculum retrieval via Glean-style enterprise search
+- LMS connector (Canvas / Google Classroom API)
+- Submission parser + LLM analysis
+- Distractor analysis + fine-tuned misconception classifier
+- Curriculum retrieval via Glean enterprise search
 - Teacher brief delivery
 
 Key design choices:
@@ -93,7 +95,7 @@ Key design choices:
 
 Pilot motion:
 - 30-day free pilot with one Algebra 2 teacher
-- Weeks 1–2: setup + first scans
+- Weeks 1–2: LMS connection + first sync
 - Weeks 3–4: live classroom use
 
 Commercial motion:

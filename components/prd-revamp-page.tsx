@@ -38,7 +38,7 @@ import {
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
-  { id: "author", label: "About the Author", nav: "About" },
+  { id: "author", label: "About the Author", nav: "" },
   { id: "toc", label: "Table of Contents", nav: "" },
   { id: "pain", label: "The Core Problem", nav: "The Problem" },
   { id: "personas", label: "Who This Is For", nav: "Personas" },
@@ -58,7 +58,7 @@ const painPoints = [
     title: "By the time grades are in, students have moved on",
     stat: "3 WEEKS TO GET EXAM RESULTS BACK",
     detail:
-      "Exam results take weeks to return. By then, students have already moved on to the next unit — building on a foundation that was never solid.",
+      "By then, students have already moved on to the next unit — building on a foundation that was never solid.",
     tags: [
       { label: "Weeks of delay", explanation: "It takes up to 3 weeks for graded exams to return to students" },
       { label: "Wrong foundation builds", explanation: "Students keep learning on top of concepts they never actually understood" },
@@ -579,16 +579,15 @@ export function PrdRevampPage() {
             transition={{ delay: 0.22, duration: 0.55 }}
             className="text-lg leading-[1.45] text-muted-foreground md:text-2xl"
           >
-            Helping teachers see where students are struggling, understand what they know, and personalize what comes next.
+            Turn student work into teaching insight. Before class starts.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="mx-auto mt-4 max-w-4xl text-sm leading-[1.6] text-muted-foreground/90 md:text-base"
+            className="mx-auto mt-4 text-[11px] font-mono text-muted-foreground/60"
           >
-            Glean for Teachers turns student work into real-time misconception insights and curriculum-grounded reteach
-            plans—so teachers intervene before failure compounds.
+            Built on Glean's knowledge graph
           </motion.p>
 
           <motion.button
@@ -616,7 +615,7 @@ export function PrdRevampPage() {
             transition={{ duration: 0.5 }}
             className="mb-10 text-[11px] font-mono uppercase tracking-[0.18em] text-primary"
           >
-            01 ABOUT THE AUTHOR
+            ABOUT THE AUTHOR
           </motion.p>
 
           <motion.div
@@ -627,10 +626,10 @@ export function PrdRevampPage() {
             className="flex flex-col gap-10 md:flex-row md:gap-12"
           >
             {/* Left column */}
-            <div className="w-full md:w-[280px] md:flex-shrink-0">
+            <div className="w-full md:w-[320px] md:flex-shrink-0">
               {/* Photo */}
-              <div className="rounded-xl overflow-hidden w-full md:w-[280px] border border-border" style={{ height: 340 }}>
-                <Image src="/images/author-baa.jpg" alt="Gaurav Mittal at the Boston Marathon B.A.A." width={280} height={340} className="h-full w-full object-cover" />
+              <div className="rounded-xl overflow-hidden w-full md:w-[320px] border border-border" style={{ height: 400 }}>
+                <Image src="/images/author-baa.jpg" alt="Gaurav Mittal at the Boston Marathon B.A.A." width={320} height={400} className="h-full w-full object-cover" />
               </div>
 
               {/* Outside Work card */}
@@ -707,6 +706,10 @@ export function PrdRevampPage() {
                   </p>
                 </div>
               </div>
+
+              <p className="mt-8 text-sm italic text-muted-foreground">
+                The common thread: complex domains where AI has to earn trust before it can scale.
+              </p>
             </div>
           </motion.div>
         </div>
@@ -735,8 +738,8 @@ export function PrdRevampPage() {
 
       <Slide
         id="pain"
-        badge="02 THE CORE PROBLEM"
-        title="By the time a teacher knows a student is struggling, it's often too late."
+        badge="01 THE CORE PROBLEM"
+        title="By the time a teacher knows, it's too late."
         subtitle="Grading takes weeks. By then, students have moved on — with the wrong understanding baked in. Teachers don't know. Students don't know. The gap just grows."
         headerExtra={<p className="mt-2 text-[10px] text-muted-foreground/40 italic">Sources: NCES Teacher Survey, McKinsey K-12 research, National Education Association</p>}
       >
@@ -805,7 +808,7 @@ export function PrdRevampPage() {
           </div>
         </div>
         <div className="mt-10 rounded-xl border border-primary/20 bg-primary/5 px-6 py-5 text-center">
-          <p className="text-sm font-semibold text-foreground md:text-base">
+          <p className="text-base font-semibold text-foreground md:text-lg">
             The problem isn't grading speed. It's signal latency.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -816,7 +819,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Meet Sarah and Marcus" />
 
-      <Slide id="personas" badge="03 WHO THIS IS FOR" title="Behind every struggling student is a teacher who didn't get the signal in time.">
+      <Slide id="personas" badge="02 WHO THIS IS FOR" title="Behind every struggling student is a missed signal.">
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_auto_1fr]">
           <div className="h-full rounded-2xl border border-border bg-card p-6">
             <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-mono uppercase text-primary">
@@ -859,7 +862,7 @@ export function PrdRevampPage() {
               </video>
             )}
             <p className="mt-3 text-center text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-              A week without Glean
+              Sarah's week today
             </p>
           </div>
 
@@ -869,7 +872,7 @@ export function PrdRevampPage() {
               A week in Marcus's life
             </div>
             <p className="mb-4 text-sm text-muted-foreground">
-              Marcus is a 10th grader in Sarah's class. He studies hard but often doesn't know what he's actually getting wrong.
+              Marcus is a 10th grader in Sarah's class. He got a 62 on the last quiz. He studied for 3 hours. He doesn't know why.
             </p>
             <div className="space-y-3 text-sm text-muted-foreground">
               {[
@@ -892,7 +895,7 @@ export function PrdRevampPage() {
 
       <Slide
         id="vision"
-        badge="04 NORTH STAR"
+        badge="03 NORTH STAR"
         title="Less time chasing signals. More time actually helping students."
         subtitle="Glean gives teachers a clear picture of who is struggling and exactly what to do — powered by overnight analysis of student work. No extra grading. No guessing. Just signal."
       >
@@ -974,20 +977,20 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Why Glean?" />
 
-      <Slide id="whyglean" badge="05 WHY GLEAN" title="Most tools start from scratch. Glean already has the infrastructure.">
+      <Slide id="whyglean" badge="04 WHY GLEAN" title="Most tools start from scratch. Glean already has the infrastructure.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/curriculum.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Curriculum grounded suggestions" />
             <h3 className="text-lg font-semibold tracking-[-0.01em]">Your curriculum. Not the internet.</h3>
             <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Glean's enterprise search already indexes organizational knowledge for Fortune 500 companies. The same RAG architecture that surfaces internal docs for a sales team can index a school's lesson plans, curriculum guides, and LMS materials — grounding every suggestion in what the teacher actually teaches.
+              The same RAG architecture that surfaces internal docs for a sales team can index a school's lesson plans and curriculum guides. Every suggestion is grounded in what the teacher actually teaches.
             </p>
           </div>
           <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
             <img src="/images/privacy.jpg" className="mb-4 h-36 w-full rounded-xl object-cover" alt="Privacy by design" />
             <h3 className="text-lg font-semibold tracking-[-0.01em]">Student data stays private — by architecture.</h3>
             <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-              Glean never stores what a student wrote — only what they misunderstood. Glean's existing enterprise platform already handles SOC 2, HIPAA, and role-based access controls. FERPA compliance is an extension of infrastructure that already exists, not something built from scratch.
+              Glean never stores what a student wrote — only what they misunderstood. FERPA compliance is an extension of enterprise infrastructure that already handles SOC 2, HIPAA, and role-based access.
             </p>
           </div>
         </div>
@@ -998,11 +1001,11 @@ export function PrdRevampPage() {
             <div>
               <h3 className="text-lg font-semibold tracking-[-0.01em]">The whole school learns, not just one classroom.</h3>
               <p className="mt-2 text-sm leading-[1.72] text-muted-foreground">
-                Glean's knowledge graph connects information across an entire organization. Applied to education, when one teacher finds an effective way to address a common misconception, that insight is surfaced to every teacher in the district who encounters the same gap. The longer Glean is used, the smarter the whole school gets — a compounding data asset no single-classroom tool can replicate.
+                When one teacher finds an effective way to address a misconception, Glean surfaces that insight to every teacher in the district who hits the same gap. The longer it's used, the smarter the whole school gets.
               </p>
               <div className="mt-4 rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
                 <p className="text-sm font-medium text-primary">
-                  Glean's enterprise knowledge graph, multimodal AI, and existing district procurement relationships make this a natural extension — not a greenfield bet.
+                  Glean already connects to Salesforce, Slack, and Google Drive. A Canvas connector is the same pattern, new domain. This is an extension of what Glean already does — not a bet from scratch.
                 </p>
               </div>
             </div>
@@ -1012,7 +1015,7 @@ export function PrdRevampPage() {
 
       <SectionDivider title="Building the MVP" />
 
-      <Slide id="mvp" badge="06 THE PLAN" title="We're not building everything at once. Here's why.">
+      <Slide id="mvp" badge="05 THE PLAN" title="We're not building everything at once. Here's why.">
         <p className="mb-8 max-w-3xl text-sm leading-[1.72] text-muted-foreground md:text-base">
           The MVP proves one thing: if teachers get a reliable misconception signal from work students already submit in Canvas, will they act on it before the next class?
         </p>
@@ -1020,15 +1023,6 @@ export function PrdRevampPage() {
         <div className="mb-6 rounded-2xl border border-border bg-card p-6">
           <div className="mb-4 flex items-center justify-between gap-3">
             <p className="text-xs font-mono uppercase tracking-wider text-primary">A week with Glean</p>
-            {!hasInteracted && (
-              <motion.span
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="text-[11px] italic text-muted-foreground"
-              >
-                ← explore each step
-              </motion.span>
-            )}
           </div>
           <div className="mb-6 flex gap-2 overflow-x-auto">
             {mvpSteps.map((step, i) => (
@@ -1187,21 +1181,12 @@ export function PrdRevampPage() {
       <SectionDivider title="The MVP Spec" />
       <Slide
         id="details"
-        badge="07 MVP SPEC"
+        badge="06 MVP SPEC"
         title="The MVP, in detail."
       >
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="mb-3 flex items-center justify-between">
             <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">EXPLORE THE SPEC</p>
-            {!hasTabInteracted && (
-              <motion.span
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                className="text-[11px] italic text-muted-foreground"
-              >
-                ← select a view
-              </motion.span>
-            )}
           </div>
           <div className="flex flex-wrap gap-2">
             {[
@@ -1248,19 +1233,19 @@ export function PrdRevampPage() {
                         step: "Connect",
                         what: "Glean syncs with Canvas or Google Classroom via API",
                         tech: "LMS Connector (OAuth)",
-                        why: "Same connector architecture Glean uses for Salesforce and Slack — proven at scale",
+                        why: "Same connector architecture Glean uses for Salesforce and Slack",
                       },
                       {
                         step: "Parse",
                         what: "Student responses extracted and structured from submissions",
                         tech: "Submission parser + LLM",
-                        why: "Multiple choice answers parsed directly; free-response analyzed by LLM for reasoning",
+                        why: "MC parsed directly; LLM analyzes free-response reasoning",
                       },
                       {
                         step: "Classify",
                         what: "Each answer mapped to a known misconception pattern and scored for confidence",
                         tech: "Distractor analysis + fine-tuned classifier",
-                        why: "Wrong answer choices mapped to misconception taxonomy; LLM classifies free-response errors",
+                        why: "Distractor mapping for MC; LLM for free-response",
                       },
                       {
                         step: "Retrieve",
@@ -1551,7 +1536,7 @@ export function PrdRevampPage() {
 
       <Slide
         id="openquestions"
-        badge="08 OPEN QUESTIONS"
+        badge="07 OPEN QUESTIONS"
         title="What we'll learn as we build."
         subtitle="Four questions we don't yet have perfect answers to — and how we'll get them."
       >
@@ -1560,7 +1545,7 @@ export function PrdRevampPage() {
             <div>
               <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">01</p>
               <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
-                Will a teacher change their lesson based on an AI signal — on a Monday morning with 30 students waiting?
+                Will a teacher change Monday's lesson based on an AI signal?
               </p>
             </div>
             <p className="text-sm italic leading-relaxed text-muted-foreground">
@@ -1569,7 +1554,7 @@ export function PrdRevampPage() {
             <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
               <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Track lesson adjustment rate in weeks 2–4 of the pilot. Under 30% adoption means the signal presentation needs rethinking before we scale.
+                Track lesson adjustment rate in weeks 2–4 of the pilot — under 30% means the signal presentation needs rethinking.
               </p>
             </div>
           </div>
@@ -1587,7 +1572,7 @@ export function PrdRevampPage() {
             <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
               <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Launch with a high-confidence-only filter — top 15% of signals. Analyse teacher override patterns in weeks 4–8 to calibrate before widening.
+                Launch with top 15% confidence signals only, then calibrate using teacher override patterns in weeks 4–8.
               </p>
             </div>
           </div>
@@ -1605,7 +1590,7 @@ export function PrdRevampPage() {
             <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
               <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Glean connects through standard OAuth APIs that Canvas and Google Classroom already support for third-party tools. Store structured insights only — never raw submissions. Produce a one-page data processing agreement schools can sign in under a day.
+                Standard OAuth APIs, structured insights only (never raw submissions), and a one-page data processing agreement schools can sign in a day.
               </p>
             </div>
           </div>
@@ -1639,13 +1624,7 @@ export function PrdRevampPage() {
       >
         <div className="mx-auto w-full max-w-4xl">
           <header className="mb-10">
-            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">09 CLOSE</p>
-            <p
-              className="text-base italic leading-relaxed text-gray-300 mb-8 font-medium sm:text-lg md:text-xl md:mb-12"
-              style={{ lineHeight: 1.7 }}
-            >
-              This is a product I'd want to exist. Here's what I'd do first.
-            </p>
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">08 CLOSE</p>
             <h2
               className="max-w-4xl text-3xl font-semibold leading-[1.08] tracking-[-0.02em] md:text-5xl"
               style={{ color: "#ffffff" }}

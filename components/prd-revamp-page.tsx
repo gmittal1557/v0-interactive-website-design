@@ -609,7 +609,7 @@ export function PrdRevampPage() {
       <SectionDivider title="About the Author" />
 
       {/* About the Author */}
-      <section id="author" className="relative border-b border-border/60 px-6 py-28 md:px-10 lg:px-14 scroll-mt-16">
+      <section id="author" className="relative border-b border-border/60 px-6 py-28 md:px-10 lg:px-14 scroll-mt-16 bg-[#f5f3f0]/60">
         <div className="mx-auto w-full max-w-6xl">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -621,100 +621,103 @@ export function PrdRevampPage() {
             ABOUT THE AUTHOR
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex flex-col gap-10 md:flex-row md:gap-12"
-          >
+          <div className="flex flex-col gap-10 md:flex-row md:gap-12">
             {/* Left column */}
-            <div className="w-full md:w-[320px] md:flex-shrink-0">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="w-full md:w-[320px] md:flex-shrink-0"
+            >
               {/* Photo */}
-              <div className="rounded-xl overflow-hidden w-full md:w-[320px] border border-border aspect-[4/5] md:h-[400px] md:aspect-auto">
+              <div className="rounded-xl overflow-hidden w-full md:w-[320px] border border-border shadow-lg hover:scale-[1.02] transition-transform duration-300 aspect-[4/5] md:h-[400px] md:aspect-auto">
                 <Image src="/images/author-baa.jpg" alt="Gaurav Mittal at the Boston Marathon B.A.A." width={320} height={400} className="h-full w-full object-cover" />
               </div>
 
               {/* Outside Work card */}
-              <div className="mt-4 rounded-lg px-4 py-4 bg-muted/60 border border-border">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="mt-4 rounded-lg px-4 py-4 bg-muted/60 border border-border hover:border-primary/30 transition-colors duration-200"
+              >
                 <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.18em] text-primary">Outside Work</p>
-                <div className="space-y-2 text-sm text-muted-foreground">
+                <div className="space-y-2 text-[15px] text-muted-foreground">
                   <p>🏃 Boston Marathon finisher</p>
                   <p>🃏 Bridge enthusiast</p>
                   <p>🌶️ Ghost pepper survivor</p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Right column */}
             <div className="flex-1 min-w-[280px]">
-              <h3 className="text-2xl font-semibold tracking-[-0.02em]">Gaurav Mittal</h3>
-              <p className="mt-1 text-[13px] text-muted-foreground">
-                IIT Kanpur CS · Tuck MBA (Dartmouth)
-              </p>
-              <p className="mt-3 text-[14px] italic text-muted-foreground">
-                &ldquo;I build AI agents that work in messy, real-world environments, at scale.&rdquo;
-              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <h3 className="text-2xl font-semibold tracking-[-0.02em]">Gaurav Mittal</h3>
+                <div className="mt-2 h-[2px] w-14 bg-primary" />
+                <p className="mt-3 text-[13px] text-muted-foreground">
+                  IIT Kanpur CS · Tuck MBA (Dartmouth)
+                </p>
+                <p className="mt-3 text-[14px] italic text-muted-foreground">
+                  &ldquo;I build AI agents that work in messy, real-world environments, at scale.&rdquo;
+                </p>
+              </motion.div>
 
-              <p className="mt-8 mb-5 text-[11px] font-mono uppercase tracking-[0.18em] text-primary">
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="mt-8 mb-5 text-[11px] font-mono uppercase tracking-[0.18em] text-primary"
+              >
                 EXPERIENCE
-              </p>
+              </motion.p>
 
-              <div className="space-y-5">
-                {/* EY-Parthenon */}
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <span className="text-primary">→</span>
-                    <span className="font-semibold">EY-Parthenon</span>
-                    <span className="text-[12px] font-mono ml-1 text-primary">Director of PM</span>
-                  </div>
-                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
-                    Building AI agents for Fortune 500 clients
-                  </p>
-                </div>
-
-                {/* CarGurus */}
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <span className="text-primary">→</span>
-                    <span className="font-semibold">CarGurus</span>
-                    <span className="text-[12px] font-mono ml-1 text-primary">Group PM</span>
-                  </div>
-                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
-                    Scaled auto financing platform and LLM dealer copilot
-                  </p>
-                </div>
-
-                {/* Swiggy */}
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <span className="text-primary">→</span>
-                    <span className="font-semibold">Swiggy</span>
-                    <span className="text-[12px] font-mono ml-1 text-primary">PM</span>
-                  </div>
-                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
-                    Search and discovery for India&apos;s largest food marketplace
-                  </p>
-                </div>
-
-                {/* Travel.AI */}
-                <div>
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <span className="text-primary">→</span>
-                    <span className="font-semibold">Travel.AI</span>
-                    <span className="text-[12px] font-mono ml-1 text-primary">Co-Founder</span>
-                  </div>
-                  <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
-                    Built a travel app for backpackers
-                  </p>
-                </div>
+              <div className="space-y-3">
+                {[
+                  { company: "EY-Parthenon", title: "Director of PM", desc: "Building AI agents for Fortune 500 clients", delay: 0.2 },
+                  { company: "CarGurus", title: "Group PM", desc: "Scaled auto financing platform and LLM dealer copilot", delay: 0.25 },
+                  { company: "Swiggy", title: "PM", desc: "Search and discovery for India\u2019s largest food marketplace", delay: 0.3 },
+                  { company: "Travel.AI", title: "Co-Founder", desc: "Built a travel app for backpackers", delay: 0.35 },
+                ].map((entry) => (
+                  <motion.div
+                    key={entry.company}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: entry.delay }}
+                    className="rounded-lg border border-border/50 bg-card/80 px-4 py-3 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200"
+                  >
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+                      <span className="text-primary">→</span>
+                      <span className="font-semibold">{entry.company}</span>
+                      <span className="text-[12px] font-mono ml-1 text-primary">{entry.title}</span>
+                    </div>
+                    <p className="ml-5 mt-1 text-[13px] text-muted-foreground">
+                      {entry.desc}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
 
-              <p className="mt-8 text-sm italic text-muted-foreground">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                className="mt-6 border-t border-border/40 pt-4 text-[15px] italic text-muted-foreground"
+              >
                 The common thread: complex domains where AI has to earn trust before it can scale.
-              </p>
+              </motion.p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

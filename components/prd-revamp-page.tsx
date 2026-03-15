@@ -660,11 +660,16 @@ export function PrdRevampPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <h3 className="text-2xl font-semibold tracking-[-0.02em]">Gaurav Mittal</h3>
+                <h3 className="text-3xl md:text-4xl font-semibold tracking-[-0.02em]">Gaurav Mittal</h3>
                 <div className="mt-2 h-[2px] w-14 bg-primary" />
-                <p className="mt-3 text-[13px] text-muted-foreground">
-                  IIT Kanpur CS · Tuck MBA (Dartmouth)
-                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                    IIT Kanpur CS
+                  </span>
+                  <span className="inline-flex items-center rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                    Tuck MBA (Dartmouth)
+                  </span>
+                </div>
                 <p className="mt-3 text-[14px] italic text-muted-foreground">
                   &ldquo;I build AI agents that work in messy, real-world environments, at scale.&rdquo;
                 </p>

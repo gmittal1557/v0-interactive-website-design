@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
-import dynamic from "next/dynamic"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ArrowDown,
@@ -37,14 +36,7 @@ import {
   trackScrollDepth,
 } from "@/lib/tracking"
 
-const ClassifierDiagram = dynamic(() => import("./classifier-diagram"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-[500px] items-center justify-center rounded-xl border border-border bg-muted/30">
-      <p className="text-sm text-muted-foreground">Loading diagram...</p>
-    </div>
-  ),
-})
+import ClassifierDiagram from "./classifier-diagram"
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },

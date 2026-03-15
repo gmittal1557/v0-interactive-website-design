@@ -1512,10 +1512,10 @@ export function PrdRevampPage() {
                       >
                         <div className="mt-2 space-y-2 text-xs text-muted-foreground">
                           {[
-                            "Standard concept progression across schools",
-                            "High misconception frequency and measurable reteach impact",
-                            "Clear assessment loops within one term",
-                            "Existing teacher pain is immediate and explicit",
+                            "Same curriculum everywhere — Algebra 2 is taught the same way across schools, so the classifier works without customization",
+                            "Mistakes are predictable — students make the same 15-20 errors repeatedly, making classification reliable",
+                            "Fast feedback loop — quizzes happen weekly, so you see results in days not months",
+                            "Teachers feel the pain now — grading 90 algebra quizzes is where Sarah's week breaks",
                           ].map((item) => (
                             <div key={item} className="flex items-start gap-2">
                               <ArrowRight className="mt-0.5 h-3 w-3 text-primary" />
@@ -1542,10 +1542,10 @@ export function PrdRevampPage() {
               </div>
               <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 px-5 py-4">
                 <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">
-                  THE OBJECTION WE ALREADY SOLVED
+                  ZERO TEACHER TRAINING REQUIRED
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Canvas already open every morning. Glean connects via the same API that schools already trust. The teacher's only action is what she already does — assign a quiz. Glean handles the rest.
+                  Canvas is already open. Glean connects via the same API schools trust. Sarah assigns a quiz. Glean handles the rest.
                 </p>
               </div>
             </div>

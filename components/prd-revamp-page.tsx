@@ -36,7 +36,6 @@ import {
   trackScrollDepth,
 } from "@/lib/tracking"
 
-import ClassifierDiagram from "./classifier-diagram"
 
 const sectionItems = [
   { id: "cover", label: "Cover", nav: "" },
@@ -377,6 +376,7 @@ export function PrdRevampPage() {
   const [impactModalOpen, setImpactModalOpen] = useState(false)
   const [hoveredNode, setHoveredNode] = useState<number | null>(null)
   const [classifyExpanded, setClassifyExpanded] = useState(false)
+  const [classifyTab, setClassifyTab] = useState<"mc" | "fr">("mc")
   const menuRef = useRef<HTMLDivElement>(null)
 
   const prevSectionRef = useRef("cover")
@@ -1135,24 +1135,59 @@ export function PrdRevampPage() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="mt-4 space-y-4">
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-4">
-                      <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-blue-600">Multiple Choice</p>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        Each wrong answer choice is a distractor designed to capture a specific misconception. When students pick the same wrong answer, the system maps that choice to its known misconception category. No LLM needed — the quiz design is the classification mechanism.
-                      </p>
-                    </div>
-                    <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-4">
-                      <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-purple-600">Free Response</p>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        The LLM reads the student&apos;s typed work, extracts their step-by-step reasoning, compares it against the reference solution, and identifies where the reasoning diverges. The divergence is classified against the misconception ontology.
-                      </p>
-                    </div>
+                <div className="mt-4 rounded-xl border border-border bg-card p-5">
+                  {/* Tabs */}
+                  <div className="flex gap-2">
+                    {[
+                      { key: "mc" as const, label: "Multiple Choice" },
+                      { key: "fr" as const, label: "Free Response" },
+                    ].map((tab) => (
+                      <button
+                        key={tab.key}
+                        onClick={() => setClassifyTab(tab.key)}
+                        className={cn(
+                          "rounded-lg border px-4 py-2 text-sm transition-all duration-150",
+                          classifyTab === tab.key
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border border-border bg-muted text-muted-foreground hover:border-primary/40 hover:bg-muted/80 hover:text-foreground"
+                        )}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
-                  <ClassifierDiagram />
-                  <p className="text-center text-xs text-muted-foreground">
-                    The misconception ontology is built from published research, refined with pilot teacher annotations, and continuously improved through teacher override feedback.
+
+                  {/* Tab content */}
+                  <div className="mt-4">
+                    {classifyTab === "mc" ? (
+                      <div>
+                        <p className="text-sm text-muted-foreground">
+                          Each wrong answer maps to a known misconception. No LLM needed.
+                        </p>
+                        <img
+                          src="/images/classifier-mc.png"
+                          alt="Multiple choice: quiz distractors map to misconception categories"
+                          className="mt-3 w-full rounded-xl border border-border"
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-sm text-muted-foreground">
+                          LLM extracts reasoning, compares to reference, classifies the divergence.
+                        </p>
+                        <img
+                          src="/images/classifier-fr.png"
+                          alt="Free response: LLM extracts steps, finds divergence, classifies against ontology"
+                          className="mt-3 w-full rounded-xl border border-border"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="mt-3 text-xs italic text-muted-foreground">
+                    Ontology built from published research, refined by pilot teachers, improved through override feedback.
                   </p>
                 </div>
               </motion.div>

@@ -1315,14 +1315,14 @@ export function PrdRevampPage() {
                             {[
                               {
                                 risk: "Signal depth from answer-only data",
-                                mitigation: "Multiple choice submissions reveal which misconception, but not the reasoning behind it. We mitigate this by using well-designed distractor mappings and supplementing with free-response analysis where available. Handwritten reasoning analysis is a Phase 2 enhancement.",
+                                mitigation: "Multiple choice reveals the misconception, not the reasoning. Distractor mappings and free-response analysis close the gap. Handwritten work is Phase 2.",
                               },
                               {
                                 risk: "Misconception misclassification",
-                                mitigation: "Teacher can override with one click",
+                                mitigation: "A wrong flag embarrasses Sarah in front of her class and destroys trust permanently. Launch with top 15% confidence signals only. One-click teacher override retrains the classifier. Precision over recall.",
                               },
-                              { risk: "Retrieval latency", mitigation: "Hard 2-second limit enforced before launch" },
-                              { risk: "LMS API rate limits and sync reliability", mitigation: "Incremental sync with retry logic. Canvas and Google Classroom APIs are well-documented and stable — Glean already manages similar connectors at enterprise scale." },
+                              { risk: "Teacher adoption", mitigation: "The brief competes with 20 years of habit. If Sarah has already planned Monday's lesson on Sunday night, the brief arrives too late to matter. Deliver the brief Sunday evening, not Monday morning. Track open-to-class-start timing in the pilot." },
+                              { risk: "District IT approval", mitigation: "A new LMS integration requires IT sign-off. A single FERPA concern can stall a pilot for months. Standard OAuth, structured insights only, one-page data agreement. Pilot with districts that have fast procurement tracks." },
                             ].map((item) => (
                               <div key={item.risk} className="rounded-xl border border-border bg-background p-4">
                                 <p className="text-xs font-semibold">{item.risk}</p>

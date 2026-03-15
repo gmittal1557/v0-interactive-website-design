@@ -631,7 +631,7 @@ export function PrdRevampPage() {
             {/* Left column */}
             <div className="w-full md:w-[320px] md:flex-shrink-0">
               {/* Photo */}
-              <div className="rounded-xl overflow-hidden w-full md:w-[320px] border border-border" style={{ height: 400 }}>
+              <div className="rounded-xl overflow-hidden w-full md:w-[320px] border border-border aspect-[4/5] md:h-[400px] md:aspect-auto">
                 <Image src="/images/author-baa.jpg" alt="Gaurav Mittal at the Boston Marathon B.A.A." width={320} height={400} className="h-full w-full object-cover" />
               </div>
 
@@ -663,7 +663,7 @@ export function PrdRevampPage() {
               <div className="space-y-5">
                 {/* EY-Parthenon */}
                 <div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
                     <span className="text-primary">→</span>
                     <span className="font-semibold">EY-Parthenon</span>
                     <span className="text-[12px] font-mono ml-1 text-primary">Director of PM</span>
@@ -675,7 +675,7 @@ export function PrdRevampPage() {
 
                 {/* CarGurus */}
                 <div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
                     <span className="text-primary">→</span>
                     <span className="font-semibold">CarGurus</span>
                     <span className="text-[12px] font-mono ml-1 text-primary">Group PM</span>
@@ -687,7 +687,7 @@ export function PrdRevampPage() {
 
                 {/* Swiggy */}
                 <div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
                     <span className="text-primary">→</span>
                     <span className="font-semibold">Swiggy</span>
                     <span className="text-[12px] font-mono ml-1 text-primary">PM</span>
@@ -699,7 +699,7 @@ export function PrdRevampPage() {
 
                 {/* Travel.AI */}
                 <div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
                     <span className="text-primary">→</span>
                     <span className="font-semibold">Travel.AI</span>
                     <span className="text-[12px] font-mono ml-1 text-primary">Co-Founder</span>
@@ -1146,7 +1146,7 @@ export function PrdRevampPage() {
                         key={tab.key}
                         onClick={() => setClassifyTab(tab.key)}
                         className={cn(
-                          "rounded-lg border px-4 py-2 text-sm transition-all duration-150",
+                          "rounded-lg border px-3 py-2 text-xs sm:px-4 sm:text-sm transition-all duration-150",
                           classifyTab === tab.key
                             ? "border-primary bg-primary text-primary-foreground"
                             : "border border-border bg-muted text-muted-foreground hover:border-primary/40 hover:bg-muted/80 hover:text-foreground"

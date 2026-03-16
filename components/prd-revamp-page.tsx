@@ -1680,16 +1680,16 @@ export function PrdRevampPage() {
             <div>
               <p className="mb-2 text-[11px] font-mono uppercase tracking-wider text-primary">03</p>
               <p className="text-base font-semibold leading-snug tracking-[-0.015em] text-foreground">
-                Will district IT teams approve a new LMS integration — and does FERPA compliance create friction we haven't fully mapped?
+                Will IT teams treat us as a read-only analytics layer — or lump us in with full LMS integrations?
               </p>
             </div>
             <p className="text-sm italic leading-relaxed text-muted-foreground">
-              Schools already trust Canvas and Google Classroom with student data. Glean reads from those systems — but adding a new integration still requires IT approval.
+              The difference is 2 weeks vs. 6 months. How schools categorize Glean determines whether pilots start or stall.
             </p>
             <div className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3">
               <p className="mb-1 text-[10px] font-mono uppercase tracking-wider text-primary">HOW WE'LL ANSWER IT</p>
               <p className="text-xs leading-relaxed text-muted-foreground">
-                Standard OAuth APIs, structured insights only (never raw submissions), and a one-page data processing agreement schools can sign in a day.
+                Track approval cycle time across pilot districts. If we're getting routed to full security review, reposition as read-only analytics with no write access to student data.
               </p>
             </div>
           </div>
